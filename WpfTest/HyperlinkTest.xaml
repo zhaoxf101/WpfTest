@@ -7,11 +7,37 @@
         mc:Ignorable="d"
         Title="HyperlinkTest" Height="300" Width="300">
     <Grid>
+        <Grid.Resources>
+            <!--集成资源-->
+            <Style x:Key="hyberlinkEffect" TargetType="{x:Type Hyperlink}">
+                <Setter Property="Foreground" Value="#3d6490"></Setter>
+                <Setter Property="TextBlock.TextDecorations" Value="{x:Null}"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Green"></Setter>
+                        <!--在鼠标悬停显示下划线-->
+                        <Setter Property="TextBlock.TextDecorations">
+                            <Setter.Value>
+                                <TextDecorationCollection>
+                                    <TextDecoration Location="Underline"/>
+                                </TextDecorationCollection>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
 
 
         <TextBlock Margin="10,20,-10,-20">
     默认：
-    <Hyperlink NavigateUri="http://www.xyunhui.com/service.html">http://www.xyunhui.com/service.html</Hyperlink>
+    <Hyperlink NavigateUri="http://www.xyunhui.com/service.html" Click="Hyperlink_Click">http://www.xyunhui.com/service.html</Hyperlink>
+        </TextBlock>
+        <TextBlock Margin="10,56,-10,-56" >
+    使用样式资源：
+    <Hyperlink NavigateUri="http://www.tianma3798.cn" ToolTip="欢迎访问，爱短句网"
+                Style="{StaticResource hyberlinkEffect}"
+            >www.tianma3798.cn</Hyperlink>
         </TextBlock>
 
 

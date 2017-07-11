@@ -23,5 +23,10 @@ namespace WpfTest
         {
             InitializeComponent();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.xyunhui.com/service.html");
+        }
     }
 }

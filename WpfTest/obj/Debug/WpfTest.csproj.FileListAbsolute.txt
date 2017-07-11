@@ -14,3 +14,19 @@ d:\documents\visual studio 2017\Projects\WpfTest\WpfTest\obj\Debug\WpfTest.Prope
 d:\documents\visual studio 2017\Projects\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.GenerateResource.Cache
 d:\documents\visual studio 2017\Projects\WpfTest\WpfTest\obj\Debug\WpfTest.exe
 d:\documents\visual studio 2017\Projects\WpfTest\WpfTest\obj\Debug\WpfTest.pdb
+D:\Repos\WpfTest\WpfTest\bin\Debug\WpfTest.exe.config
+D:\Repos\WpfTest\WpfTest\bin\Debug\WpfTest.exe
+D:\Repos\WpfTest\WpfTest\bin\Debug\WpfTest.pdb
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csprojResolveAssemblyReference.cache
+D:\Repos\WpfTest\WpfTest\obj\Debug\HyperlinkTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\MainWindow.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\App.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest_MarkupCompile.cache
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest_MarkupCompile.lref
+D:\Repos\WpfTest\WpfTest\obj\Debug\HyperlinkTest.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\MainWindow.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.g.resources
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.Properties.Resources.resources
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.GenerateResource.Cache
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.exe
+D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.pdb
