@@ -23,6 +23,10 @@ namespace WpfTest
         public MainWindow()
         {
             InitializeComponent();
+
+            var button = new Button();
+            
+
         }
     }
 }
