@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +25,18 @@ namespace WpfTest
         {
             InitializeComponent();
 
-            var button = new Button();
+            var value = 90.0;
 
-            CreateArcSegment();
+            var angle = Math.PI / 180 * value;
+            var x = Radius * (1 + Math.Sin(angle));
+            var y = Radius * (1 - Math.Cos(angle));
+            var isLargeArc = value > 180 ? true : false;
+
+            CreateArcSegment(x, y, isLargeArc);
+
         }
 
-        private void CreateArcSegment()
+        private void CreateArcSegment(double x, double y, bool isLargeArc)
         {
             PathFigure pthFigure = new PathFigure
             {
@@ -39,12 +46,13 @@ namespace WpfTest
 
             ArcSegment arcSeg = new ArcSegment
             {
-                Point = new Point(100, 50),
+                Point = new Point(x, y),
                 Size = new Size(50, 50),
                 SweepDirection = SweepDirection.Clockwise,
-                IsLargeArc = false
+                IsLargeArc = isLargeArc
             };
-            /*RotationAngle = 30*/;
+            /*RotationAngle = 30*/
+            ;
 
             PathSegmentCollection myPathSegmentCollection = new PathSegmentCollection();
             myPathSegmentCollection.Add(arcSeg);
@@ -58,15 +66,33 @@ namespace WpfTest
             pthGeometry.Figures = pthFigureCollection;
 
 
-            Path arcPath = new Path();
-            arcPath.Stroke = new SolidColorBrush(Colors.Black);
-            arcPath.StrokeThickness = 1;
-            arcPath.Data = pthGeometry;
-            arcPath.Fill = new SolidColorBrush(Colors.Yellow);
+            //Path arcPath = new Path();
+            //arcPath.Stroke = new SolidColorBrush(Colors.Black);
+            //arcPath.StrokeThickness = 1;
+            //arcPath.Data = pthGeometry;
+            //arcPath.Fill = new SolidColorBrush(Colors.Yellow);
 
             PathKeyword.Data = pthGeometry;
 
             //LayoutRoot.Children.Add(arcPath);
+        }
+
+        const double Radius = 50;
+        const float Precision = 0.000001f;
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var value = e.NewValue;
+            if (Math.Abs(value - 360) <= Precision)
+            {
+                value = 359.9;
+            }
+            var angle = Math.PI / 180 * value;
+            var x = Radius * (1 + Math.Sin(angle));
+            var y = Radius * (1 - Math.Cos(angle));
+            var isLargeArc = value > 180 ? true : false;
+            CreateArcSegment(x, y, isLargeArc);
+            Debug.WriteLine("angle: {2} x: {0} y: {1}", x, y, value);
         }
     }
 }

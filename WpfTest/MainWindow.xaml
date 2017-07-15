@@ -6,29 +6,31 @@
         xmlns:local="clr-namespace:WpfTest"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="WpfTest.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1350" Width="1525">
+        Title="MainWindow" Height="800" Width="1000">
     <Window.Resources>
 
     </Window.Resources>
     <Grid Name="LayoutRoot">
-        <Line X1="10" Y1="200" X2="260" Y2="200" StrokeEndLineCap="Round" StrokeThickness="10">
+        <!--<Line X1="10" Y1="200" X2="260" Y2="200" StrokeEndLineCap="Round" StrokeThickness="10">
             <Line.Stroke>
                 <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                    <!--<GradientStop Color="Blue"/>
-                    <GradientStop Offset="1"/>-->
+                    --><!--<GradientStop Color="Blue"/>
+                    <GradientStop Offset="1"/>--><!--
                     <GradientStop Color="#5a4de3" Offset="0"/>
                     <GradientStop Offset="1" Color="#18adfc" />
                 </LinearGradientBrush>
             </Line.Stroke>
-        </Line>
+        </Line>-->
 
-        <Path Name="PathKeywordBackground" StrokeThickness="12" Width="800" Height="800" Stroke="#e0eaf4" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+        <Slider Minimum="0" Maximum="360" Margin="80" Width="600" ValueChanged="Slider_ValueChanged" />
+
+        <Path Name="PathKeywordBackground" StrokeThickness="12" Width="300" Height="300" Stroke="#e0eaf4" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
                 <Path.Data>
                     <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"></EllipseGeometry>
                 </Path.Data>
         </Path>
 
-        <Path Visibility="Visible" Name="PathKeyword" StrokeThickness="12" Width="800" Height="800" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+        <Path Visibility="Visible" Name="PathKeyword" StrokeThickness="12" Width="300" Height="300" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
             <Path.Stroke>
                 <!--橘色-->
                 <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
