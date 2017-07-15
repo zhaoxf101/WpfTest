@@ -21,7 +21,14 @@
                 </LinearGradientBrush>
             </Line.Stroke>
         </Line>
-        <Path Name="PathKeyword" StrokeThickness="12" Width="800" Height="800" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+
+        <Path Name="PathKeywordBackground" StrokeThickness="12" Width="800" Height="800" Stroke="#e0eaf4" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                <Path.Data>
+                    <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"></EllipseGeometry>
+                </Path.Data>
+        </Path>
+
+        <Path Visibility="Visible" Name="PathKeyword" StrokeThickness="12" Width="800" Height="800" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
             <Path.Stroke>
                 <!--橘色-->
                 <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
@@ -42,19 +49,14 @@
             </Path.Stroke>
             <Path.Data>
                 <PathGeometry>
-                    <!--<PathFigure StartPoint="0,24" IsClosed="True">
-                        <LineSegment Point="35,58"/>
-                        <ArcSegment Size="55,20" Point="59,48" SweepDirection="Clockwise"/>
-                        <LineSegment Point="59,1"/>
-                        <ArcSegment Size="80,80" Point="0,24" SweepDirection="Counterclockwise"/>
-                    </PathFigure>-->
-
-                    <!--<PathFigure StartPoint="50,0" IsClosed="False">
-                        <ArcSegment Size="50,50" Point="100,50" SweepDirection="Clockwise" IsLargeArc="False" />
-                    </PathFigure>-->
-
+                    <PathGeometry.Figures>
+                        <PathFigure StartPoint="50,0" IsClosed="False">
+                            <ArcSegment Size="50,50" Point="100,50" SweepDirection="Clockwise" IsLargeArc="False" />
+                        </PathFigure>
+                    </PathGeometry.Figures>
                 </PathGeometry>
             </Path.Data>
         </Path>
+
     </Grid>
 </Window>
