@@ -34,6 +34,8 @@ namespace WpfTest
 
             CreateArcSegment(x, y, isLargeArc);
 
+
+            TxtTest.Text += Environment.NewLine + "Hello World";
         }
 
         private void CreateArcSegment(double x, double y, bool isLargeArc)
@@ -73,6 +75,8 @@ namespace WpfTest
             //arcPath.Fill = new SolidColorBrush(Colors.Yellow);
 
             PathKeyword.Data = pthGeometry;
+
+           
 
             //LayoutRoot.Children.Add(arcPath);
         }

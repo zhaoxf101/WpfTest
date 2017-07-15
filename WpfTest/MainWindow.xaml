@@ -21,6 +21,7 @@
                 </LinearGradientBrush>
             </Line.Stroke>
         </Line>-->
+        <TextBlock Name="TxtTest" Text="访问服务器失败！" FontSize="16" Foreground="#444444" HorizontalAlignment="Center" />
 
         <Slider Minimum="0" Maximum="360" Margin="80" Width="600" ValueChanged="Slider_ValueChanged" />
 
