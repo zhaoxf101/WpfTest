@@ -25,8 +25,48 @@ namespace WpfTest
             InitializeComponent();
 
             var button = new Button();
-            
 
+            CreateArcSegment();
+        }
+
+        private void CreateArcSegment()
+        {
+            PathFigure pthFigure = new PathFigure
+            {
+                StartPoint = new Point(50, 0),
+                IsClosed = false
+            };
+
+            ArcSegment arcSeg = new ArcSegment
+            {
+                Point = new Point(100, 50),
+                Size = new Size(50, 50),
+                SweepDirection = SweepDirection.Clockwise,
+                IsLargeArc = false
+            };
+            /*RotationAngle = 30*/;
+
+            PathSegmentCollection myPathSegmentCollection = new PathSegmentCollection();
+            myPathSegmentCollection.Add(arcSeg);
+
+            pthFigure.Segments = myPathSegmentCollection;
+
+            PathFigureCollection pthFigureCollection = new PathFigureCollection();
+            pthFigureCollection.Add(pthFigure);
+
+            PathGeometry pthGeometry = new PathGeometry();
+            pthGeometry.Figures = pthFigureCollection;
+
+
+            Path arcPath = new Path();
+            arcPath.Stroke = new SolidColorBrush(Colors.Black);
+            arcPath.StrokeThickness = 1;
+            arcPath.Data = pthGeometry;
+            arcPath.Fill = new SolidColorBrush(Colors.Yellow);
+
+            PathKeyword.Data = pthGeometry;
+
+            //LayoutRoot.Children.Add(arcPath);
         }
     }
 }

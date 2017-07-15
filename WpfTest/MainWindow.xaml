@@ -1,12 +1,60 @@
-﻿<Window x:Class="WpfTest.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="WpfTest.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="1350" Width="1525">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid Name="LayoutRoot">
+        <Line X1="10" Y1="200" X2="260" Y2="200" StrokeEndLineCap="Round" StrokeThickness="10">
+            <Line.Stroke>
+                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                    <!--<GradientStop Color="Blue"/>
+                    <GradientStop Offset="1"/>-->
+                    <GradientStop Color="#5a4de3" Offset="0"/>
+                    <GradientStop Offset="1" Color="#18adfc" />
+                </LinearGradientBrush>
+            </Line.Stroke>
+        </Line>
+        <Path Name="PathKeyword" StrokeThickness="12" Width="800" Height="800" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+            <Path.Stroke>
+                <!--橘色-->
+                <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                    <GradientStop Offset="1" Color="#fbcd1a" />
+                    <!--<GradientStop Offset="0.3" Color="#ffcd19" />-->
+
+                    <!--<GradientStop Offset="0.9" Color="#fbcd1a" />-->
+                    <GradientStop Offset="0" Color="#fe780a" />
+
+
+                </LinearGradientBrush>
+
+                <!--蓝色-->
+                <!--<LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                    <GradientStop Color="#5a4de3" Offset="0"/>
+                    <GradientStop Offset="1" Color="#18adfc" />
+                </LinearGradientBrush>-->
+            </Path.Stroke>
+            <Path.Data>
+                <PathGeometry>
+                    <!--<PathFigure StartPoint="0,24" IsClosed="True">
+                        <LineSegment Point="35,58"/>
+                        <ArcSegment Size="55,20" Point="59,48" SweepDirection="Clockwise"/>
+                        <LineSegment Point="59,1"/>
+                        <ArcSegment Size="80,80" Point="0,24" SweepDirection="Counterclockwise"/>
+                    </PathFigure>-->
+
+                    <!--<PathFigure StartPoint="50,0" IsClosed="False">
+                        <ArcSegment Size="50,50" Point="100,50" SweepDirection="Clockwise" IsLargeArc="False" />
+                    </PathFigure>-->
+
+                </PathGeometry>
+            </Path.Data>
+        </Path>
     </Grid>
 </Window>

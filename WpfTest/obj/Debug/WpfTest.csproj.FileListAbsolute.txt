@@ -30,3 +30,6 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.Properties.Resources.resources
 D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.GenerateResource.Cache
 D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.exe
 D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.pdb
+D:\Repos\WpfTest\WpfTest\obj\Debug\App.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\MenuTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\MenuTest.baml
