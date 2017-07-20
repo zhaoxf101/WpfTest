@@ -34,14 +34,19 @@
         <Path Visibility="Visible" Name="PathKeyword" StrokeThickness="12" Width="300" Height="300" StrokeDashArray="2 0"  StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
             <Path.Stroke>
                 <!--橘色-->
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                <!--<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                     <GradientStop Offset="1" Color="#fbcd1a" />
-                    <!--<GradientStop Offset="0.3" Color="#ffcd19" />-->
+                    --><!--<GradientStop Offset="0.3" Color="#ffcd19" />-->
 
-                    <!--<GradientStop Offset="0.9" Color="#fbcd1a" />-->
+                    <!--<GradientStop Offset="0.9" Color="#fbcd1a" />--><!--
                     <GradientStop Offset="0" Color="#fe780a" />
 
 
+                </LinearGradientBrush>-->
+
+                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                    <GradientStop Color="#0ae7ca" Offset="0"/>
+                    <GradientStop Offset="1" Color="#16ccf4" />
                 </LinearGradientBrush>
 
                 <!--蓝色-->

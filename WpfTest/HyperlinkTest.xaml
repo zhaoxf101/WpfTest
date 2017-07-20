@@ -78,8 +78,7 @@
         </Grid.Resources>
 
 
-        <TextBlock Margin="10,20,-10,-20"><Run Text="默认： "/><Hyperlink NavigateUri="http://www.xyunhui.com/service.html" Click="Hyperlink_Click"><Run Text="http://www.xyunhui.com/service.html"/></Hyperlink></TextBlock>
-        <Button Content="Hello" Style="{DynamicResource ButtonStyle1}" />
+        <TextBlock Margin="10,20,-10,-20"><Run Text="默认： "/><Hyperlink Style="{StaticResource hyberlinkEffect}" NavigateUri="http://www.xyunhui.com/service.html" Click="Hyperlink_Click"><Run Text="http://www.xyunhui.com/service.html"/></Hyperlink></TextBlock>
 
     </Grid>
 </Window>

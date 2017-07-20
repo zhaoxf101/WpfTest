@@ -33,3 +33,9 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.pdb
 D:\Repos\WpfTest\WpfTest\obj\Debug\App.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\MenuTest.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\MenuTest.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\Generic.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\DataPagerTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\DataPagerTest.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.baml

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Repos\WpfTest\WpfTest\App.xaml
-31716969657
+7498997398
 
-11-760922490
+161531833766
 14-528195013
-HyperlinkTest.xaml;MenuTest.xaml;MainWindow.xaml;
+DataGridTest.xaml;DataPagerTest.xaml;HyperlinkTest.xaml;ListViewTest.xaml;MenuTest.xaml;MainWindow.xaml;Themes\Generic.xaml;
 
-True
+False
 

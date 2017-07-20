@@ -55,7 +55,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DataGridTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataPagerTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HyperlinkTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListViewTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -71,8 +83,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataGridTest.xaml.cs">
+      <DependentUpon>DataGridTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataPager.cs" />
+    <Compile Include="DataPagerTest.xaml.cs">
+      <DependentUpon>DataPagerTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HyperlinkTest.xaml.cs">
       <DependentUpon>HyperlinkTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IntToStringConverter.cs" />
+    <Compile Include="ListViewTest.xaml.cs">
+      <DependentUpon>ListViewTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="MenuTest.xaml.cs">
       <DependentUpon>MenuTest.xaml</DependentUpon>
@@ -81,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
