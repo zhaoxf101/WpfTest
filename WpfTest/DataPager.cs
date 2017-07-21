@@ -18,7 +18,7 @@ namespace WpfTest
 
     public class DataPager : Control
     {
-        const int PageButtonsCount = 4;
+        const int PageButtonsCount = 6;
         const int DefaultPageSize = 10;
 
         static DataPager()
@@ -33,6 +33,10 @@ namespace WpfTest
 
         public event PageChangingRoutedEventHandler PageChanging;
         public event PageChangedRoutedEventHandler PageChanged;
+
+        internal bool _shouldSkipPageIndexChanged = false;
+        internal bool _shouldSkipPageSizeChanged = false;
+        internal bool _shouldSkipTotalCountChanged = false;
 
         StackPanel _pageButtonWrapper;
         internal Button[] _firstLastButtons;
@@ -68,12 +72,24 @@ namespace WpfTest
             set { SetValue(PageIndexProperty, value); }
         }
 
-        public static readonly DependencyProperty PageIndexProperty = DependencyProperty.Register("PageIndex", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPageIndexChanged), ValidatePageIndex);
+        public static readonly DependencyProperty PageIndexProperty = DependencyProperty.Register("PageIndex", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPageIndexChanged, CoercePageIndex), ValidatePageIndex);
 
-
-        private static bool ValidatePageIndex(object o)
+        private static object CoercePageIndex(DependencyObject d, object baseValue)
         {
-            return ((int)o) >= 1;
+            var dataPager = (DataPager)d;
+            var pageIndex = (int)baseValue;
+            if (pageIndex > dataPager.PageCount)
+            {
+                pageIndex = dataPager.PageCount;
+            }
+
+            return pageIndex;
+        }
+
+        private static bool ValidatePageIndex(object value)
+        {
+            var index = (int)value;
+            return index >= 1;
         }
 
         private static void OnPageIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -81,13 +97,10 @@ namespace WpfTest
             var pageIndex = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            if (pageIndex < 1)
+            if (!dataPager._shouldSkipPageIndexChanged)
             {
-                dataPager.PageIndex = 1;
-                return;
+                dataPager.OnPageChanging((int)e.OldValue, dataPager.PageSize, dataPager.TotalCount);
             }
-
-            dataPager.OnPageChanging((int)e.OldValue, dataPager.PageSize, dataPager.TotalCount);
         }
 
         public int PageSize
@@ -107,21 +120,22 @@ namespace WpfTest
             var pageSize = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            if (pageSize < 1)
-            {
-                dataPager.PageSize = DefaultPageSize;
-                return;
-            }
+            dataPager.CoerceValue(PageCountProperty);
+            dataPager.CoerceValue(PageIndexProperty);
 
-            dataPager.OnPageChanging(dataPager.PageIndex, (int)e.OldValue, dataPager.TotalCount);
+            if (!dataPager._shouldSkipPageSizeChanged)
+            {
+                dataPager.OnPageChanging(dataPager.PageIndex, (int)e.OldValue, dataPager.TotalCount);
+            }
         }
 
         public int PageCount
         {
             get { return (int)GetValue(PageCountPropertyKey.DependencyProperty); }
         }
+
         public static readonly DependencyProperty PageCountProperty;
-        public static readonly DependencyPropertyKey PageCountPropertyKey = DependencyProperty.RegisterReadOnly("PageCount", typeof(int), typeof(DataPager), new UIPropertyMetadata(1, null, CoercePageCount));
+        private static readonly DependencyPropertyKey PageCountPropertyKey = DependencyProperty.RegisterReadOnly("PageCount", typeof(int), typeof(DataPager), new UIPropertyMetadata(1, null, CoercePageCount));
 
         private static object CoercePageCount(DependencyObject d, object baseValue)
         {
@@ -144,7 +158,7 @@ namespace WpfTest
             }
         }
 
-        public static readonly DependencyProperty TotalCountProperty = DependencyProperty.Register("TotalCount", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnTotalCountChanged), ValidateTotalCount);
+        public static readonly DependencyProperty TotalCountProperty = DependencyProperty.Register("TotalCount", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTotalCountChanged), ValidateTotalCount);
 
         private static bool ValidateTotalCount(object value)
         {
@@ -156,13 +170,17 @@ namespace WpfTest
             var totalCount = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            if (totalCount < 0)
+            dataPager.CoerceValue(PageCountProperty);
+
+            if (dataPager.PageIndex > dataPager.PageCount)
             {
-                dataPager.TotalCount = 0;
-                return;
+                dataPager.CoerceValue(DataPager.PageIndexProperty);
             }
 
-            dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, (int)e.OldValue);
+            if (!dataPager._shouldSkipTotalCountChanged)
+            {
+                dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, (int)e.OldValue);
+            }
         }
 
         public override void OnApplyTemplate()
@@ -265,7 +283,7 @@ namespace WpfTest
                 if (pageSize != PageSize)
                 {
                     pageSizeChanged = true;
-                    
+
                     CoerceValue(PageCountProperty);
 
                     var pageCount = (TotalCount + pageSize - 1) / pageSize;
@@ -334,7 +352,8 @@ namespace WpfTest
                     {
                         PageIndex = PageIndex,
                         PageCount = PageCount,
-                        PageSize = PageSize
+                        PageSize = PageSize,
+                        TotalCount = TotalCount
                     });
                 }
                 else
@@ -345,13 +364,23 @@ namespace WpfTest
                         pageCount = 1;
                     }
 
-                    //SetCurrentValue(PageIndexProperty, pageIndex);
-                    //SetCurrentValue(PageSizeProperty, pageSize);
-                    //SetCurrentValue(TotalCountProperty, totalCount);
+                    _shouldSkipPageIndexChanged = true;
+                    _shouldSkipPageSizeChanged = true;
+                    _shouldSkipTotalCountChanged = true;
 
-                    PageIndex = pageIndex;
-                    PageSize = pageSize;
-                    TotalCount = totalCount;
+                    SetCurrentValue(PageIndexProperty, pageIndex);
+                    SetCurrentValue(PageSizeProperty, pageSize);
+                    SetCurrentValue(TotalCountProperty, totalCount);
+
+                    _shouldSkipPageIndexChanged = false;
+                    _shouldSkipPageSizeChanged = false;
+                    _shouldSkipTotalCountChanged = false;
+
+                    //CoerceValue(PageCountProperty);
+
+                    //PageIndex = pageIndex;
+                    //PageSize = pageSize;
+                    //TotalCount = totalCount;
                 }
             }
         }
@@ -376,7 +405,7 @@ namespace WpfTest
 
                 if (PageIndex <= middleIndex)
                 {
-                    startPageIndex = PageIndex;
+                    startPageIndex = 1;
                 }
 
                 if (PageCount <= PageButtonsCount + 1)
@@ -402,7 +431,7 @@ namespace WpfTest
                 _txtPageIndex.Text = PageIndex.ToString();
                 _pageButtonWrapper.Children.Add(_txtPageIndex);
 
-                var rightButtonsCount = totalButtonsCount - PageIndex + startPageIndex - 1;
+                var rightButtonsCount = totalButtonsCount - PageIndex + startPageIndex;
                 var rightButtonStartIndex = PageIndex - startPageIndex;
                 for (int i = 0; i < rightButtonsCount; i++)
                 {

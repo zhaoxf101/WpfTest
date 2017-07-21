@@ -42,7 +42,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <local:DataPager PageChanged="DataPager_PageChanged" PageIndex="{Binding PageIndex}" PageSize="{Binding PageSize}" TotalCount="{Binding TotalCount}" />
+        <local:DataPager PageChanged="DataPager_PageChanged" PageChanging="DataPager_PageChanging" PageIndex="{Binding PageIndex}" PageSize="{Binding PageSize}" TotalCount="{Binding TotalCount}" />
         <StackPanel Grid.Row="1" Orientation="Vertical">
 
             <TextBlock Text="{Binding Count2,ElementName=Test}" />
@@ -57,9 +57,10 @@
 
             <Button Name="BtnTest" Click="BtnTest_Click" Content="Test" />
 
-            <TextBox Text="{Binding PageIndex,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Text="{Binding PageSize,UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Text="{Binding TotalCount,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding PageIndex}" />
+            <TextBox Text="{Binding PageSize}" />
+            <TextBox Text="{Binding TotalCount}" />
+            <CheckBox IsChecked="{Binding IsCancel}" Content="IsCancel" />
         </StackPanel>
         
     </Grid>

@@ -33,7 +33,7 @@ namespace WpfTest
             set { _pageSize = value; OnPropertyChanged("PageSize"); }
         }
 
-        private int _totalCount = 51;
+        private int _totalCount = 0;
 
         public int TotalCount
         {
@@ -56,6 +56,15 @@ namespace WpfTest
             get { return _count; }
             set { _count = value; OnPropertyChanged("Count"); }
         }
+
+        private bool _isCancel;
+
+        public bool IsCancel
+        {
+            get { return _isCancel; }
+            set { _isCancel = value; OnPropertyChanged("IsCancel"); }
+        }
+
 
 
     }
@@ -94,5 +103,13 @@ namespace WpfTest
             //    Test.SeparatorBrush = Brushes.Red;
             //}
         }
+
+        private void DataPager_PageChanging(object sender, PageChangingEventArgs e)
+        {
+            Debug.WriteLine("PageChanging. PageIndex: {0} PageSize: {1} PageCount: {2} TotalCount: {3} PageIndex: {4} PageSize: {5} PageCount: {6} TotalCount: {7}", e.OldPageIndex, e.OldPageSize, e.OldPageCount, e.OldTotalCount, e.NewPageIndex, e.NewPageSize, e.NewPageCount, e.NewTotalCount);
+
+            e.IsCancel = _viewModel.IsCancel;
+        }
+
     }
 }
