@@ -346,8 +346,6 @@ namespace WpfTest
 
                 if (!eventArgs.IsCancel)
                 {
-                    ArrangePageButtons();
-
                     PageChanged?.Invoke(this, new PageChangedEventArgs
                     {
                         PageIndex = PageIndex,
@@ -375,13 +373,8 @@ namespace WpfTest
                     _shouldSkipPageIndexChanged = false;
                     _shouldSkipPageSizeChanged = false;
                     _shouldSkipTotalCountChanged = false;
-
-                    //CoerceValue(PageCountProperty);
-
-                    //PageIndex = pageIndex;
-                    //PageSize = pageSize;
-                    //TotalCount = totalCount;
                 }
+                ArrangePageButtons();
             }
         }
 
