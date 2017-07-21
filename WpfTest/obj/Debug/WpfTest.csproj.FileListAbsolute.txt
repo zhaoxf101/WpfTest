@@ -39,3 +39,5 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\DataPagerTest.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\DataPagerTest.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\DataGridTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\DataGridTest.baml

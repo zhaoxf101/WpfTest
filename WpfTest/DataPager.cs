@@ -18,6 +18,8 @@ namespace WpfTest
 
     public class DataPager : Control
     {
+        const int PageButtonsCount = 5;
+
         static DataPager()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataPager), new FrameworkPropertyMetadata(typeof(DataPager)));
@@ -28,6 +30,81 @@ namespace WpfTest
 
         public event PageChangingRoutedEventHandler PageChanging;
         public event PageChangedRoutedEventHandler PageChanged;
+
+        StackPanel _pageButtonWrapper;
+        internal Button[] _firstLastButtons;
+        internal Button[] _pageButtons;
+        internal TextBlock _txtPageIndex;
+
+
+
+        public Style FirstLastButtonStyle
+        {
+            get { return (Style)GetValue(FirstLastButtonStyleProperty); }
+            set { SetValue(FirstLastButtonStyleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FirstLastButtonStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FirstLastButtonStyleProperty =
+            DependencyProperty.Register("FirstLastButtonStyle", typeof(Style), typeof(DataGrid), new PropertyMetadata(null, new PropertyChangedCallback(OnFirstLastButtonStyleChanged)));
+
+        private static void OnFirstLastButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var pager = (DataPager)d;
+            var style = (Style)e.NewValue;
+
+            if (pager._firstLastButtons != null)
+            {
+                foreach (var item in pager._firstLastButtons)
+                {
+                    item.Style = style;
+                }
+            }
+        }
+
+        public Style PageButtonStyle
+        {
+            get { return (Style)GetValue(PageButtonStyleProperty); }
+            set { SetValue(PageButtonStyleProperty, value); }
+        }
+
+        public static readonly DependencyProperty PageButtonStyleProperty =
+            DependencyProperty.Register("PageButtonStyle", typeof(Style), typeof(DataPager), new PropertyMetadata(null, new PropertyChangedCallback(OnPageButtonStyleChanged)));
+
+        private static void OnPageButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var pager = (DataPager)d;
+            var style = (Style)e.NewValue;
+
+            if (pager._pageButtons != null)
+            {
+                foreach (var item in pager._pageButtons)
+                {
+                    item.Style = style;
+                }
+            }
+        }
+
+
+        public Style PageLabelStyle
+        {
+            get { return (Style)GetValue(PageLabelStyleProperty); }
+            set { SetValue(PageLabelStyleProperty, value); }
+        }
+
+        public static readonly DependencyProperty PageLabelStyleProperty =
+            DependencyProperty.Register("PageLabelStyle", typeof(Style), typeof(DataPager), new PropertyMetadata(null, new PropertyChangedCallback(OnPageLabelStyleChanged)));
+
+        private static void OnPageLabelStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var pager = (DataPager)d;
+            var style = (Style)e.NewValue;
+
+            if (pager._txtPageIndex != null)
+            {
+                pager._txtPageIndex.Style = style;
+            }
+        }
 
         public int PageIndex
         {
@@ -90,6 +167,59 @@ namespace WpfTest
             var dataPager = (DataPager)d;
 
             dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, totalCount);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _pageButtonWrapper = GetTemplateChild("PART_PageButtonWrapper") as StackPanel;
+
+            if (_pageButtonWrapper != null)
+            {
+                if (_pageButtons == null)
+                {
+                    _pageButtons = new Button[PageButtonsCount];
+
+                    for (int i = 0; i < _pageButtons.Length; i++)
+                    {
+                        var button = new Button
+                        {
+                            Style = PageButtonStyle
+                        };
+                        button.Click += PageButton_Click;
+                        _pageButtons[i] = button;
+                    }
+                }
+
+                if (_firstLastButtons == null)
+                {
+                    _firstLastButtons = new Button[2];
+                    for (int i = 0; i < _firstLastButtons.Length; i++)
+                    {
+                        var button = new Button
+                        {
+
+                        };
+                        button.Click += FirstLastButton_Click;
+                        _firstLastButtons[i] = button;
+                    }
+                }
+
+                if (_txtPageIndex == null)
+                {
+                    _txtPageIndex = new TextBlock();
+                }
+            }
+        }
+
+        private void FirstLastButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PageButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         internal void OnPageChanging(int pageIndex, int pageSize, int totalCount)
@@ -179,6 +309,14 @@ namespace WpfTest
                         PageSize = pageSize
                     });
                 }
+            }
+        }
+
+        void ArrangePageButtons()
+        {
+            if (_pageButtonWrapper != null)
+            {
+                _pageButtonWrapper.Children.Clear();
             }
         }
     }
