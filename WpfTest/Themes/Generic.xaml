@@ -5,46 +5,28 @@
 
     <local:Int32ToStringConverter x:Key="Int32ToStringConverter" />
 
-    <Style x:Key="PageIndexButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
-                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#EFEFEF" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#DFDFDF" />
-                            <Setter Property="Padding" Value="0,2,0,0" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
     <Style TargetType="{x:Type local:DataPager}">
         <Setter Property="Height" Value="20" />
+        <Setter Property="FirstLastButtonStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Foreground" Value="Red" />
+                </Style>
+            </Setter.Value>
+        </Setter>
         <Setter Property="PageButtonStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type Button}">
-                    
+                    <Setter Property="Foreground" Value="Red" />
+
                 </Style>
             </Setter.Value>
         </Setter>
         <Setter Property="PageLabelStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type TextBlock}">
-                    
+                    <Setter Property="Foreground" Value="Red" />
+
                 </Style>
             </Setter.Value>
         </Setter>
@@ -76,6 +58,21 @@
                             </StackPanel>
                         </Grid>
 
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:DataGridRowHeader}">
+        <Setter Property="SeparatorBrush" Value="Red" />
+        <Setter Property="TestStyle" Value="{StaticResource ImageButtonStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DataGridRowHeader}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

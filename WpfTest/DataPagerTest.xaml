@@ -6,7 +6,61 @@
         xmlns:local="clr-namespace:WpfTest"
         mc:Ignorable="d"
         Title="DataPagerTest" Height="600" Width="600">
+    <Window.Resources>
+
+        
+        <Style x:Key="PageIndexButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#EFEFEF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#DFDFDF" />
+                                <Setter Property="Padding" Value="0,2,0,0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
     <Grid>
-        <local:DataPager />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <local:DataPager PageChanged="DataPager_PageChanged" PageIndex="{Binding PageIndex}" PageSize="{Binding PageSize}" TotalCount="{Binding TotalCount}" />
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+
+            <TextBlock Text="{Binding Count2,ElementName=Test}" />
+
+            <ComboBox SelectedIndex="{Binding SelectedIndex}">
+                <ComboBoxItem>Hello</ComboBoxItem>
+                <ComboBoxItem>Hello1</ComboBoxItem>
+                <ComboBoxItem>Hello2</ComboBoxItem>
+            </ComboBox>
+
+            <local:DataGridRowHeader x:Name="Test" />
+
+            <Button Name="BtnTest" Click="BtnTest_Click" Content="Test" />
+
+            <TextBox Text="{Binding PageIndex,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding PageSize,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding TotalCount,UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        
     </Grid>
 </Window>

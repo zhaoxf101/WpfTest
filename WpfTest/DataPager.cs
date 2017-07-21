@@ -18,11 +18,14 @@ namespace WpfTest
 
     public class DataPager : Control
     {
-        const int PageButtonsCount = 5;
+        const int PageButtonsCount = 4;
+        const int DefaultPageSize = 10;
 
         static DataPager()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataPager), new FrameworkPropertyMetadata(typeof(DataPager)));
+
+            PageCountProperty = PageCountPropertyKey.DependencyProperty;
         }
 
         public delegate void PageChangingRoutedEventHandler(object sender, PageChangingEventArgs e);
@@ -36,31 +39,12 @@ namespace WpfTest
         internal Button[] _pageButtons;
         internal TextBlock _txtPageIndex;
 
-
-
         public Style FirstLastButtonStyle
         {
             get { return (Style)GetValue(FirstLastButtonStyleProperty); }
             set { SetValue(FirstLastButtonStyleProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for FirstLastButtonStyle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FirstLastButtonStyleProperty =
-            DependencyProperty.Register("FirstLastButtonStyle", typeof(Style), typeof(DataGrid), new PropertyMetadata(null, new PropertyChangedCallback(OnFirstLastButtonStyleChanged)));
-
-        private static void OnFirstLastButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var pager = (DataPager)d;
-            var style = (Style)e.NewValue;
-
-            if (pager._firstLastButtons != null)
-            {
-                foreach (var item in pager._firstLastButtons)
-                {
-                    item.Style = style;
-                }
-            }
-        }
+        public static readonly DependencyProperty FirstLastButtonStyleProperty = DependencyProperty.Register("FirstLastButtonStyle", typeof(Style), typeof(DataPager));
 
         public Style PageButtonStyle
         {
@@ -68,22 +52,7 @@ namespace WpfTest
             set { SetValue(PageButtonStyleProperty, value); }
         }
 
-        public static readonly DependencyProperty PageButtonStyleProperty =
-            DependencyProperty.Register("PageButtonStyle", typeof(Style), typeof(DataPager), new PropertyMetadata(null, new PropertyChangedCallback(OnPageButtonStyleChanged)));
-
-        private static void OnPageButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var pager = (DataPager)d;
-            var style = (Style)e.NewValue;
-
-            if (pager._pageButtons != null)
-            {
-                foreach (var item in pager._pageButtons)
-                {
-                    item.Style = style;
-                }
-            }
-        }
+        public static readonly DependencyProperty PageButtonStyleProperty = DependencyProperty.Register("PageButtonStyle", typeof(Style), typeof(DataPager));
 
 
         public Style PageLabelStyle
@@ -91,20 +60,7 @@ namespace WpfTest
             get { return (Style)GetValue(PageLabelStyleProperty); }
             set { SetValue(PageLabelStyleProperty, value); }
         }
-
-        public static readonly DependencyProperty PageLabelStyleProperty =
-            DependencyProperty.Register("PageLabelStyle", typeof(Style), typeof(DataPager), new PropertyMetadata(null, new PropertyChangedCallback(OnPageLabelStyleChanged)));
-
-        private static void OnPageLabelStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var pager = (DataPager)d;
-            var style = (Style)e.NewValue;
-
-            if (pager._txtPageIndex != null)
-            {
-                pager._txtPageIndex.Style = style;
-            }
-        }
+        public static readonly DependencyProperty PageLabelStyleProperty = DependencyProperty.Register("PageLabelStyle", typeof(Style), typeof(DataPager));
 
         public int PageIndex
         {
@@ -112,15 +68,26 @@ namespace WpfTest
             set { SetValue(PageIndexProperty, value); }
         }
 
-        public static readonly DependencyProperty PageIndexProperty =
-            DependencyProperty.Register("PageIndex", typeof(int), typeof(DataPager), new UIPropertyMetadata(1, OnPageIndexChanged));
+        public static readonly DependencyProperty PageIndexProperty = DependencyProperty.Register("PageIndex", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPageIndexChanged), ValidatePageIndex);
+
+
+        private static bool ValidatePageIndex(object o)
+        {
+            return ((int)o) >= 1;
+        }
 
         private static void OnPageIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var pageIndex = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            dataPager.OnPageChanging(pageIndex, dataPager.PageSize, dataPager.TotalCount);
+            if (pageIndex < 1)
+            {
+                dataPager.PageIndex = 1;
+                return;
+            }
+
+            dataPager.OnPageChanging((int)e.OldValue, dataPager.PageSize, dataPager.TotalCount);
         }
 
         public int PageSize
@@ -128,26 +95,45 @@ namespace WpfTest
             get { return (int)GetValue(PageSizeProperty); }
             set { SetValue(PageSizeProperty, value); }
         }
+        public static readonly DependencyProperty PageSizeProperty = DependencyProperty.Register("PageSize", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(10, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPageSizeChanged), ValidatePageSize);
 
-        public static readonly DependencyProperty PageSizeProperty =
-            DependencyProperty.Register("PageSize", typeof(int), typeof(DataPager), new UIPropertyMetadata(10, OnPageSizeChanged));
+        private static bool ValidatePageSize(object value)
+        {
+            return ((int)value) >= 1;
+        }
 
         private static void OnPageSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var pageSize = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            dataPager.OnPageChanging(dataPager.PageIndex, pageSize, dataPager.TotalCount);
+            if (pageSize < 1)
+            {
+                dataPager.PageSize = DefaultPageSize;
+                return;
+            }
+
+            dataPager.OnPageChanging(dataPager.PageIndex, (int)e.OldValue, dataPager.TotalCount);
         }
 
         public int PageCount
         {
-            get { return (int)GetValue(PageCountProperty); }
-            set { SetValue(PageCountProperty, value); }
+            get { return (int)GetValue(PageCountPropertyKey.DependencyProperty); }
         }
+        public static readonly DependencyProperty PageCountProperty;
+        public static readonly DependencyPropertyKey PageCountPropertyKey = DependencyProperty.RegisterReadOnly("PageCount", typeof(int), typeof(DataPager), new UIPropertyMetadata(1, null, CoercePageCount));
 
-        public static readonly DependencyProperty PageCountProperty =
-            DependencyProperty.Register("PageCount", typeof(int), typeof(DataPager), new UIPropertyMetadata(1));
+        private static object CoercePageCount(DependencyObject d, object baseValue)
+        {
+            var pager = (DataPager)d;
+
+            var pageCount = (pager.TotalCount + pager.PageSize - 1) / pager.PageSize;
+            if (pageCount == 0)
+            {
+                pageCount = 1;
+            }
+            return pageCount;
+        }
 
         public int TotalCount
         {
@@ -158,15 +144,25 @@ namespace WpfTest
             }
         }
 
-        public static readonly DependencyProperty TotalCountProperty =
-            DependencyProperty.Register("TotalCount", typeof(int), typeof(DataPager), new UIPropertyMetadata(0, OnTotalCountChanged));
+        public static readonly DependencyProperty TotalCountProperty = DependencyProperty.Register("TotalCount", typeof(int), typeof(DataPager), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnTotalCountChanged), ValidateTotalCount);
+
+        private static bool ValidateTotalCount(object value)
+        {
+            return (int)value >= 0;
+        }
 
         private static void OnTotalCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var totalCount = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, totalCount);
+            if (totalCount < 0)
+            {
+                dataPager.TotalCount = 0;
+                return;
+            }
+
+            dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, (int)e.OldValue);
         }
 
         public override void OnApplyTemplate()
@@ -184,6 +180,7 @@ namespace WpfTest
                     {
                         var button = new Button
                         {
+                            Content = i + i,
                             Style = PageButtonStyle
                         };
                         button.Click += PageButton_Click;
@@ -198,7 +195,8 @@ namespace WpfTest
                     {
                         var button = new Button
                         {
-
+                            Content = i == 0 ? "首页" : "尾页",
+                            Style = FirstLastButtonStyle
                         };
                         button.Click += FirstLastButton_Click;
                         _firstLastButtons[i] = button;
@@ -207,19 +205,36 @@ namespace WpfTest
 
                 if (_txtPageIndex == null)
                 {
-                    _txtPageIndex = new TextBlock();
+                    _txtPageIndex = new TextBlock
+                    {
+                        Text = "1",
+                        Style = PageLabelStyle
+                    };
                 }
+
+                ArrangePageButtons();
             }
         }
 
         private void FirstLastButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var index = Array.IndexOf(_firstLastButtons, sender);
+
+            if (index == 0)
+            {
+                PageIndex = 1;
+            }
+            else
+            {
+                PageIndex = PageCount;
+            }
         }
 
         private void PageButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var button = (Button)sender;
+            var pageIndex = Convert.ToInt32(button.Content);
+            PageIndex = pageIndex;
         }
 
         internal void OnPageChanging(int pageIndex, int pageSize, int totalCount)
@@ -246,12 +261,19 @@ namespace WpfTest
             }
             else if (pageSize != PageSize)
             {
-                pageSize = pageSize > 0 ? pageSize : 10;
+                pageSize = pageSize > 0 ? pageSize : DefaultPageSize;
                 if (pageSize != PageSize)
                 {
                     pageSizeChanged = true;
+                    
+                    CoerceValue(PageCountProperty);
 
                     var pageCount = (TotalCount + pageSize - 1) / pageSize;
+                    if (pageCount == 0)
+                    {
+                        pageCount = 1;
+                    }
+
                     if (PageIndex > pageCount)
                     {
                         pageIndex = pageCount;
@@ -268,6 +290,10 @@ namespace WpfTest
                     totalCountChanged = true;
 
                     var pageCount = (totalCount + PageSize - 1) / PageSize;
+                    if (pageCount == 0)
+                    {
+                        pageCount = 1;
+                    }
                     if (PageIndex > pageCount)
                     {
                         pageIndex = pageCount;
@@ -278,36 +304,54 @@ namespace WpfTest
 
             if (pageIndexChanged || pageSizeChanged || totalCountChanged)
             {
+                var pageCount = (totalCount + pageSize - 1) / pageSize;
+                if (pageCount == 0)
+                {
+                    pageCount = 1;
+                }
                 var eventArgs = new PageChangingEventArgs
                 {
-                    OldPageIndex = PageIndex,
-                    NewPageIndex = pageIndex,
+                    OldPageIndex = pageIndex,
+                    NewPageIndex = PageIndex,
 
-                    OldPageCount = PageCount,
-                    NewPageCount = (totalCount + pageSize - 1) / pageSize,
+                    OldPageCount = pageCount,
+                    NewPageCount = PageCount,
 
-                    OldPageSize = PageSize,
-                    NewPageSize = pageSize,
+                    OldPageSize = pageSize,
+                    NewPageSize = PageSize,
 
-                    OldTotalCount = TotalCount,
-                    NewTotalCount = totalCount
+                    OldTotalCount = totalCount,
+                    NewTotalCount = TotalCount
                 };
 
                 PageChanging?.Invoke(this, eventArgs);
 
                 if (!eventArgs.IsCancel)
                 {
-                    SetCurrentValue(PageIndexProperty, pageIndex);
-                    SetCurrentValue(PageSizeProperty, pageSize);
-                    SetCurrentValue(TotalCountProperty, totalCount);
-                    SetCurrentValue(PageCountProperty, (TotalCount + PageSize - 1) / PageSize);
+                    ArrangePageButtons();
 
                     PageChanged?.Invoke(this, new PageChangedEventArgs
                     {
-                        PageIndex = pageIndex,
+                        PageIndex = PageIndex,
                         PageCount = PageCount,
-                        PageSize = pageSize
+                        PageSize = PageSize
                     });
+                }
+                else
+                {
+                    pageCount = (totalCount + pageSize - 1) / pageSize;
+                    if (pageCount == 0)
+                    {
+                        pageCount = 1;
+                    }
+
+                    //SetCurrentValue(PageIndexProperty, pageIndex);
+                    //SetCurrentValue(PageSizeProperty, pageSize);
+                    //SetCurrentValue(TotalCountProperty, totalCount);
+
+                    PageIndex = pageIndex;
+                    PageSize = pageSize;
+                    TotalCount = totalCount;
                 }
             }
         }
@@ -317,6 +361,56 @@ namespace WpfTest
             if (_pageButtonWrapper != null)
             {
                 _pageButtonWrapper.Children.Clear();
+
+                _pageButtonWrapper.Children.Add(_firstLastButtons[0]);
+
+                // 确定 startIndex.
+                // number of total buttons = 4 + 1
+                // page count = 5
+                // page index = 1
+                // page count - 4 = 1
+
+                var middleIndex = PageButtonsCount / 2;
+                var startPageIndex = PageIndex - middleIndex;
+                var totalButtonsCount = PageCount > PageButtonsCount ? PageButtonsCount : PageCount - 1;
+
+                if (PageIndex <= middleIndex)
+                {
+                    startPageIndex = PageIndex;
+                }
+
+                if (PageCount <= PageButtonsCount + 1)
+                {
+                    startPageIndex = 1;
+                }
+                else
+                {
+                    var value = PageCount - PageIndex;
+                    if (value < middleIndex)
+                    {
+                        startPageIndex -= middleIndex - value;
+                    }
+                }
+
+                for (int i = startPageIndex; i < PageIndex; i++)
+                {
+                    var button = _pageButtons[i - startPageIndex];
+                    button.Content = i;
+                    _pageButtonWrapper.Children.Add(button);
+                }
+
+                _txtPageIndex.Text = PageIndex.ToString();
+                _pageButtonWrapper.Children.Add(_txtPageIndex);
+
+                var rightButtonsCount = totalButtonsCount - PageIndex + startPageIndex - 1;
+                var rightButtonStartIndex = PageIndex - startPageIndex;
+                for (int i = 0; i < rightButtonsCount; i++)
+                {
+                    var button = _pageButtons[i + rightButtonStartIndex];
+                    button.Content = PageIndex + i + 1;
+                    _pageButtonWrapper.Children.Add(button);
+                }
+                _pageButtonWrapper.Children.Add(_firstLastButtons[1]);
             }
         }
     }
