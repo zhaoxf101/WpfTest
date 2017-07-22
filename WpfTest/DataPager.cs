@@ -18,7 +18,7 @@ namespace WpfTest
 
     public class DataPager : Control
     {
-        const int PageButtonsCount = 6;
+        const int PageButtonsCount = 2;
         const int DefaultPageSize = 10;
 
         static DataPager()
@@ -28,15 +28,9 @@ namespace WpfTest
             PageCountProperty = PageCountPropertyKey.DependencyProperty;
         }
 
-        public delegate void PageChangingRoutedEventHandler(object sender, PageChangingEventArgs e);
         public delegate void PageChangedRoutedEventHandler(object sender, PageChangedEventArgs e);
 
-        public event PageChangingRoutedEventHandler PageChanging;
         public event PageChangedRoutedEventHandler PageChanged;
-
-        internal bool _shouldSkipPageIndexChanged = false;
-        internal bool _shouldSkipPageSizeChanged = false;
-        internal bool _shouldSkipTotalCountChanged = false;
 
         StackPanel _pageButtonWrapper;
         internal Button[] _firstLastButtons;
@@ -97,10 +91,7 @@ namespace WpfTest
             var pageIndex = (int)e.NewValue;
             var dataPager = (DataPager)d;
 
-            if (!dataPager._shouldSkipPageIndexChanged)
-            {
-                dataPager.OnPageChanging((int)e.OldValue, dataPager.PageSize, dataPager.TotalCount);
-            }
+            dataPager.OnPageChanged((int)e.OldValue, dataPager.PageSize, dataPager.TotalCount);
         }
 
         public int PageSize
@@ -123,10 +114,7 @@ namespace WpfTest
             dataPager.CoerceValue(PageCountProperty);
             dataPager.CoerceValue(PageIndexProperty);
 
-            if (!dataPager._shouldSkipPageSizeChanged)
-            {
-                dataPager.OnPageChanging(dataPager.PageIndex, (int)e.OldValue, dataPager.TotalCount);
-            }
+            dataPager.OnPageChanged(dataPager.PageIndex, (int)e.OldValue, dataPager.TotalCount);
         }
 
         public int PageCount
@@ -177,10 +165,7 @@ namespace WpfTest
                 dataPager.CoerceValue(DataPager.PageIndexProperty);
             }
 
-            if (!dataPager._shouldSkipTotalCountChanged)
-            {
-                dataPager.OnPageChanging(dataPager.PageIndex, dataPager.PageCount, (int)e.OldValue);
-            }
+            dataPager.OnPageChanged(dataPager.PageIndex, dataPager.PageCount, (int)e.OldValue);
         }
 
         public override void OnApplyTemplate()
@@ -255,7 +240,7 @@ namespace WpfTest
             PageIndex = pageIndex;
         }
 
-        internal void OnPageChanging(int pageIndex, int pageSize, int totalCount)
+        internal void OnPageChanged(int pageIndex, int pageSize, int totalCount)
         {
             var pageIndexChanged = false;
             var pageSizeChanged = false;
@@ -327,53 +312,15 @@ namespace WpfTest
                 {
                     pageCount = 1;
                 }
-                var eventArgs = new PageChangingEventArgs
+
+                PageChanged?.Invoke(this, new PageChangedEventArgs
                 {
-                    OldPageIndex = pageIndex,
-                    NewPageIndex = PageIndex,
+                    PageIndex = PageIndex,
+                    PageCount = PageCount,
+                    PageSize = PageSize,
+                    TotalCount = TotalCount
+                });
 
-                    OldPageCount = pageCount,
-                    NewPageCount = PageCount,
-
-                    OldPageSize = pageSize,
-                    NewPageSize = PageSize,
-
-                    OldTotalCount = totalCount,
-                    NewTotalCount = TotalCount
-                };
-
-                PageChanging?.Invoke(this, eventArgs);
-
-                if (!eventArgs.IsCancel)
-                {
-                    PageChanged?.Invoke(this, new PageChangedEventArgs
-                    {
-                        PageIndex = PageIndex,
-                        PageCount = PageCount,
-                        PageSize = PageSize,
-                        TotalCount = TotalCount
-                    });
-                }
-                else
-                {
-                    pageCount = (totalCount + pageSize - 1) / pageSize;
-                    if (pageCount == 0)
-                    {
-                        pageCount = 1;
-                    }
-
-                    _shouldSkipPageIndexChanged = true;
-                    _shouldSkipPageSizeChanged = true;
-                    _shouldSkipTotalCountChanged = true;
-
-                    SetCurrentValue(PageIndexProperty, pageIndex);
-                    SetCurrentValue(PageSizeProperty, pageSize);
-                    SetCurrentValue(TotalCountProperty, totalCount);
-
-                    _shouldSkipPageIndexChanged = false;
-                    _shouldSkipPageSizeChanged = false;
-                    _shouldSkipTotalCountChanged = false;
-                }
                 ArrangePageButtons();
             }
         }
@@ -385,12 +332,6 @@ namespace WpfTest
                 _pageButtonWrapper.Children.Clear();
 
                 _pageButtonWrapper.Children.Add(_firstLastButtons[0]);
-
-                // 确定 startIndex.
-                // number of total buttons = 4 + 1
-                // page count = 5
-                // page index = 1
-                // page count - 4 = 1
 
                 var middleIndex = PageButtonsCount / 2;
                 var startPageIndex = PageIndex - middleIndex;

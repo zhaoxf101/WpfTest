@@ -42,7 +42,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <local:DataPager PageChanged="DataPager_PageChanged" PageChanging="DataPager_PageChanging" PageIndex="{Binding PageIndex}" PageSize="{Binding PageSize}" TotalCount="{Binding TotalCount}" />
+        <local:DataPager PageChanged="DataPager_PageChanged" PageIndex="{Binding PageIndex}" PageSize="{Binding PageSize}" TotalCount="{Binding TotalCount}" />
         <StackPanel Grid.Row="1" Orientation="Vertical">
 
             <TextBlock Text="{Binding Count2,ElementName=Test}" />

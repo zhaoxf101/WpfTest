@@ -104,12 +104,6 @@ namespace WpfTest
             //}
         }
 
-        private void DataPager_PageChanging(object sender, PageChangingEventArgs e)
-        {
-            Debug.WriteLine("PageChanging. PageIndex: {0} PageSize: {1} PageCount: {2} TotalCount: {3} PageIndex: {4} PageSize: {5} PageCount: {6} TotalCount: {7}", e.OldPageIndex, e.OldPageSize, e.OldPageCount, e.OldTotalCount, e.NewPageIndex, e.NewPageSize, e.NewPageCount, e.NewTotalCount);
-
-            e.IsCancel = _viewModel.IsCancel;
-        }
-
+        
     }
 }
