@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfTest.ChartTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
+        xmlns:local="clr-namespace:WpfTest"
+        mc:Ignorable="d"
+        Title="ChartTestWindow" Height="500" Width="600">
+    <Grid>
+        <Grid Name="LayoutRoot">
+            <vc:Chart Name="Chart" DockPanel.Dock="Left" Margin="0,40,0,2" />
+        </Grid>
+    </Grid>
+</Window>

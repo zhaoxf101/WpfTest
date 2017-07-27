@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfTest.MarqueeTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTest"
+        mc:Ignorable="d"
+        Title="MarqueeTest" Height="300" Width="300">
+    <Grid>
+        <Canvas ClipToBounds="True" x:Name="canvas">
+            <Canvas.Resources>
+                <Storyboard x:Key="stdUp">
+                    <DoubleAnimation Duration="0:0:1.5" Storyboard.TargetName="content" Storyboard.TargetProperty="RenderTransform.Y"/>
+                </Storyboard>
+                <Storyboard x:Key="stdLeft">
+                    <DoubleAnimation Duration="0:0:1.5" Storyboard.TargetName="content" Storyboard.TargetProperty="RenderTransform.X"/>
+                </Storyboard>
+            </Canvas.Resources>
+            <StackPanel x:Name="content">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform/>
+                </StackPanel.RenderTransform>
+                <TextBlock x:Name="txtItem" Foreground="Black" Text="Hello world" />
+            </StackPanel>
+        </Canvas>
+    </Grid>
+</Window>

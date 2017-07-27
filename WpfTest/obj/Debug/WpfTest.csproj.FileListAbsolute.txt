@@ -41,3 +41,8 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\ListViewTest.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\DataGridTest.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\DataGridTest.baml
+D:\Repos\WpfTest\WpfTest\bin\Debug\WPFVisifire.Charts.dll
+D:\Repos\WpfTest\WpfTest\obj\Debug\ChartTestWindow.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\ChartTestWindow.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\MarqueeTest.g.cs
+D:\Repos\WpfTest\WpfTest\obj\Debug\MarqueeTest.baml
