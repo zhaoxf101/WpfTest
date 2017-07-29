@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Bundle Name="WixBundle1" Version="1.0.0.0" Manufacturer="Microsoft" UpgradeCode="5225e662-57b9-4876-9cd1-d485f8394e3c">
-		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
-		<Chain>
+  <Bundle Name="云合景从安装程序" Version="1.0.0.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="5225e662-57b9-4876-9cd1-d485f8394e3c">
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
+      <Payload SourceFile="$(var.CustomBA.TargetDir)CustomBA.dll" />
+      <Payload SourceFile="$(var.CustomBA.TargetDir)BootstrapperCore.config" />
+    </BootstrapperApplicationRef>
+
+    <Chain>
       <ExePackage
          Id="Netfx4Full"
          Cache="yes"
@@ -14,11 +18,16 @@
          InstallCommand="/q /norestart "
          DownloadUrl="http://go.microsoft.com/fwlink/?LinkId=164193"
          DetectCondition="Netfx4FullVersion AND (NOT VersionNT64 OR Netfx4x64FullVersion)"/>
-      
-			<!-- TODO: Define the list of chained packages. -->
-			 <MsiPackage SourceFile="$(var.Setup.TargetPath)" /> 
-		</Chain>
-	</Bundle>
+
+      <MsiPackage SourceFile="$(var.Setup.TargetPath)" />
+    </Chain>
+  </Bundle>
+
+  <Fragment>
+    <WixVariable Id="WixMbaPrereqPackageId" Value="Netfx4Full" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="NetfxLicense.rtf" />
+  </Fragment>
+
 </Wix>
 
 <!--SourceFile="D:\Downloads\dotNetFx40_Full_x86_x64.exe"-->

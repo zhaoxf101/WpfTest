@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="BundleFull" Version="1.0.0.0" Manufacturer="Microsoft" UpgradeCode="b7c11b72-edd4-4b28-931e-23048f8e29c5">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+		<Chain>
+			<!-- TODO: Define the list of chained packages. -->
+			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+		</Chain>
+	</Bundle>
+</Wix>
+<!--SourceFile="D:\Downloads\dotNetFx40_Full_x86_x64.exe"-->
