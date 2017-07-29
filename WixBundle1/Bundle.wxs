@@ -3,8 +3,22 @@
 	<Bundle Name="WixBundle1" Version="1.0.0.0" Manufacturer="Microsoft" UpgradeCode="5225e662-57b9-4876-9cd1-d485f8394e3c">
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
 		<Chain>
+      <ExePackage
+         Id="Netfx4Full"
+         Cache="yes"
+         Compressed="yes"
+         PerMachine="yes"
+         Permanent="yes"
+         Vital="yes"
+         SourceFile="D:\Downloads\dotNetFx40_Full_setup.exe"
+         InstallCommand="/q /norestart "
+         DownloadUrl="http://go.microsoft.com/fwlink/?LinkId=164193"
+         DetectCondition="Netfx4FullVersion AND (NOT VersionNT64 OR Netfx4x64FullVersion)"/>
+      
 			<!-- TODO: Define the list of chained packages. -->
-			 <MsiPackage SourceFile="$(var.SetupProject1.TargetPath)" /> 
+			 <MsiPackage SourceFile="$(var.Setup.TargetPath)" /> 
 		</Chain>
 	</Bundle>
 </Wix>
+
+<!--SourceFile="D:\Downloads\dotNetFx40_Full_x86_x64.exe"-->

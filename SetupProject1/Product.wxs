@@ -1,108 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="SetupProject1" Language="2052" Version="1.0.0.0" Manufacturer="123" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
-    <Package Id='*' Keywords='Installer' Description="Acme's Foobar 1.0 Installer"
-      Comments='Foobar is a registered trademark of Acme Ltd.' Manufacturer='Acme Ltd.'
+  <Product Codepage="936" Id="*" Name="新setup" Language="2052" Version="1.0.0.0" Manufacturer="123" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
+    <Package Id='D318DD9F-D4C5-4DD7-AD7C-90CC53C67996' Keywords='Installer' Description="Hello 1.0 Installer描述"
+      Comments='这是版权说明' Manufacturer='开发商'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
 
-    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
     <Property Id='DiskPrompt' Value="Acme's Foobar 1.0 Installation [1]" />
 
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
-    <Condition Message='This setup requires the .NET Framework 2.0 with Service Pack 1 installed.'>
+    <Condition Message='This setup requires the .NET Framework 4.0 or higher installed.'>
       <![CDATA[Installed OR (NETFRAMEWORK40FULL)]]>
     </Condition>
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
-        <Directory Id='Acme' Name='Acme'>
-          <Directory Id='INSTALLDIR' Name='Foobar 1.0'>
-
-            <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
-              <File Id='FoobarEXE' Name='FoobarAppl10.exe' DiskId='1' Source='$(var.WpfTestApp.TargetPath)' KeyPath='yes'>
-                <!--Icon="Foobar10.exe"-->
-                <Shortcut Id="startmenuFoobar10" Directory="ProgramMenuDir" Name="Foobar 1.0" WorkingDirectory='INSTALLDIR' IconIndex="0" Advertise="yes" />
-                <Shortcut Id="desktopFoobar10" Directory="DesktopFolder" Name="Foobar 1.0" WorkingDirectory='INSTALLDIR' IconIndex="0" Advertise="yes" />
-              </File>
-            </Component>
-
-            <!--<Component Id='HelperLibrary' Guid='YOURGUID-6BE3-460D-A14F-75658D16550B'>
-              <File Id='HelperDLL' Name='Helper.dll' DiskId='1' Source='Helper.dll' KeyPath='yes' />
-            </Component>-->
-
-            <!--<Component Id='Manual' Guid='YOURGUID-574D-4A9A-A266-5B5EC2C022A4'>
-              <File Id='Manual' Name='Manual.pdf' DiskId='1' Source='Manual.pdf' KeyPath='yes'>
-                <Shortcut Id="startmenuManual" Directory="ProgramMenuDir" Name="Instruction Manual" Advertise="yes" />
-              </File>
-            </Component>-->
-
-          </Directory>
-        </Directory>
+        <Directory Id='APPLICATIONROOTDIRECTORY' Name='XYUNHUI' />
       </Directory>
-
-      <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Foobar 1.0">
-          <Component Id="ProgramMenuDir" Guid="1DC6D6C4-A1C8-418B-B9D5-2E8E463BAA3F">
-            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
-            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
-          </Component>
-        </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="My Application Name新"/>
       </Directory>
-
-      <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
-    <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='MainExecutable' />
-      <!--<ComponentRef Id='HelperLibrary' />-->
-      <!--<ComponentRef Id='Manual' />
-      <ComponentRef Id='ProgramMenuDir' />-->
-    </Feature>
 
-
-    <!--<Feature Id="ProductFeature" Title="SetupProject1" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-
-      --><!-- AddShortcut->Step3: Tell WiX to install the shortcut --><!--
-      <ComponentRef Id="ApplicationShortcut" />
-    </Feature>-->
-	</Product>
-
-	<!--<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="SetupProject1" />
-			</Directory>
-		</Directory>
-	</Fragment>-->
-
-  <!--<Fragment>
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			 <Component Id="ProductComponent">
-         <File Source="$(var.WpfTestApp.TargetPath)" />
-			 </Component> 
-		</ComponentGroup>
-	</Fragment>-->
-
-
-  <!--<Fragment>
-    <DirectoryRef Id="ApplicationProgramsFolder">
-      --><!--Id属性为ApplicationProgramsFolder同上面一致--><!--
-      --><!--a <Component> element to specify an atomic unit of installation...--><!--
-      <Component Id="ApplicationShortcut" Guid="{6EC4A3C2-147D-41C4-BC14-814EEAC48C37}">
-        --><!--Shortcut节点的Name属性，指示快捷键的名称--><!--
-        <Shortcut Id="ApplicationStartMenuShortcut"
-             Name="testWiX"
-           Description="My Application Description"
-            Target="[INSTALLFOLDER]$(var.WpfTestApp.TargetFileName)"
-                  WorkingDirectory="INSTALLFOLDER"/>
-        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-        --><!--Id属性为ApplicationProgramsFolder同上面一致--><!--
-        <RegistryValue Root="HKCU" Key="Software\Microsoft\testWiX" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+      <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
+        <File Id='MainEXE' Name='$(var.WpfTestApp.TargetFileName)' DiskId='1' Source='$(var.WpfTestApp.TargetPath)' KeyPath='yes' />
       </Component>
     </DirectoryRef>
-  </Fragment>-->
-  
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="ABA0FF91-3EB6-4C64-9358-85DA2DF2EF4F">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+             Name="My Application Name"
+             Description="My Application Description"
+             Target="$(var.WpfTestApp.TargetFileName)"
+             WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        
+        <Shortcut Id="UninstallProduct"
+                  Name="Uninstall My Application"
+                  Description="Uninstalls My Application卸载"
+                  Target="[SystemFolder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id='MainApplication' Title="Main Application 功能列表" Level='1'>
+      <ComponentRef Id='MainExecutable' />
+    </Feature>
+  </Product>
+
+
 </Wix>

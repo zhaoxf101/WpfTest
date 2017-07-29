@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTest", "WpfTest\WpfTest.csproj", "{63688241-D8FC-48D7-8A01-5A04F5592479}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupProject1", "SetupProject1\SetupProject1.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WixBundle1", "WixBundle1\WixBundle1.wixproj", "{5225E662-57B9-4876-9CD1-D485F8394E3C}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Bundle", "WixBundle1\Bundle.wixproj", "{5225E662-57B9-4876-9CD1-D485F8394E3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTestApp", "WpfTestApp\WpfTestApp.csproj", "{F4785355-1243-4857-88DA-B1FA13008373}"
 EndProject
