@@ -9,14 +9,6 @@
         mc:Ignorable="d"
         Title="ListViewTest" Height="300" Width="300">
     <Window.Resources>
-        <c:ArrayList x:Key="stuList">
-            <local:Student Id="1" Name="小明" Grade="研一" Professional="计算机技术" Score="30" HasJob="true"/>
-            <local:Student Id="2" Name="小李" Grade="大一" Professional="网络工程" Score="80" HasJob="true"/>
-            <local:Student Id="3" Name="小张" Grade="研一" Professional="软件工程" Score="100" HasJob="False"/>
-            <local:Student Id="4" Name="小王" Grade="研一" Professional="自动化控制" Score="70" HasJob="true"/>
-            <local:Student Id="5" Name="大王" Grade="研一" Professional="软件设计" Score="60" HasJob="False"/>
-        </c:ArrayList>
-        
         <DataTemplate x:Key="NameDt">
             <TextBox x:Name="textboxName" Text="{Binding Name}" GotFocus="textboxName_GotFocus"/>
         </DataTemplate>
