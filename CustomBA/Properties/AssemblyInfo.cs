@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -7,6 +8,7 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
+[assembly: BootstrapperApplication(typeof (CustomBA.CustomBootstrapperApplication))]
 [assembly: AssemblyTitle("CustomBA")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

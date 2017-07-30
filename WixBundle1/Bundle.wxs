@@ -7,18 +7,7 @@
     </BootstrapperApplicationRef>
 
     <Chain>
-      <ExePackage
-         Id="Netfx4Full"
-         Cache="yes"
-         Compressed="yes"
-         PerMachine="yes"
-         Permanent="yes"
-         Vital="yes"
-         SourceFile="D:\Downloads\dotNetFx40_Full_setup.exe"
-         InstallCommand="/q /norestart "
-         DownloadUrl="http://go.microsoft.com/fwlink/?LinkId=164193"
-         DetectCondition="Netfx4FullVersion AND (NOT VersionNT64 OR Netfx4x64FullVersion)"/>
-
+      <PackageGroupRef Id="NetFx40Web"/>
       <MsiPackage SourceFile="$(var.Setup.TargetPath)" />
     </Chain>
   </Bundle>
@@ -29,5 +18,3 @@
   </Fragment>
 
 </Wix>
-
-<!--SourceFile="D:\Downloads\dotNetFx40_Full_x86_x64.exe"-->

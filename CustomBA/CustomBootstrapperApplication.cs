@@ -15,58 +15,14 @@ namespace CustomBA
 
         protected override void Run()
         {
-            MessageBox.Show("waiting!");
+            //MessageBox.Show("waiting!");
 
-            Dispatcher.Run();
+
+            var window = new MainWindow();
+            window.ShowDialog();
 
             Engine.Quit(0);
-
         }
 
-        public static void Plan(LaunchAction action)
-        {
-            
-        }
-
-
-
-        public static void PlanLayout()
-        {
-            //// Either default or set the layout directory
-            //if (String.IsNullOrEmpty(Model.Command.LayoutDirectory))
-            //{
-            //    Model.LayoutDirectory = Directory.GetCurrentDirectory();
-
-            //    // Ask the user for layout folder if one wasn't provided and we're in full UI mode
-            //    if (Model.Command.Display == Display.Full)
-            //    {
-            //        Dispatcher.Invoke((Action)delegate ()
-            //        {
-            //            WinForms.FolderBrowserDialog browserDialog = new WinForms.FolderBrowserDialog();
-            //            browserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-
-            //            // Default to the current directory.
-            //            browserDialog.SelectedPath = Model.LayoutDirectory;
-            //            WinForms.DialogResult result = browserDialog.ShowDialog();
-
-            //            if (WinForms.DialogResult.OK == result)
-            //            {
-            //                Model.LayoutDirectory = browserDialog.SelectedPath;
-            //                Plan(Model.Command.Action);
-            //            }
-            //            else
-            //            {
-            //                View.Close();
-            //            }
-            //        }
-            //        );
-            //    }
-            //}
-            //else
-            //{
-            //    Model.LayoutDirectory = Model.Command.LayoutDirectory;
-            //    Plan(Model.Command.Action);
-            //}
-        }
     }
 }
