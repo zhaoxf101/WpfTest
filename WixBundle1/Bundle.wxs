@@ -8,7 +8,9 @@
 
     <Chain>
       <PackageGroupRef Id="NetFx40Web"/>
-      <MsiPackage SourceFile="$(var.Setup.TargetPath)" />
+      <MsiPackage SourceFile="$(var.Setup.TargetPath)">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+      </MsiPackage>
     </Chain>
   </Bundle>
 

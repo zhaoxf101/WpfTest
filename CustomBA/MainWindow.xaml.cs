@@ -47,10 +47,19 @@ namespace CustomBA
         {
             InitializeComponent();
 
-            _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            if (Environment.Is64BitOperatingSystem)
+            {
+                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            }
+            else
+            {
+                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            }
+
             _windowPtr = new WindowInteropHelper(this).Handle;
 
             _app = app;
+
             app.DetectPackageComplete += CustomBootstrapperApplication_DetectPackageComplete;
             app.PlanComplete += CustomBootstrapperApplication_PlanComplete;
             app.ExecuteMsiMessage += CustomBootstrapperApplication_ExecuteMsiMessage;
@@ -162,6 +171,7 @@ namespace CustomBA
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _installFolder = folderBrowserDialog.SelectedPath;
+                _app.Engine.StringVariables["InstallFolder"] = _installFolder;
             }
         }
 
@@ -294,7 +304,6 @@ namespace CustomBA
         {
             Debug.WriteLine("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
                 e.Restart, e.Result, e.Status);
-
 
             _isSuccess = e.Status == 0;
 
