@@ -47,6 +47,8 @@ namespace CustomBA
         {
             InitializeComponent();
 
+            Loaded += MainWindow_Loaded;
+
             if (Environment.Is64BitOperatingSystem)
             {
                 _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
@@ -55,8 +57,6 @@ namespace CustomBA
             {
                 _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             }
-
-            _windowPtr = new WindowInteropHelper(this).Handle;
 
             _app = app;
 
@@ -77,6 +77,11 @@ namespace CustomBA
             app.ExecutePackageComplete += CustomBootstrapperApplication_ExecutePackageComplete;
 
             app.Engine.Detect();
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _windowPtr = new WindowInteropHelper(this).Handle;
         }
 
         void Initialize()

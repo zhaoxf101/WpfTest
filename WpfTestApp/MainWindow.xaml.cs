@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -28,6 +29,15 @@ namespace WpfTestApp
             var d = "123|名称".Split('|')[0];
 
             MessageBox.Show(installFolder);
+
+            MessageBox.Show(new WindowInteropHelper(this).Handle.ToString());
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(new WindowInteropHelper(this).Handle.ToString());
+
         }
     }
 }
