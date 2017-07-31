@@ -6,19 +6,17 @@ using System.Text;
 using System.Windows.Threading;
 using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 using System.Windows;
+using System.Diagnostics;
 
 namespace CustomBA
 {
     public class CustomBootstrapperApplication : BootstrapperApplication
     {
-        public static Dispatcher Dispatcher { get; set; }
-
         protected override void Run()
         {
-            //MessageBox.Show("waiting!");
-
-
-            var window = new MainWindow();
+            MessageBox.Show("waiting!");
+           
+            var window = new MainWindow(this);
             window.ShowDialog();
 
             Engine.Quit(0);

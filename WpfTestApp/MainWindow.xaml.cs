@@ -22,6 +22,12 @@ namespace WpfTestApp
         public MainWindow()
         {
             InitializeComponent();
+
+            var installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+
+            var d = "123|名称".Split('|')[0];
+
+            MessageBox.Show(installFolder);
         }
     }
 }
