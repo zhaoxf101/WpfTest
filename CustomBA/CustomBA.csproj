@@ -93,13 +93,13 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ReferencedOutput.txt" />
+    <None Include="ReferencedOutput.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Error.txt" />
+    <None Include="Error.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Solution.txt" />
+    <None Include="Solution.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

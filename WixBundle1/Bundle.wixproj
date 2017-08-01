@@ -55,6 +55,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="STEP 1.bat" />
+    <Content Include="STEP 2.bat" />
+    <None Include="cmd.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
