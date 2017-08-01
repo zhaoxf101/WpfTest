@@ -46,19 +46,18 @@ namespace CustomBA
         public MainWindow(CustomBootstrapperApplication app)
         {
             InitializeComponent();
-
             Loaded += MainWindow_Loaded;
+
+            _app = app;
 
             if (Environment.Is64BitOperatingSystem)
             {
-                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
             }
             else
             {
-                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
             }
-
-            _app = app;
 
             app.DetectPackageComplete += CustomBootstrapperApplication_DetectPackageComplete;
             app.PlanComplete += CustomBootstrapperApplication_PlanComplete;
@@ -94,6 +93,13 @@ namespace CustomBA
             {
                 MoveTo(Step.Repair);
             }
+        }
+
+        void SetInstallFolder(string folder)
+        {
+            _installFolder = Path.Combine(folder, "XYUNHUI");
+            TxtInstallFolder.Text = _installFolder;
+            _app.Engine.StringVariables["InstallFolder"] = _installFolder;
         }
 
         void MoveTo(Step step)
@@ -176,7 +182,7 @@ namespace CustomBA
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _installFolder = folderBrowserDialog.SelectedPath;
-                _app.Engine.StringVariables["InstallFolder"] = _installFolder;
+
             }
         }
 

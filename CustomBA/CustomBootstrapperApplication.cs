@@ -14,7 +14,7 @@ namespace CustomBA
     {
         protected override void Run()
         {
-            Debug.Listeners.Add(new TextWriterTraceListener(new FileStream("C:\\setup_light.log", FileMode.Append, FileAccess.Write)));
+            //Debug.Listeners.Add(new TextWriterTraceListener(new FileStream("C:\\setup_light.log", FileMode.Append, FileAccess.Write)));
 
             //MessageBox.Show("waiting!");
            
