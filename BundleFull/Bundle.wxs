@@ -4,8 +4,9 @@
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
 
 		<Chain>
-			<!-- TODO: Define the list of chained packages. -->
-			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <MsiPackage SourceFile="$(var.Setup.TargetPath)">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+      </MsiPackage>
 		</Chain>
 	</Bundle>
 </Wix>

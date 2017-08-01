@@ -95,5 +95,11 @@
   <ItemGroup>
     <Resource Include="ReferencedOutput.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Error.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Solution.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
