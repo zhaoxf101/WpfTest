@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration.Install;
 using System.Linq;
+using System.ServiceProcess;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,19 +26,40 @@ namespace WpfTestApp
         {
             InitializeComponent();
 
-            var installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
-            var d = "123|名称".Split('|')[0];
-
-            MessageBox.Show(installFolder);
-
-            MessageBox.Show(new WindowInteropHelper(this).Handle.ToString());
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(new WindowInteropHelper(this).Handle.ToString());
+            var installer = new UpdateService.ProjectInstaller();
+            var state = new Dictionary<string, object>();
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            var context = new InstallContext();
+            context.Parameters["assemblypath"] = @"D:\Repos\WpfTest\WpfTestApp\bin\Debug\UpdateService.exe";
+            //installer.ServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
+            //installer.ServiceProcessInstaller.Install(state);
+
+
+            installer.ServiceInstaller.Context = context;
+
+
+            var service = ServiceController.GetServices().Where(p => p.ServiceName == "UpdateService").SingleOrDefault();
+            if (service == null)
+            {
+                installer.ServiceInstaller.Install(state);
+                MessageBox.Show("Install OK.");
+            }
+            else
+            {
+                installer.ServiceInstaller.Uninstall(null);
+                MessageBox.Show("Uninstall ok.");
+            }
+
+
+            //installer.ServiceProcessInstaller.Uninstall(state);
 
         }
     }
