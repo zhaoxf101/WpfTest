@@ -182,7 +182,6 @@ namespace CustomBA
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _installFolder = folderBrowserDialog.SelectedPath;
-
             }
         }
 
@@ -330,6 +329,45 @@ namespace CustomBA
             {
                 DragMove();
             }
+        }
+
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void HyperlinkPolicy_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new DialogPolicy
+            {
+                Owner = this
+            };
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                CheckBoxPolicy.IsChecked = true;
+            }
+        }
+
+        private void HyperlinkInstallFolder_Click(object sender, RoutedEventArgs e)
+        {
+            GridInstallFolder.Visibility = Visibility.Visible;
+        }
+        
+        private void BtnBackInstallFolder_Click(object sender, RoutedEventArgs e)
+        {
+            GridInstallFolder.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnOkInstallFolder_Click(object sender, RoutedEventArgs e)
+        {
+            BtnInstall_Click(sender, e);
         }
     }
 }
