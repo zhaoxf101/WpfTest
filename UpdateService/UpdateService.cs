@@ -11,6 +11,8 @@ namespace UpdateService
 {
     public partial class UpdateService : ServiceBase
     {
+        TaskService _service;
+
         public UpdateService()
         {
             InitializeComponent();
@@ -18,10 +20,19 @@ namespace UpdateService
 
         protected override void OnStart(string[] args)
         {
+            _service = new TaskService();
+            _service.Start();
         }
 
         protected override void OnStop()
         {
+            _service.Stop();
         }
+
+        public void Start(string[] args)
+        {
+            OnStart(args);
+        }
+
     }
 }

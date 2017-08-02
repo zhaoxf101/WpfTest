@@ -32,31 +32,37 @@ namespace WpfTestApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var installer = new UpdateService.ProjectInstaller();
-            var state = new Dictionary<string, object>();
+            var service = new UpdateService.UpdateService();
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            var context = new InstallContext();
-            context.Parameters["assemblypath"] = @"D:\Repos\WpfTest\WpfTestApp\bin\Debug\UpdateService.exe";
-            //installer.ServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
-            //installer.ServiceProcessInstaller.Install(state);
+            service.Start(null);
 
 
-            installer.ServiceInstaller.Context = context;
+
+            //var installer = new UpdateService.ProjectInstaller();
+            //var state = new Dictionary<string, object>();
+
+            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            //var context = new InstallContext();
+            //context.Parameters["assemblypath"] = @"D:\Repos\WpfTest\WpfTestApp\bin\Debug\UpdateService.exe";
+            ////installer.ServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
+            ////installer.ServiceProcessInstaller.Install(state);
 
 
-            var service = ServiceController.GetServices().Where(p => p.ServiceName == "UpdateService").SingleOrDefault();
-            if (service == null)
-            {
-                installer.ServiceInstaller.Install(state);
-                MessageBox.Show("Install OK.");
-            }
-            else
-            {
-                installer.ServiceInstaller.Uninstall(null);
-                MessageBox.Show("Uninstall ok.");
-            }
+            //installer.ServiceInstaller.Context = context;
+
+
+            //var service = ServiceController.GetServices().Where(p => p.ServiceName == "UpdateService").SingleOrDefault();
+            //if (service == null)
+            //{
+            //    installer.ServiceInstaller.Install(state);
+            //    MessageBox.Show("Install OK.");
+            //}
+            //else
+            //{
+            //    installer.ServiceInstaller.Uninstall(null);
+            //    MessageBox.Show("Uninstall ok.");
+            //}
 
 
             //installer.ServiceProcessInstaller.Uninstall(state);
