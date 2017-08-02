@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration.Install;
+using System.Diagnostics;
 using System.Linq;
-using System.ServiceProcess;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,59 +13,88 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 
-namespace WpfTestApp
+namespace CustomBA
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
+        enum Step
+        {
+            Install,
+            Repair,
+            Progress,
+            Complete
+        }
+
+     
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
 
+            if (Environment.Is64BitOperatingSystem)
+            {
+                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+            }
+            else
+            {
+                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+            }
 
+          
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        void Initialize()
+        {
+        }
+
+        void SetInstallFolder(string folder)
+        {
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void BtnInstall_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelectFile_OnClick(object sender, RoutedEventArgs e)
         {
-            var service = new UpdateService.UpdateService();
 
-            service.Start(null);
+        }
 
+        private void BtnUninstall_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
-            //var installer = new UpdateService.ProjectInstaller();
-            //var state = new Dictionary<string, object>();
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
 
-            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        }
 
-            //var context = new InstallContext();
-            //context.Parameters["assemblypath"] = @"D:\Repos\WpfTest\WpfTestApp\bin\Debug\UpdateService.exe";
-            ////installer.ServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
-            ////installer.ServiceProcessInstaller.Install(state);
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
-            //installer.ServiceInstaller.Context = context;
-
-
-            //var service = ServiceController.GetServices().Where(p => p.ServiceName == "UpdateService").SingleOrDefault();
-            //if (service == null)
-            //{
-            //    installer.ServiceInstaller.Install(state);
-            //    MessageBox.Show("Install OK.");
-            //}
-            //else
-            //{
-            //    installer.ServiceInstaller.Uninstall(null);
-            //    MessageBox.Show("Uninstall ok.");
-            //}
-
-
-            //installer.ServiceProcessInstaller.Uninstall(state);
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

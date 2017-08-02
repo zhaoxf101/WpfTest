@@ -101,5 +101,15 @@
   <ItemGroup>
     <None Include="Solution.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\bg4.png" />
+    <Resource Include="images\bg5.png" />
+    <Resource Include="images\success.png" />
+    <Resource Include="images\checked.png" />
+    <Resource Include="images\unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\bg.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

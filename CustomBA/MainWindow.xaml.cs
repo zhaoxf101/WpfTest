@@ -323,5 +323,13 @@ namespace CustomBA
                 MoveTo(Step.Complete);
             }));
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 }

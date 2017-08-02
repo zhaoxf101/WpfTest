@@ -41,40 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProjectInstaller.Designer.cs">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </Compile>
     <Compile Include="TaskService.cs" />
-    <Compile Include="UpdateService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UpdateService.Designer.cs">
-      <DependentUpon>UpdateService.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Util.cs" />
+    <Compile Include="UpdateService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ProjectInstaller.resx">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateService.resx">
-      <DependentUpon>UpdateService.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\System.Configuration.Install\System.Configuration.Install.csproj">
-      <Project>{fe3e30a6-e023-433e-a22c-afad0da88237}</Project>
-      <Name>System.Configuration.Install</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.ServiceProcess\System.ServiceProcess.csproj">
-      <Project>{87a67df4-e999-42b9-9944-681766b2e3fc}</Project>
-      <Name>System.ServiceProcess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

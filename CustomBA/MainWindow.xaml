@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomBA"
         mc:Ignorable="d" Icon="/CustomBA;component/icon.ico"
-        Title="云合景从 - 安装程序" Height="350" Width="525">
+        Title="云合景从 - 安装程序" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
         <Style TargetType="Button" x:Key="BuleBt">
             <Setter Property="FontSize" Value="16" />
