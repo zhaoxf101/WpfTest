@@ -227,7 +227,7 @@ namespace CustomBA
 
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                _installFolder = folderBrowserDialog.SelectedPath;
+                SetInstallFolder(folderBrowserDialog.SelectedPath);
             }
         }
 
