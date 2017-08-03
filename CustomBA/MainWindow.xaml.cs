@@ -27,7 +27,7 @@ namespace CustomBA
         enum Step
         {
             Install,
-            Repair,
+            Uninstall,
             Progress,
             Complete
         }
@@ -91,7 +91,7 @@ namespace CustomBA
             }
             else
             {
-                MoveTo(Step.Repair);
+                MoveTo(Step.Uninstall);
             }
         }
 
@@ -108,46 +108,60 @@ namespace CustomBA
             {
                 case Step.Install:
                     GridInstall.Visibility = Visibility.Visible;
-                    GridRepair.Visibility = Visibility.Collapsed;
+                    GridUninstall.Visibility = Visibility.Collapsed;
                     GridProgress.Visibility = Visibility.Collapsed;
                     GridComplete.Visibility = Visibility.Collapsed;
+                    GridProgress.Background = new ImageBrush(new BitmapImage(new Uri("/CustomBA;component/images/bg4.png", UriKind.RelativeOrAbsolute)));
+                    TxtProgress.Text = "正在安装，请稍候...";
                     break;
-                case Step.Repair:
+                case Step.Uninstall:
                     GridInstall.Visibility = Visibility.Collapsed;
-                    GridRepair.Visibility = Visibility.Visible;
+                    GridUninstall.Visibility = Visibility.Visible;
                     GridProgress.Visibility = Visibility.Collapsed;
                     GridComplete.Visibility = Visibility.Collapsed;
+                    GridProgress.Background = new SolidColorBrush(Colors.Transparent);
+                    TxtProgress.Text = "正在卸载，请稍候...";
                     break;
                 case Step.Progress:
                     GridInstall.Visibility = Visibility.Collapsed;
-                    GridRepair.Visibility = Visibility.Collapsed;
+                    GridUninstall.Visibility = Visibility.Collapsed;
                     GridProgress.Visibility = Visibility.Visible;
                     GridComplete.Visibility = Visibility.Collapsed;
                     break;
                 case Step.Complete:
 
                     var message = "";
-                    if (!_isSuccess)
+                    switch (_action)
                     {
-                        switch (_action)
-                        {
-                            case LaunchAction.Uninstall:
-                                message = "卸载";
-                                break;
-                            case LaunchAction.Install:
-                                message = "安装";
-                                break;
-                            case LaunchAction.Repair:
-                                message = "修复";
-                                break;
-                        }
-
-                        message += "失败！";
+                        case LaunchAction.Uninstall:
+                            if (_isSuccess)
+                            {
+                                message = "卸载完成，期待再见~";
+                            }
+                            else
+                            {
+                                message += "卸载失败！";
+                            }
+                            BtnOk.Content = "完成";
+                            break;
+                        case LaunchAction.Install:
+                            if (_isSuccess)
+                            {
+                                message = "安装成功！";
+                                ImageSuccess.Source = new BitmapImage(new Uri("/CustomBA;component/images/success.png", UriKind.RelativeOrAbsolute));
+                            }
+                            else
+                            {
+                                ImageSuccess.Source = new BitmapImage(new Uri("/CustomBA;component/images/error.png", UriKind.RelativeOrAbsolute));
+                                message = "安装失败！";
+                            }
+                            BtnOk.Content = "完成安装";
+                            break;
                     }
 
                     TxtComplete.Text = message;
                     GridInstall.Visibility = Visibility.Collapsed;
-                    GridRepair.Visibility = Visibility.Collapsed;
+                    GridUninstall.Visibility = Visibility.Collapsed;
                     GridProgress.Visibility = Visibility.Collapsed;
                     GridComplete.Visibility = Visibility.Visible;
                     break;
@@ -161,7 +175,7 @@ namespace CustomBA
             Dispatcher.BeginInvoke(new Action(() =>
              {
                  ProgressBarMain.Value = percentage;
-                 TxtProgress.Text = message;
+                 //TxtProgress.Text = message;
              }));
         }
 
@@ -190,6 +204,11 @@ namespace CustomBA
             _app.Engine.Plan(LaunchAction.Uninstall);
             _action = LaunchAction.Uninstall;
             MoveTo(Step.Progress);
+        }
+
+        private void BtnUninstallBack_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void BtnRepair_Click(object sender, RoutedEventArgs e)
@@ -359,7 +378,7 @@ namespace CustomBA
         {
             GridInstallFolder.Visibility = Visibility.Visible;
         }
-        
+
         private void BtnBackInstallFolder_Click(object sender, RoutedEventArgs e)
         {
             GridInstallFolder.Visibility = Visibility.Collapsed;
@@ -369,5 +388,6 @@ namespace CustomBA
         {
             BtnInstall_Click(sender, e);
         }
+
     }
 }

@@ -283,8 +283,8 @@
                         <!--<Border BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="5" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>-->
                         <Rectangle x:Name="PART_Track"/>
                         <Grid x:Name="PART_Indicator" ClipToBounds="True" HorizontalAlignment="Left">
-                            <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}"/>
-                            <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle x:Name="Indicator" RadiusX="5" RadiusY="5" Fill="{TemplateBinding Foreground}"/>
+                            <Rectangle x:Name="Animation" RadiusX="5" RadiusY="5" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
                                 <Rectangle.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -295,7 +295,7 @@
                                 </Rectangle.RenderTransform>
                             </Rectangle>
                         </Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="0" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent"/>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="5" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Orientation" Value="Vertical">
