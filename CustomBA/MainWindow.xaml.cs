@@ -42,6 +42,7 @@ namespace CustomBA
         string _message;
 
         bool _isSuccess = true;
+        bool _isExecuting = false;
 
         public MainWindow(CustomBootstrapperApplication app)
         {
@@ -52,12 +53,13 @@ namespace CustomBA
 
             if (Environment.Is64BitOperatingSystem)
             {
-                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             }
             else
             {
-                SetInstallFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             }
+            SetInstallFolder(Path.Combine(_installFolder, "XYUNHUI"));
 
             app.DetectPackageComplete += CustomBootstrapperApplication_DetectPackageComplete;
             app.PlanComplete += CustomBootstrapperApplication_PlanComplete;
@@ -83,6 +85,15 @@ namespace CustomBA
             _windowPtr = new WindowInteropHelper(this).Handle;
         }
 
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_isExecuting)
+            {
+                e.Cancel = true;
+            }
+        }
+
         void Initialize()
         {
             if (_action == LaunchAction.Install)
@@ -95,40 +106,46 @@ namespace CustomBA
             }
         }
 
-        void SetInstallFolder(string folder)
-        {
-            _installFolder = Path.Combine(folder, "XYUNHUI");
-            TxtInstallFolder.Text = _installFolder;
-            _app.Engine.StringVariables["InstallFolder"] = _installFolder;
-        }
-
         void MoveTo(Step step)
         {
             switch (step)
             {
                 case Step.Install:
+                    _isExecuting = false;
+                    BtnClose.IsEnabled = true;
+
                     GridInstall.Visibility = Visibility.Visible;
                     GridUninstall.Visibility = Visibility.Collapsed;
                     GridProgress.Visibility = Visibility.Collapsed;
                     GridComplete.Visibility = Visibility.Collapsed;
-                    GridProgress.Background = new ImageBrush(new BitmapImage(new Uri("/CustomBA;component/images/bg4.png", UriKind.RelativeOrAbsolute)));
+                    ImageProgressBackground.Visibility = Visibility.Visible;
+                    UninstallTextWrapper.Visibility = Visibility.Collapsed;
                     TxtProgress.Text = "正在安装，请稍候...";
                     break;
                 case Step.Uninstall:
+                    _isExecuting = false;
+                    BtnClose.IsEnabled = true;
+
                     GridInstall.Visibility = Visibility.Collapsed;
                     GridUninstall.Visibility = Visibility.Visible;
                     GridProgress.Visibility = Visibility.Collapsed;
                     GridComplete.Visibility = Visibility.Collapsed;
-                    GridProgress.Background = new SolidColorBrush(Colors.Transparent);
+                    ImageProgressBackground.Visibility = Visibility.Collapsed;
+                    UninstallTextWrapper.Visibility = Visibility.Visible;
                     TxtProgress.Text = "正在卸载，请稍候...";
                     break;
                 case Step.Progress:
+                    _isExecuting = true;
+                    BtnClose.IsEnabled = false;
+
                     GridInstall.Visibility = Visibility.Collapsed;
                     GridUninstall.Visibility = Visibility.Collapsed;
                     GridProgress.Visibility = Visibility.Visible;
                     GridComplete.Visibility = Visibility.Collapsed;
                     break;
                 case Step.Complete:
+                    _isExecuting = false;
+                    BtnClose.IsEnabled = true;
 
                     var message = "";
                     switch (_action)
@@ -137,10 +154,14 @@ namespace CustomBA
                             if (_isSuccess)
                             {
                                 message = "卸载完成，期待再见~";
+                                ImageSuccess.Visibility = Visibility.Collapsed;
                             }
                             else
                             {
-                                message += "卸载失败！";
+                                message = "卸载失败！";
+                                ImageSuccess.Visibility = Visibility.Visible;
+                                ImageSuccess.Visibility = Visibility.Collapsed;
+                                ImageFailure.Visibility = Visibility.Visible;
                             }
                             BtnOk.Content = "完成";
                             break;
@@ -148,11 +169,15 @@ namespace CustomBA
                             if (_isSuccess)
                             {
                                 message = "安装成功！";
-                                ImageSuccess.Source = new BitmapImage(new Uri("/CustomBA;component/images/success.png", UriKind.RelativeOrAbsolute));
+                                ImageSuccess.Visibility = Visibility.Visible;
+                                ImageSuccess.Visibility = Visibility.Visible;
+                                ImageFailure.Visibility = Visibility.Collapsed;
                             }
                             else
                             {
-                                ImageSuccess.Source = new BitmapImage(new Uri("/CustomBA;component/images/error.png", UriKind.RelativeOrAbsolute));
+                                ImageSuccess.Visibility = Visibility.Visible;
+                                ImageSuccess.Visibility = Visibility.Collapsed;
+                                ImageFailure.Visibility = Visibility.Visible;
                                 message = "安装失败！";
                             }
                             BtnOk.Content = "完成安装";
@@ -179,6 +204,13 @@ namespace CustomBA
              }));
         }
 
+        void SetInstallFolder(string folder)
+        {
+            _installFolder = folder;
+            TxtInstallFolder.Text = _installFolder;
+            _app.Engine.StringVariables["InstallFolder"] = _installFolder;
+        }
+
         private void BtnInstall_Click(object sender, RoutedEventArgs e)
         {
             MoveTo(Step.Progress);
@@ -186,7 +218,7 @@ namespace CustomBA
             _action = LaunchAction.Install;
         }
 
-        private void SelectFile_OnClick(object sender, RoutedEventArgs e)
+        private void BtnChangeInstallFolder_Click(object sender, RoutedEventArgs e)
         {
             var folderBrowserDialog = new FolderBrowserDialog
             {
@@ -208,18 +240,22 @@ namespace CustomBA
 
         private void BtnUninstallBack_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void BtnRepair_Click(object sender, RoutedEventArgs e)
-        {
-            _app.Engine.Plan(LaunchAction.Repair);
-            _action = LaunchAction.Repair;
-            MoveTo(Step.Progress);
+            Close();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
+            if (_action == LaunchAction.Install && _isSuccess)
+            {
+                try
+                {
+                    Process.Start(Path.Combine(_installFolder, "MarketingPlatForm.Client.exe"));
+                }
+                catch
+                {
+
+                }
+            }
             Close();
         }
 
@@ -239,7 +275,7 @@ namespace CustomBA
                 }
                 else
                 {
-                    _action = LaunchAction.Repair;
+                    _action = LaunchAction.Uninstall;
                 }
             }
 
@@ -386,8 +422,28 @@ namespace CustomBA
 
         private void BtnOkInstallFolder_Click(object sender, RoutedEventArgs e)
         {
+            var folder = TxtInstallFolder.Text;
+            try
+            {
+                var driveName = Path.GetPathRoot(Path.GetFullPath(folder));
+                var drive = DriveInfo.GetDrives().Where(p => p.DriveType == DriveType.Fixed && p.IsReady == true &&
+                    string.Equals(p.Name, driveName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+                if (drive == null)
+                {
+                    System.Windows.Forms.MessageBox.Show("指定的目录不可用！", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("指定的目录不可用！", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            SetInstallFolder(TxtInstallFolder.Text);
             BtnInstall_Click(sender, e);
         }
+
 
     }
 }

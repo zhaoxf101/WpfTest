@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomBA"
         mc:Ignorable="d"
-        Title="云合景从 - 安装程序" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="云合景从 - 安装程序" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -40,8 +40,8 @@
                 </Grid.RowDefinitions>
                 <TextBlock Margin="50 28 0 8" FontSize="16" Foreground="#333">安装目录：</TextBlock>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBox Grid.Row="0" Name="TxtInstallFolder" Width="550" Height="30" Background="White" BorderBrush="#bbbbbb" BorderThickness="1" Margin="0 0 8 0" HorizontalAlignment="Left" />
-                    <Button Style="{StaticResource BackButtonStyle}" FontSize="16" Content="更改目录" Width="92" Height="30" Foreground="#666" />
+                    <TextBox Grid.Row="0" Name="TxtInstallFolder" Style="{StaticResource InstallFolderTextBoxStyle}" VerticalContentAlignment="Center" Width="550" Height="30" Background="White" BorderBrush="#bbbbbb" BorderThickness="1" Margin="0 0 8 0" HorizontalAlignment="Left" />
+                    <Button Name="BtnChangeInstallFolder" Click="BtnChangeInstallFolder_Click" Style="{StaticResource BackButtonStyle}" FontSize="16" Content="更改目录" Width="92" Height="30" Foreground="#666" />
                 </StackPanel>
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Margin="0,6,0,4">
                     <Button Name="BtnBackInstallFolder" Click="BtnBackInstallFolder_Click" Content="返回" Style="{StaticResource BackButtonStyle}" Width="100" Margin="10,0,10,0" />
@@ -68,8 +68,9 @@
             </StackPanel>
         </Grid>
 
-        <Grid Name="GridProgress" Visibility="Visible">
-            <StackPanel VerticalAlignment="Top" Margin="0 130 0 0">
+        <Grid Name="GridProgress" Visibility="Collapsed">
+            <Image Name="ImageProgressBackground" Source="/CustomBA;component/images/bg4.png" Width="750" Height="400" Visibility="Collapsed" />
+            <StackPanel VerticalAlignment="Top" Margin="0 130 0 0" Name="UninstallTextWrapper" Visibility="Collapsed">
                 <TextBlock Text="我会努力成长..." FontSize="36" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
                 <TextBlock Text="期待下次更好的相遇！" FontSize="36" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 10 0 0" />
             </StackPanel>
@@ -87,6 +88,7 @@
             </Grid.Background>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 120 0 0">
                 <Image Name="ImageSuccess" Source="/CustomBA;component/images/success.png" Width="62" Height="62" />
+                <Image Name="ImageFailure" Source="/CustomBA;component/images/error.png" Width="62" Height="62" Visibility="Collapsed" />
                 <TextBlock Name="TxtComplete" Text="安装成功" FontSize="40" Foreground="White" VerticalAlignment="Center" Margin="10 0 0 0" />
             </StackPanel>
             <Grid Height="150" Background="White" VerticalAlignment="Bottom">

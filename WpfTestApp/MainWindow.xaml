@@ -388,7 +388,7 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="2" Grid.Column="1">
-                <Button Name="BtnUninstall" Click="BtnUninstall_Click" Content="卸载" IsDefault="True" HorizontalAlignment="Left" Margin="10 10" Height="35" Width="120" Style="{StaticResource BuleBt}" Background="Tomato"></Button>
+                <Button Name="BtnUninstall" Click="BtnUninstall_Click" Content="卸载" IsDefault="True" HorizontalAlignment="Left" Margin="10 10" Height="35" Width="120" Style="{StaticResource AgreeButtonStyle}" Background="Tomato"></Button>
             </StackPanel>
         </Grid>
 

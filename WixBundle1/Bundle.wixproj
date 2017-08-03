@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icon_original.ico" />
-    <Content Include="STEP 1.bat" />
-    <Content Include="STEP 2.bat" />
+    <None Include="STEP 1.bat" />
+    <None Include="STEP 2.bat" />
     <Content Include="icon.ico" />
     <None Include="cmd.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
