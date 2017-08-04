@@ -61,11 +61,18 @@
     <Compile Include="ChartTestWindow.xaml.cs">
       <DependentUpon>ChartTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComboBoxTestWindow.xaml.cs">
+      <DependentUpon>ComboBoxTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MarqueeTest.xaml.cs">
       <DependentUpon>MarqueeTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModelBase.cs" />
     <Page Include="ChartTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ComboBoxTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
