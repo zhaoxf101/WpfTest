@@ -7,7 +7,40 @@
         mc:Ignorable="d"
         Title="云合景从 - 安装程序" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
-
+        <Style TargetType="{x:Type local:SJTextBox}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+            <Setter Property="Padding" Value="3,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:SJTextBox}">
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{TemplateBinding BorderCornerRadius}"  <!--绑定自定义边框角度-->
+                            SnapsToDevicePixels="True">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                <TextBlock x:Name="txtRemark" Text="{TemplateBinding WaterRemark}"  <!--绑定水印文字-->
+                                           Foreground="Gray" VerticalAlignment="Center"
+                                           Margin="{TemplateBinding Padding}"
+                                           Visibility="Collapsed"/> <!--默认水印文字隐藏-->
+                        </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <!--使用触发器来控制水印的隐藏显示：当文本框没有字符时显示水印文字-->
+                                <Setter Property="Visibility" Value="Visible" TargetName="txtRemark"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <ControlTemplate x:Key="PasswordBoxControlTemplate1" TargetType="{x:Type PasswordBox}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
