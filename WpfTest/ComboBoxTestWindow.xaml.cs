@@ -37,7 +37,7 @@ namespace WpfTest
                 new PurchaseServiceType
                 {
                     Limit = 12,
-                    Option = "adsfad",
+                    Option = "ads1236545655fad",
                     Price = 34
                 },
                 new PurchaseServiceType
