@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.0.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
-    <Package Id='D318DD9F-D4C5-4DD7-AD7C-90CC53C67996' Keywords='Installer' Description="云合景从安装程序"
+    <Package Id='*' Keywords='Installer' Description="云合景从安装程序"
       Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perMachine'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
-    
+
     <MajorUpgrade DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
     <Property Id='DiskPrompt' Value="Acme's Foobar 1.0 Installation [1]" />
 
     <Property Id="ARPPRODUCTICON" Value="MainIcon" />
-    
+
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
     <Condition Message='安装程序需要 .NET Framework 4.0 或更高版本。'>
       <![CDATA[Installed OR (NETFRAMEWORK40FULL)]]>
@@ -34,16 +34,28 @@
       <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
         <File Id='MainEXE' Source='content/MarketingPlatForm.Client.exe' />
         <File Id='MainEXE.Config' Source='content/MarketingPlatForm.Client.exe.Config' />
-        <File Id='Lib1' Source='content/MarketingPlatform.Common.dll' />
-        <File Id='Lib2' Source='content/Newtonsoft.Json.dll' />
-        <File Id='Lib3' Source='content/System.Net.Http.dll' />
-        <File Id='Lib4' Source='content/System.Net.Http.Extensions.dll' />
-        <File Id='Lib5' Source='content/System.Net.Http.Primitives.dll' />
-        <File Id='Lib6' Source='content/System.Net.Http.WebRequest.dll' />
-        <File Id='Lib7' Source='content/System.Runtime.dll' />
-        <File Id='Lib8' Source='content/System.Threading.Tasks.dll' />
-        <File Id='Lib9' Source='content/WPFVisifire.Charts.dll' />
+        
+        <File Id='Lib100' Source='content/Newtonsoft.Json.dll' />
+        <File Id='Lib101' Source='content/System.Net.Http.dll' />
+        <File Id='Lib102' Source='content/System.Net.Http.Extensions.dll' />
+        <File Id='Lib103' Source='content/System.Net.Http.Primitives.dll' />
+        <File Id='Lib104' Source='content/System.Net.Http.WebRequest.dll' />
+        <File Id='Lib105' Source='content/System.Runtime.dll' />
+        <File Id='Lib106' Source='content/System.Threading.Tasks.dll' />
+        <File Id='Lib107' Source='content/WPFVisifire.Charts.dll' />
 
+        <File Id='Lib200' Source='content/UpdateService.exe' />
+
+        <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
+        <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
+        <File Id='Lib302' Source='content/WebDriverHelper.dll' />
+        
+        <File Id='Lib400' Source='content/phantomjs.exe' />
+        <File Id='Lib401' Source='content/UUExtConfig.ini' />
+        <File Id='Lib402' Source='content/UUWiseHelper.dll' />
+        <File Id='Lib403' Source='content/UUWiseHelper_x64.dll' />
+        <File Id='Lib404' Source='content/WebDriver.dll' />
+        <File Id='Lib405' Source='content/WebDriver.Support.dll' />
       </Component>
     </DirectoryRef>
 
@@ -66,7 +78,7 @@
                   Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
                   WorkingDirectory="INSTALLFOLDER">
         </Shortcut>
-        
+
         <!--<Shortcut Id="UninstallProduct"
                   Name="卸载云合景从"
                   Description="卸载云合景从"

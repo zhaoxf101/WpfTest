@@ -30,7 +30,7 @@
                 </CheckBox>
             </StackPanel>
 
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7"><Hyperlink Click="HyperlinkInstallFolder_Click" Style="{StaticResource InstallFolderHyperlinkStyle}">自定义安装目录</Hyperlink></TextBlock>
+            <TextBlock Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="7"><Hyperlink Click="HyperlinkInstallFolder_Click" Style="{StaticResource InstallFolderHyperlinkStyle}">自定义安装目录</Hyperlink></TextBlock>
 
             <Grid Name="GridInstallFolder" Background="White" Height="180" VerticalAlignment="Bottom" Visibility="Collapsed">
                 <Grid.RowDefinitions>

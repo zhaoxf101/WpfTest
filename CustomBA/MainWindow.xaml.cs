@@ -51,14 +51,15 @@ namespace CustomBA
 
             _app = app;
 
-            if (Environment.Is64BitOperatingSystem)
-            {
-                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-            }
-            else
-            {
-                _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            }
+            _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            //if (Environment.Is64BitOperatingSystem)
+            //{
+            //}
+            //else
+            //{
+            //    _installFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            //}
             SetInstallFolder(Path.Combine(_installFolder, "XYUNHUI"));
 
             app.DetectPackageComplete += CustomBootstrapperApplication_DetectPackageComplete;
