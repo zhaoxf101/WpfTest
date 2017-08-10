@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Configuration.Install", "System.Configuration.Install\System.Configuration.Install.csproj", "{FE3E30A6-E023-433E-A22C-AFAD0DA88237}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ServiceProcess", "System.ServiceProcess\System.ServiceProcess.csproj", "{87A67DF4-E999-42B9-9944-681766B2E3FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modify", "modify", "{8D904F35-FB69-42A6-BDC0-1A9325B40B8A}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Worker\Desktop\registration.cpp = C:\Users\Worker\Desktop\registration.cpp
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
