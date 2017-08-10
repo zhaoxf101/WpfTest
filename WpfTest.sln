@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modify", "modify", "{8D904F
 	ProjectSection(SolutionItems) = preProject
 		C:\Users\Worker\Desktop\registration.cpp = C:\Users\Worker\Desktop\registration.cpp
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{405BA993-42E0-464B-942B-96C8893ED556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,14 @@ Global
 		{87A67DF4-E999-42B9-9944-681766B2E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87A67DF4-E999-42B9-9944-681766B2E3FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{87A67DF4-E999-42B9-9944-681766B2E3FC}.Release|x86.Build.0 = Release|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Debug|x86.Build.0 = Debug|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Release|x86.ActiveCfg = Release|Any CPU
+		{405BA993-42E0-464B-942B-96C8893ED556}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
