@@ -19,7 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ServiceProcess", "Sy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modify", "modify", "{8D904F35-FB69-42A6-BDC0-1A9325B40B8A}"
 	ProjectSection(SolutionItems) = preProject
-		C:\Users\Worker\Desktop\registration.cpp = C:\Users\Worker\Desktop\registration.cpp
+		modify\dtfref.shfbproj = modify\dtfref.shfbproj
+		modify\registration.cpp = modify\registration.cpp
+		modify\wix.pub = modify\wix.pub
+		modify\wix.snk = modify\wix.snk
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{405BA993-42E0-464B-942B-96C8893ED556}"
