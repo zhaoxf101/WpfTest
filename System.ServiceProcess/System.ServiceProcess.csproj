@@ -98,11 +98,5 @@
       <DependentUpon>ServiceInstallerDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\System.Configuration.Install\System.Configuration.Install.csproj">
-      <Project>{fe3e30a6-e023-433e-a22c-afad0da88237}</Project>
-      <Name>System.Configuration.Install</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
