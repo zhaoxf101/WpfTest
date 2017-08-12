@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WpfTest.ComboBoxTestWindow"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="CanMinimize"
         Title="ComboBoxTestWindow" Height="300" Width="300">
     <Window.Resources>
         <Style TargetType="{x:Type ComboBox}" x:Key="TestStyle">
@@ -109,7 +109,6 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="cont"
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
                     <Style>

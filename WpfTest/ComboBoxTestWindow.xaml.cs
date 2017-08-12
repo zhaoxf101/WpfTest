@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -50,6 +51,17 @@ namespace WpfTest
             };
 
             ComboBoxServiceLimit.ItemsSource = list;
+
+            SourceInitialized += ComboBoxTestWindow_SourceInitialized;
+        }
+
+        private void ComboBoxTestWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            var handle = new WindowInteropHelper(this).Handle;
+            var source = HwndSource.FromHwnd(handle);
+
+
+
         }
 
         private void ComboBoxServiceLimit_SelectionChanged(object sender, SelectionChangedEventArgs e)
