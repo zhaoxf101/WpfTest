@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>5225e662-57b9-4876-9cd1-d485f8394e3c</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>IMS</OutputName>
+    <OutputName>IMS云合景从客户端</OutputName>
     <OutputType>Bundle</OutputType>
     <Name>Bundle</Name>
   </PropertyGroup>
