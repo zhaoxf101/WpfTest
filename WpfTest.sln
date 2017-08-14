@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modify", "modify", "{8D904F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{405BA993-42E0-464B-942B-96C8893ED556}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTest", "WpfTest\WpfTest.csproj", "{63688241-D8FC-48D7-8A01-5A04F5592479}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,14 @@ Global
 		{405BA993-42E0-464B-942B-96C8893ED556}.Release|Any CPU.Build.0 = Release|Any CPU
 		{405BA993-42E0-464B-942B-96C8893ED556}.Release|x86.ActiveCfg = Release|Any CPU
 		{405BA993-42E0-464B-942B-96C8893ED556}.Release|x86.Build.0 = Release|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Debug|x86.Build.0 = Debug|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Release|x86.ActiveCfg = Release|Any CPU
+		{63688241-D8FC-48D7-8A01-5A04F5592479}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
