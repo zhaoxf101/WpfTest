@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,6 +18,10 @@ namespace ConsoleApp1
             int WS_POPUP = unchecked((int)0x80000000);
 
             Console.WriteLine(WS_POPUP);
+
+            HttpDownloadFileHelper.HttpDownloadFile("http://ot4e7ngbr.bkt.clouddn.com/UpdateMarketingPlatForm.Client.exe", "Hello");
+
+            Debug.WriteLine("sdf");
 
             //var handle = new WindowInteropHelper(this).Handle;
 
