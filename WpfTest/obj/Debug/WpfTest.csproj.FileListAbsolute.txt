@@ -48,3 +48,5 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\Generic.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csprojResolveAssemblyReference.cache
 D:\Repos\WpfTest\WpfTest\obj\Debug\ComboBoxTestWindow.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\ComboBoxTestWindow.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\WindowStyleTest.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\WindowStyleTest.g.cs

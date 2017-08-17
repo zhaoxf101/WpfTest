@@ -11,10 +11,96 @@ namespace ConsoleApp1
 {
     class Program
     {
+        string[] ParseCommandLine()
+        {
+            var list = new List<string>();
 
+            var commandLine = Environment.CommandLine;
+            var tokenStartedIndex = -1;
+
+            var programStarted = false;
+            var programEnded = false;
+
+            var quotationStarted = false;
+
+            var builder = new StringBuilder();
+            for (int i = 0; i < commandLine.Length; i++)
+            {
+                var c = commandLine[i];
+                if (c == '\"')
+                {
+                    if (quotationStarted)
+                    {
+                        if (programEnded)
+                        {
+                            list.Add(commandLine.Substring(tokenStartedIndex, i - tokenStartedIndex));
+                            tokenStartedIndex = -1;
+                        }
+
+                        quotationStarted = false;
+                    }
+                    else
+                    {
+                        quotationStarted = true;
+                    }
+
+                    // Token 未开始
+                    if (tokenStartedIndex == -1)
+                    {
+                        if (programEnded)
+                        {
+                            tokenStartedIndex = i;
+                        }
+                        else
+                        {
+                            programStarted = true;
+                        }
+                    }
+                }
+                else if (c == ' ' || c == '\t')
+                {
+                    if (quotationStarted)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (tokenStartedIndex != -1)
+                        {
+                            list.Add(commandLine.Substring(tokenStartedIndex, i - tokenStartedIndex));
+                            tokenStartedIndex = -1;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!programStarted)
+                    {
+                        programStarted = true;
+                    }
+                }
+            }
+
+            if (tokenStartedIndex != -1)
+            {
+                list.Add(commandLine.Substring(tokenStartedIndex));
+            }
+
+            return list.ToArray();
+        }
 
         static void Main(string[] args)
         {
+            foreach (var item in args)
+            {
+                Debug.WriteLine(item);
+            }
+
+            Debug.WriteLine("");
+
+            Debug.WriteLine(Environment.CommandLine);
+
+
             int WS_POPUP = unchecked((int)0x80000000);
 
             Console.WriteLine(WS_POPUP);

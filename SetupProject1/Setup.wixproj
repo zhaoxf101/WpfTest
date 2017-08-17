@@ -49,6 +49,7 @@
     <Content Include="content\System.Net.Http.WebRequest.dll" />
     <Content Include="content\System.Runtime.dll" />
     <Content Include="content\System.Threading.Tasks.dll" />
+    <Content Include="content\Update.exe" />
     <Content Include="content\UpdateService.exe" />
     <Content Include="content\UUExtConfig.ini" />
     <Content Include="content\UUWiseHelper.dll" />
