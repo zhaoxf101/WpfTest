@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.0.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
+  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.1"
+           Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
     <Package Id='*' Keywords='Installer' Description="云合景从安装程序"
-      Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perUser'
+      Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perMachine'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
 
-    <MajorUpgrade DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
+
+    <CustomAction Id='NoDowngrade' Error='已经安装了较新版本的 [ProductName]，无法继续安装该版本应用程序 .' />
+
+    <InstallExecuteSequence>
+      <Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
+    </InstallExecuteSequence>
+
 
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
+    <Property Id='DiskPrompt' Value="云合景从安装 [1]" />
+
     <Property Id="ARPPRODUCTICON" Value="MainIcon" />
 
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
@@ -44,7 +55,9 @@
 
         <File Id='Lib200' Source='content/UpdateService.exe' />
         <File Id='Lib201' Source='content/Update.exe' />
-
+        <File Id='Lib202' Source='content/ConsoleApp1.exe' />
+        
+        
         <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
         <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
         <File Id='Lib302' Source='content/WebDriverHelper.dll' />
@@ -84,11 +97,11 @@
                   Target="[SystemFolder]msiexec.exe"
                   Arguments="/x [ProductCode]"/>-->
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-        <RegistryValue Root="HKCU" Key="Software\Microsoft\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\云合景从" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
 
-    <Feature Id='MainApplication' Title="Main Application 功能列表" Level='1'>
+    <Feature Id='MainApplication' Title="云合景从 功能列表" Level='1'>
       <ComponentRef Id='MainExecutable' />
       <ComponentRef Id="ApplicationShortcut" />
     </Feature>

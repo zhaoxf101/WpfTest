@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="CustomAction.cs" />
     <Compile Include="CustomBootstrapperApplication.cs" />
     <Compile Include="DialogPolicy.xaml.cs">
       <DependentUpon>DialogPolicy.xaml</DependentUpon>
@@ -105,15 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ReferencedOutput.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Error.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Solution.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\bg4.png" />
