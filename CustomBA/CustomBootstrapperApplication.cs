@@ -118,8 +118,12 @@ namespace CustomBA
             {
                 CustomAction.KillRelativeProcesses();
 
-                // 注意，这里的安装目录是固定的
-                CustomAction.Backup(_mainWindow?.InstallFolder ?? _installFolder);
+                // 无窗口卸载，假定是升级安装。因为是先安装升级 msi，再卸载低版本 bundle，所以这里不再执行 Backup 操作。
+                if (_mainWindow != null)
+                {
+                    // 注意，这里的安装目录是固定的
+                    CustomAction.Backup(_mainWindow.InstallFolder);
+                }
             }
             else if (_action != LaunchAction.Unknown)
             {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CustomBA
@@ -12,6 +13,8 @@ namespace CustomBA
     {
         readonly static string BackupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IMS_UpdateService");
 
+        const int RetryCount = 5;
+        const int WaitTimeSeconds = 2;
 
         internal static void Backup(string installFolder)
         {
@@ -47,7 +50,7 @@ namespace CustomBA
                     foreach (var file in files)
                     {
                         var fileName = Path.GetFileName(file);
-                        File.Copy(file, Path.Combine(BackupFolder, fileName));
+                        File.Copy(file, Path.Combine(BackupFolder, fileName), true);
                     }
 
                     var pi = new ProcessStartInfo
@@ -69,15 +72,23 @@ namespace CustomBA
         {
             Debug.WriteLine($"RemoveBackup. ");
 
-            KillRelativeProcesses();
+            var retryCount = RetryCount;
 
-            try
+            while (retryCount > 0)
             {
-                Directory.Delete(BackupFolder, true);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RemoveBackup Failed. Exception:  " + ex.Message);
+                KillRelativeProcesses();
+
+                try
+                {
+                    Directory.Delete(BackupFolder, true);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RemoveBackup Failed. Exception:  " + ex.Message);
+                    retryCount--;
+                    Thread.Sleep(WaitTimeSeconds);
+                }
             }
         }
 
