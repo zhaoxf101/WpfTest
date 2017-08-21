@@ -39,6 +39,11 @@ namespace CustomBA
                 try
                 {
                     var files = Directory.GetFiles(installFolder);
+                    if (!Directory.Exists(BackupFolder))
+                    {
+                        Directory.CreateDirectory(BackupFolder);
+                    }
+
                     foreach (var file in files)
                     {
                         var fileName = Path.GetFileName(file);
@@ -63,6 +68,8 @@ namespace CustomBA
         internal static void RemoveBackup()
         {
             Debug.WriteLine($"RemoveBackup. ");
+
+            KillRelativeProcesses();
 
             try
             {
@@ -130,18 +137,18 @@ namespace CustomBA
 
         internal static void CleanUp(string installFolder)
         {
-            try
-            {
-                Util.RegisterAutoStart("", "IMS_UpdateService", false);
+            //try
+            //{
+            //Util.RegisterAutoStart("", "IMS_UpdateService", false);
 
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
-                Directory.Delete(installFolder, true);
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
-            }
+            //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
+            //Directory.Delete(installFolder, true);
+            //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
+            //}
         }
 
     }

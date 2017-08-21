@@ -57,7 +57,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Util.cs" />
     <Page Include="DialogPolicy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

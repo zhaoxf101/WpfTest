@@ -156,10 +156,10 @@ namespace CustomBA
             Debug.WriteLine(string.Format("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
                 e.Restart, e.Result, e.Status));
 
-            if (e.Status == 0)
-            {
-                CustomAction.CleanUp(_mainWindow?.InstallFolder ?? _installFolder);
-            }
+            //if (e.Status == 0)
+            //{
+            //    CustomAction.CleanUp(_mainWindow?.InstallFolder ?? _installFolder);
+            //}
 
             if (_mainWindow != null)
             {
