@@ -113,11 +113,13 @@ namespace CustomBA
         private void CustomBootstrapperApplication_PlanComplete(object sender, PlanCompleteEventArgs e)
         {
             Debug.WriteLine($"PlanComplete. Status: {e.Status} _action: {_action}");
-            
+
             if (_action == LaunchAction.Uninstall)
             {
+                CustomAction.KillRelativeProcesses();
+
                 // 注意，这里的安装目录是固定的
-                CustomAction.Backup("");
+                CustomAction.Backup(_mainWindow?.InstallFolder ?? _installFolder);
             }
             else if (_action != LaunchAction.Unknown)
             {
@@ -153,6 +155,11 @@ namespace CustomBA
         {
             Debug.WriteLine(string.Format("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
                 e.Restart, e.Result, e.Status));
+
+            if (e.Status == 0)
+            {
+                CustomAction.CleanUp(_mainWindow?.InstallFolder ?? _installFolder);
+            }
 
             if (_mainWindow != null)
             {

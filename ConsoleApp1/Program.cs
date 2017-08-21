@@ -1,14 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace ConsoleApp1
 {
+    public class BaseModel<T>
+    {
+        public bool IsSuccess
+        {
+            get
+            {
+                return Code == 0;
+            }
+        }
+
+        public int Code { get; set; }
+
+        public string Msg { get; set; }
+
+        public T Result { get; set; }
+    }
+
+    public class KeyValuePair
+    {
+        public string Key { get; set; }
+
+        public string Value { get; set; }
+    }
+
+
     class Program
     {
         string[] ParseCommandLine()
@@ -91,23 +118,23 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            foreach (var item in args)
-            {
-                Debug.WriteLine(item);
-            }
+            //foreach (var item in args)
+            //{
+            //    Debug.WriteLine(item);
+            //}
 
-            Debug.WriteLine("");
+            //Debug.WriteLine("");
 
-            Debug.WriteLine(Environment.CommandLine);
+            //Debug.WriteLine(Environment.CommandLine);
 
 
-            int WS_POPUP = unchecked((int)0x80000000);
+            //int WS_POPUP = unchecked((int)0x80000000);
 
-            Console.WriteLine(WS_POPUP);
+            //Console.WriteLine(WS_POPUP);
 
-            HttpDownloadFileHelper.HttpDownloadFile("http://ot4e7ngbr.bkt.clouddn.com/UpdateMarketingPlatForm.Client.exe", "Hello");
+            //HttpDownloadFileHelper.HttpDownloadFile("http://ot4e7ngbr.bkt.clouddn.com/UpdateMarketingPlatForm.Client.exe", "Hello");
 
-            Debug.WriteLine("sdf");
+            //Debug.WriteLine("sdf");
 
             //var handle = new WindowInteropHelper(this).Handle;
 
@@ -162,7 +189,72 @@ namespace ConsoleApp1
 
             //}
 
+            //var url = "http://ims-api.xyunhui.com/api/common/bootstrap";
+
+
+            //if (autoStart)
+            //{
+
+            //}
+
+            Task.Factory.StartNew(() =>
+            {
+                Console.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start Get Request.");
+
+                var url = "http://localhost:16760/api/common/bootstrap";
+                var response = HttpGet<BaseModel<KeyValuePair[]>>(url);
+                var autoStart = false;
+                if (response != null && response.IsSuccess)
+                {
+                    var result = response.Result;
+                    autoStart = result.SingleOrDefault(p => p.Key == "ClientAutoStart")?.Value == "1";
+                }
+                Console.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Get Request Complete.");
+
+            }).Wait(5000);
+
+            Console.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "End Get Request.");
+
+            Console.ReadKey();
         }
+
+
+        public static T HttpGet<T>(string url)
+        {
+            var result = default(T);
+            try
+            {
+                // 设置参数
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.Method = "Get";
+
+                request.Headers.Add("XinYunHui-DeviceId", "Uninstall");
+                request.Headers.Add("XinYunHui-DeviceType", Environment.OSVersion.ToString());
+                request.Headers.Add("XinYunHui-Version", "Uninstall");
+
+                //发送请求并获取相应回应数据
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //直到request.GetResponse()程序才开始向目标网页发送Post请求
+
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        var json = reader.ReadToEnd();
+
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        var jsonData = js.Deserialize<T>(json);
+                        return jsonData;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return result;
+        }
+
 
         static void M()
         {
