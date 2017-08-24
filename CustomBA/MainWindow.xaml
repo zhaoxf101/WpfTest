@@ -82,7 +82,7 @@
             </Grid>
         </Grid>
 
-        <Grid Name="GridComplete" Visibility="Visible">
+        <Grid Name="GridComplete" Visibility="Collapsed">
             <Grid.Background>
                 <ImageBrush ImageSource="/CustomBA;component/images/bg5.png" />
             </Grid.Background>
