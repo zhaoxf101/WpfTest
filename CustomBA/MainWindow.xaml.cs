@@ -163,6 +163,7 @@ namespace CustomBA
                                 ImageSuccess.Visibility = Visibility.Collapsed;
                                 ImageFailure.Visibility = Visibility.Visible;
                             }
+                            CheckBoxAutoStart.Visibility = Visibility.Collapsed;
                             BtnOk.Content = "完成";
                             break;
                         case LaunchAction.Install:
@@ -171,6 +172,7 @@ namespace CustomBA
                                 message = "安装成功！";
                                 ImageSuccess.Visibility = Visibility.Visible;
                                 ImageFailure.Visibility = Visibility.Collapsed;
+                                CheckBoxAutoStart.Visibility = Visibility.Visible;
                             }
                             else
                             {
@@ -237,8 +239,19 @@ namespace CustomBA
 
         private void BtnInstall_Click(object sender, RoutedEventArgs e)
         {
-            MoveTo(Step.Process);
-            _app.Engine.Plan(_action);
+            if (CheckBoxPolicy.IsChecked == true)
+            {
+                MoveTo(Step.Process);
+                _app.Engine.Plan(_action);
+            }
+            else
+            {
+                var dialog = new DialogMessage(MessageBoxButton.OK, MessageBoxImage.Asterisk, "请阅读《用户协议》！", "", false)
+                {
+                    Owner = this
+                };
+                dialog.ShowDialog();
+            }
         }
 
         private void BtnChangeInstallFolder_Click(object sender, RoutedEventArgs e)
@@ -271,7 +284,13 @@ namespace CustomBA
             {
                 try
                 {
-                    Process.Start(Path.Combine(_installFolder, "MarketingPlatForm.Client.exe"));
+                    var fileName = Path.Combine(_installFolder, "MarketingPlatForm.Client.exe");
+                    if (CheckBoxAutoStart.IsChecked == true)
+                    {
+                        Util.RegisterAutoStart(fileName, "IMS_MarketingPlatform.Client", true);
+                    }
+
+                    Process.Start(fileName);
                 }
                 catch
                 {

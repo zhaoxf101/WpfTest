@@ -148,18 +148,21 @@ namespace CustomBA
 
         internal static void CleanUp(string installFolder)
         {
-            //try
-            //{
-            //Util.RegisterAutoStart("", "IMS_UpdateService", false);
+            try
+            {
+                var result = Util.RegisterAutoStart("", "IMS_MarketingPlatform.Client", false);
+                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. result: " + result);
 
-            //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
-            //Directory.Delete(installFolder, true);
-            //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
-            //}
+                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
+                //Directory.Delete(installFolder, true);
+                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. Exception: " + ex.Message);
+
+                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
+            }
         }
 
     }

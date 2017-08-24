@@ -13,9 +13,9 @@ namespace CustomBA
 
             try
             {
-                using (var keyHKCU = Microsoft.Win32.Registry.CurrentUser)
+                using (var keyHKLM = Microsoft.Win32.Registry.CurrentUser)
                 {
-                    var keyRun = keyHKCU.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                    var keyRun = keyHKLM.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
                     if (autoStart)
                     {
                         keyRun.SetValue(nodeName, $@"""{fileName}""");//加入注册，参数一为注册节点名称(随意)  
@@ -35,5 +35,6 @@ namespace CustomBA
 
             return isSuccess;
         }
+
     }
 }

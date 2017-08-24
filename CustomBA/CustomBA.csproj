@@ -57,6 +57,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Util.cs" />
+    <Page Include="DialogMessage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DialogPolicy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -67,6 +72,9 @@
     </Page>
     <Compile Include="CustomAction.cs" />
     <Compile Include="CustomBootstrapperApplication.cs" />
+    <Compile Include="DialogMessage.xaml.cs">
+      <DependentUpon>DialogMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogPolicy.xaml.cs">
       <DependentUpon>DialogPolicy.xaml</DependentUpon>
     </Compile>
@@ -125,6 +133,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icon.png" />
+    <Resource Include="images\icon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\chk.png" />
+    <Resource Include="images\chked.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -36,7 +36,7 @@ namespace ConsoleApp1
     }
 
 
-    class Program
+    class Program_Main1
     {
         string[] ParseCommandLine()
         {
@@ -116,7 +116,7 @@ namespace ConsoleApp1
             return list.ToArray();
         }
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             //foreach (var item in args)
             //{

@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid UseLayoutRounding="True">
         <Grid.Background>
             <ImageBrush ImageSource="/CustomBA;component/images/bg5.png" />
         </Grid.Background>
@@ -82,7 +82,7 @@
             </Grid>
         </Grid>
 
-        <Grid Name="GridComplete" Visibility="Collapsed">
+        <Grid Name="GridComplete" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="/CustomBA;component/images/bg5.png" />
             </Grid.Background>
@@ -93,6 +93,7 @@
             </StackPanel>
             <Grid Height="150" Background="White" VerticalAlignment="Bottom">
                 <Button Name="BtnOk" Click="BtnOk_Click" Content="完成安装" IsDefault="True" HorizontalAlignment="Center" Height="36" Width="100" Style="{StaticResource AgreeButtonStyle}"></Button>
+                <CheckBox x:Name="CheckBoxAutoStart" Style="{StaticResource CheckBoxStyleYellow}" Content="开机启动" IsChecked="True" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" />
             </Grid>
         </Grid>
 

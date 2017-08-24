@@ -23,10 +23,13 @@ namespace CustomBA
 
         protected override void Run()
         {
-            Debug.Listeners.Add(new TextWriterTraceListener("d:\\log.log"));
+            Debug.Listeners.Add(new TextWriterTraceListener("log.log"));
             Debug.AutoFlush = true;
 
             Debug.WriteLine($"Command.Action: {Command.Action} Display: {Command.Display} LayoutDirectory: {Command.LayoutDirectory} Passthrough: {Command.Passthrough} Relation: {Command.Relation} Restart: {Command.Restart} Restart: {Command.Restart} Resume: {Command.Resume} SplashScreen: {Command.SplashScreen} CommandLineArgs: {string.Join("|", Command.GetCommandLineArgs())}");
+
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             DetectRelatedBundle += CustomBootstrapperApplication_DetectRelatedBundle;
             DetectPackageComplete += CustomBootstrapperApplication_DetectPackageComplete;
@@ -52,6 +55,20 @@ namespace CustomBA
 
                 Engine.Detect();
             }
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. UnhandledException: " + ((Exception)e.ExceptionObject).Message);
+
+            //Thread.Sleep(1000);
+        }
+
+        private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. ProcessExit.");
+
+            //Thread.Sleep(1000);
         }
 
         private void CustomBootstrapperApplication_DetectRelatedBundle(object sender, DetectRelatedBundleEventArgs e)
@@ -160,10 +177,10 @@ namespace CustomBA
             Debug.WriteLine(string.Format("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
                 e.Restart, e.Result, e.Status));
 
-            //if (e.Status == 0)
-            //{
-            //    CustomAction.CleanUp(_mainWindow?.InstallFolder ?? _installFolder);
-            //}
+            if (e.Status == 0)
+            {
+                CustomAction.CleanUp(_mainWindow?.InstallFolder ?? _installFolder);
+            }
 
             if (_mainWindow != null)
             {
