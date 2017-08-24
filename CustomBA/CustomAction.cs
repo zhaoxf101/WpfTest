@@ -58,7 +58,7 @@ namespace CustomBA
                         FileName = Path.Combine(BackupFolder, "UpdateService.exe")
                     };
 
-                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
+                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
                     Process.Start(pi);
                 }
                 catch (Exception ex)
