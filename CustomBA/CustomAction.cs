@@ -87,7 +87,7 @@ namespace CustomBA
                 {
                     Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RemoveBackup Failed. Exception:  " + ex.Message);
                     retryCount--;
-                    Thread.Sleep(WaitTimeSeconds);
+                    Thread.Sleep(WaitTimeSeconds * 1000);
                 }
             }
         }

@@ -23,9 +23,10 @@ namespace CustomBA
 
         protected override void Run()
         {
+#if DEBUG
             Debug.Listeners.Add(new TextWriterTraceListener("log.log"));
             Debug.AutoFlush = true;
-
+#endif
             Debug.WriteLine($"Command.Action: {Command.Action} Display: {Command.Display} LayoutDirectory: {Command.LayoutDirectory} Passthrough: {Command.Passthrough} Relation: {Command.Relation} Restart: {Command.Restart} Restart: {Command.Restart} Resume: {Command.Resume} SplashScreen: {Command.SplashScreen} CommandLineArgs: {string.Join("|", Command.GetCommandLineArgs())}");
 
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;

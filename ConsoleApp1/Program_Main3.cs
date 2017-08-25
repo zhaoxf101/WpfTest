@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +11,10 @@ namespace ConsoleApp1
     {
         static void Main()
         {
-            object o = "asdf";
+            Debug.Listeners.Add(new TextWriterTraceListener("log.log"));
+            Debug.AutoFlush = true;
 
-            var i = 0;
-
-            try
-            {
-            i = (int)o;
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
+            Debug.WriteLine("Hello");
         }
 
     }
