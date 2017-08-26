@@ -71,7 +71,7 @@ namespace CustomBA
             {
                 _windowPtr = new WindowInteropHelper(this).Handle;
             }
-            Debug.WriteLine($"_windowPtr: {_windowPtr}");
+            Trace.WriteLine($"_windowPtr: {_windowPtr}");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

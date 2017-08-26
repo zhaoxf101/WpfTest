@@ -23,11 +23,11 @@ namespace CustomBA
 
         protected override void Run()
         {
-#if DEBUG
-            Debug.Listeners.Add(new TextWriterTraceListener("log.log"));
-            Debug.AutoFlush = true;
-#endif
-            Debug.WriteLine($"Command.Action: {Command.Action} Display: {Command.Display} LayoutDirectory: {Command.LayoutDirectory} Passthrough: {Command.Passthrough} Relation: {Command.Relation} Restart: {Command.Restart} Restart: {Command.Restart} Resume: {Command.Resume} SplashScreen: {Command.SplashScreen} CommandLineArgs: {string.Join("|", Command.GetCommandLineArgs())}");
+            var logFile = Path.Combine(Path.GetTempPath(), $"IMS_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
+            Trace.Listeners.Add(new TextWriterTraceListener(logFile));
+            Trace.AutoFlush = true;
+
+            Trace.WriteLine($"Command.Action: {Command.Action} Display: {Command.Display} LayoutDirectory: {Command.LayoutDirectory} Passthrough: {Command.Passthrough} Relation: {Command.Relation} Restart: {Command.Restart} Restart: {Command.Restart} Resume: {Command.Resume} SplashScreen: {Command.SplashScreen} CommandLineArgs: {string.Join("|", Command.GetCommandLineArgs())}");
 
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -60,28 +60,39 @@ namespace CustomBA
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. UnhandledException: " + ((Exception)e.ExceptionObject).Message);
+            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. UnhandledException.");
 
-            //Thread.Sleep(1000);
+            var exception = e.ExceptionObject as Exception;
+            var level = 0;
+            while (exception != null)
+            {
+                Trace.WriteLine($"{new string(' ', level)}Message: {exception.Message}");
+                Trace.WriteLine($"{new string(' ', level)}StackTrace:");
+                Trace.WriteLine(exception.StackTrace);
+
+                if (++level > 10)
+                {
+                    break;
+                }
+                exception = exception.InnerException;
+            }
         }
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. ProcessExit.");
-
-            //Thread.Sleep(1000);
+            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. ProcessExit.");
         }
 
         private void CustomBootstrapperApplication_DetectRelatedBundle(object sender, DetectRelatedBundleEventArgs e)
         {
-            Debug.WriteLine($"DetectRelatedBundle. Operation: {e.Operation} BundleTag: {e.BundleTag} PerMachine: {e.PerMachine} ProductCode: {e.ProductCode} RelationType: {e.RelationType} Result: {e.Result} Version: {e.Version}");
+            Trace.WriteLine($"DetectRelatedBundle. Operation: {e.Operation} BundleTag: {e.BundleTag} PerMachine: {e.PerMachine} ProductCode: {e.ProductCode} RelationType: {e.RelationType} Result: {e.Result} Version: {e.Version}");
 
             _relatedOperation = e.Operation;
         }
 
         private void CustomBootstrapperApplication_DetectPackageComplete(object sender, DetectPackageCompleteEventArgs e)
         {
-            Debug.WriteLine(string.Format("DetectPackageComplete. PackageId: {0} State: {1} Status: {2}",
+            Trace.WriteLine(string.Format("DetectPackageComplete. PackageId: {0} State: {1} Status: {2}",
                 e.PackageId, e.State, e.Status));
 
             // DetectPackageComplete.PackageId: NetFx40Web State: Present Status: 0
@@ -110,7 +121,7 @@ namespace CustomBA
                     }
                 }
 
-                Debug.WriteLine($"_action: {_action}");
+                Trace.WriteLine($"_action: {_action}");
 
                 if (_mainWindow != null)
                 {
@@ -130,7 +141,7 @@ namespace CustomBA
 
         private void CustomBootstrapperApplication_PlanComplete(object sender, PlanCompleteEventArgs e)
         {
-            Debug.WriteLine($"PlanComplete. Status: {e.Status} _action: {_action}");
+            Trace.WriteLine($"PlanComplete. Status: {e.Status} _action: {_action}");
 
             if (_action == LaunchAction.Uninstall)
             {
@@ -154,7 +165,7 @@ namespace CustomBA
 
         private void CustomBootstrapperApplication_ExecuteMsiMessage(object sender, ExecuteMsiMessageEventArgs e)
         {
-            Debug.WriteLine(string.Format("ExecuteMsiMessage. Data: {0} DisplayParameters: {1} Message: {2} MessageType: {3} PackageId: {4} Result: {5}",
+            Trace.WriteLine(string.Format("ExecuteMsiMessage. Data: {0} DisplayParameters: {1} Message: {2} MessageType: {3} PackageId: {4} Result: {5}",
                 string.Join(",", e.Data ?? new string[] { "" }), e.DisplayParameters, e.Message, e.MessageType, e.PackageId, e.Result));
 
             if (e.MessageType == InstallMessage.ActionStart)
@@ -166,7 +177,7 @@ namespace CustomBA
 
         private void CustomBootstrapperApplication_ExecuteProgress(object sender, ExecuteProgressEventArgs e)
         {
-            Debug.WriteLine(string.Format("ExecuteProgress. OverallPercentage: {0} PackageId: {1} ProgressPercentage: {2} Result: {3}",
+            Trace.WriteLine(string.Format("ExecuteProgress. OverallPercentage: {0} PackageId: {1} ProgressPercentage: {2} Result: {3}",
                 e.OverallPercentage, e.PackageId, e.ProgressPercentage, e.Result));
 
             _progress = e.OverallPercentage;
@@ -175,7 +186,7 @@ namespace CustomBA
 
         private void CustomBootstrapperApplication_ApplyComplete(object sender, ApplyCompleteEventArgs e)
         {
-            Debug.WriteLine(string.Format("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
+            Trace.WriteLine(string.Format("ApplyComplete. Restart: {0} Result: {1} Status: {2}",
                 e.Restart, e.Result, e.Status));
 
             if (e.Status == 0)

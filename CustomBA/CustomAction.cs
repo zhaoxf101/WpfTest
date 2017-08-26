@@ -18,14 +18,14 @@ namespace CustomBA
 
         internal static void Backup(string installFolder)
         {
-            Debug.WriteLine($"Backup. installFolder: {installFolder}");
+            Trace.WriteLine($"Backup. installFolder: {installFolder}");
 
             var url = "http://ims-api.xyunhui.com/api/common/bootstrap";
             var autoStart = false;
 
             Task.Factory.StartNew(() =>
             {
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start Get Request.");
+                Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start Get Request.");
 
                 var response = HttpHelper.HttpGet<BaseModel<KeyValuePair[]>>(url);
                 if (response != null && response.IsSuccess)
@@ -33,7 +33,7 @@ namespace CustomBA
                     var result = response.Result;
                     autoStart = result.SingleOrDefault(p => p.Key == "ClientAutoStart")?.Value == "1";
                 }
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Get Request Complete.");
+                Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Get Request Complete.");
 
             }).Wait(5000);
 
@@ -58,19 +58,19 @@ namespace CustomBA
                         FileName = Path.Combine(BackupFolder, "UpdateService.exe")
                     };
 
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
                     Process.Start(pi);
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Backup Failed. Exception:  " + ex.Message);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Backup Failed. Exception:  " + ex.Message);
                 }
             }
         }
 
         internal static void RemoveBackup()
         {
-            Debug.WriteLine($"RemoveBackup. ");
+            Trace.WriteLine($"RemoveBackup. ");
 
             var retryCount = RetryCount;
 
@@ -80,51 +80,57 @@ namespace CustomBA
 
                 try
                 {
-                    Directory.Delete(BackupFolder, true);
+                    if (Directory.Exists(BackupFolder))
+                    {
+                        Directory.Delete(BackupFolder, true);
+                        Trace.WriteLine($"Backup Folder Removed. ");
+                    }
                     break;
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RemoveBackup Failed. Exception:  " + ex.Message);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RemoveBackup Failed. Exception:  " + ex.Message);
                     retryCount--;
                     Thread.Sleep(WaitTimeSeconds * 1000);
                 }
             }
+
+            Trace.WriteLine($"RemoveBackup Complete. ");
         }
 
         internal static void KillRelativeProcesses()
         {
-            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin KillRelativeProcesses.");
+            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin KillRelativeProcesses.");
 
             var processes = Process.GetProcessesByName("UpdateService");
             foreach (Process process in processes)
             {
                 try
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill UpdateService Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill UpdateService Process.");
                     process.Kill();
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill UpdateService Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill UpdateService Process.");
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Kill UpdateService Process Failed. Exception: " + ex.Message);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Kill UpdateService Process Failed. Exception: " + ex.Message);
                 }
             }
 
             processes = Process.GetProcessesByName("MarketingPlatform.Client");
             foreach (Process process in processes)
             {
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Send shutdown to MarketingPlatform.Client Process.");
+                Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Send shutdown to MarketingPlatform.Client Process.");
 
                 try
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill MarketingPlatform.Client Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill MarketingPlatform.Client Process.");
                     process.Kill();
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill MarketingPlatform.Client Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill MarketingPlatform.Client Process.");
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Kill MarketingPlatform.Client Process Failed. Exception: " + ex.Message);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Kill MarketingPlatform.Client Process Failed. Exception: " + ex.Message);
                 }
             }
 
@@ -133,17 +139,17 @@ namespace CustomBA
             {
                 try
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill phantomjs Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill phantomjs Process.");
                     process.Kill();
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill phantomjs Process.");
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Kill phantomjs Process.");
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Send shutdown to phantomjs Process Failed. Exception: " + ex.Message);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Send shutdown to phantomjs Process Failed. Exception: " + ex.Message);
                 }
             }
 
-            Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End KillRelativeProcesses.");
+            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End KillRelativeProcesses.");
         }
 
         internal static void CleanUp(string installFolder)
@@ -151,17 +157,17 @@ namespace CustomBA
             try
             {
                 var result = Util.RegisterAutoStart("", "IMS_MarketingPlatform.Client", false);
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. result: " + result);
+                Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. result: " + result);
 
-                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
+                //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");
                 //Directory.Delete(installFolder, true);
-                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
+                //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. End Directory.Delete.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. Exception: " + ex.Message);
+                Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. Exception: " + ex.Message);
 
-                //Debug.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
+                //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Directory.Delete. Exception: " + ex.Message);
             }
         }
 
