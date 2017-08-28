@@ -66,7 +66,7 @@ namespace CustomBA
             var level = 0;
             while (exception != null)
             {
-                var padding = new string(' ', level);
+                var padding = new string(' ', level * 2);
                 Trace.WriteLine($"{padding}Message: {exception.Message}");
                 Trace.WriteLine($"{padding}StackTrace:");
                 Trace.WriteLine(exception.StackTrace);
