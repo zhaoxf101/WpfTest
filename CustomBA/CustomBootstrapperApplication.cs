@@ -60,14 +60,15 @@ namespace CustomBA
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. UnhandledException.");
+            Logger.Log("Program. UnhandledException.");
 
             var exception = e.ExceptionObject as Exception;
             var level = 0;
             while (exception != null)
             {
-                Trace.WriteLine($"{new string(' ', level)}Message: {exception.Message}");
-                Trace.WriteLine($"{new string(' ', level)}StackTrace:");
+                var padding = new string(' ', level);
+                Trace.WriteLine($"{padding}Message: {exception.Message}");
+                Trace.WriteLine($"{padding}StackTrace:");
                 Trace.WriteLine(exception.StackTrace);
 
                 if (++level > 10)
@@ -80,7 +81,7 @@ namespace CustomBA
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Program. ProcessExit.");
+            Logger.Log("Program. ProcessExit.");
         }
 
         private void CustomBootstrapperApplication_DetectRelatedBundle(object sender, DetectRelatedBundleEventArgs e)
