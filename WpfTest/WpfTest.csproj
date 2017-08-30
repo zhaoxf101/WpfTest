@@ -58,88 +58,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChartTestWindow.xaml.cs">
-      <DependentUpon>ChartTestWindow.xaml</DependentUpon>
+    <Compile Include="DataPager.cs" />
+    <Compile Include="DateTimePickerWindow.xaml.cs">
+      <DependentUpon>DateTimePickerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBoxTestWindow.xaml.cs">
-      <DependentUpon>ComboBoxTestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MarqueeTest.xaml.cs">
-      <DependentUpon>MarqueeTest.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="IntToStringConverter.cs" />
     <Compile Include="ViewModelBase.cs" />
-    <Compile Include="WindowStyleTest.xaml.cs">
-      <DependentUpon>WindowStyleTest.xaml</DependentUpon>
-    </Compile>
-    <Page Include="ChartTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ComboBoxTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DataGridTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DataPagerTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HyperlinkTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ListViewTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MarqueeTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MenuTest.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataGridRowHeader.cs" />
-    <Compile Include="DataGridTest.xaml.cs">
-      <DependentUpon>DataGridTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DataPager.cs" />
-    <Compile Include="DataPagerTest.xaml.cs">
-      <DependentUpon>DataPagerTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="HyperlinkTest.xaml.cs">
-      <DependentUpon>HyperlinkTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="IntToStringConverter.cs" />
-    <Compile Include="ListViewTest.xaml.cs">
-      <DependentUpon>ListViewTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MenuTest.xaml.cs">
-      <DependentUpon>MenuTest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="DateTimePickerWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WindowStyleTest.xaml">
+    <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -266,5 +201,6 @@
     <Resource Include="images\矩形-3-拷贝.png" />
     <Resource Include="images\矩形-3.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
