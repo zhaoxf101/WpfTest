@@ -17,5 +17,8 @@
 
 
     <Application.Resources>
+        <Style x:Key="Hello" TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
     </Application.Resources>
 </Application>

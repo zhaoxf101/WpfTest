@@ -32,3 +32,4 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\DateTimePickerWindow.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.CoreCompileInputs.cache
 D:\Repos\WpfTest\WpfTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\Generic.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\App.baml
