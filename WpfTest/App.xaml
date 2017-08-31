@@ -16,16 +16,8 @@
     <!--StartupUri="HyperlinkTest.xaml">-->
 
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Themes/Calendar.xaml" />
-                <ResourceDictionary Source="/Themes/DatePicker.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-
-            <Style x:Key="Hello" TargetType="{x:Type TextBox}">
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-        </ResourceDictionary>
+        <Style x:Key="Hello" TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
     </Application.Resources>
 </Application>
