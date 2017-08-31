@@ -15,10 +15,17 @@
     <!--StartupUri="ListViewTest.xaml">-->
     <!--StartupUri="HyperlinkTest.xaml">-->
 
-
     <Application.Resources>
-        <Style x:Key="Hello" TargetType="{x:Type TextBox}">
-            <Setter Property="FontSize" Value="20" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Calendar.xaml" />
+                <ResourceDictionary Source="/Themes/DatePicker.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <Style x:Key="Hello" TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -33,3 +33,5 @@ D:\Repos\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.CoreCompileInputs.cache
 D:\Repos\WpfTest\WpfTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\Generic.baml
 D:\Repos\WpfTest\WpfTest\obj\Debug\App.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\Calendar.baml
+D:\Repos\WpfTest\WpfTest\obj\Debug\Themes\DatePicker.baml
