@@ -53,13 +53,18 @@ namespace CustomBA
                         File.Copy(file, Path.Combine(BackupFolder, fileName), true);
                     }
 
-                    var pi = new ProcessStartInfo
-                    {
-                        FileName = Path.Combine(BackupFolder, "UpdateService.exe")
-                    };
+                    var updateServiceFileName = Path.Combine(BackupFolder, "UpdateService.exe");
 
-                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
-                    Process.Start(pi);
+                    //var pi = new ProcessStartInfo
+                    //{
+                    //    FileName = Path.Combine(BackupFolder, "UpdateService.exe")
+                    //};
+
+                    //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
+                    //Process.Start(pi);
+
+                    bool success = Util.RegisterAutoStart(updateServiceFileName, "IMS_UpdateService", true);
+                    Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Add UpdateService autostart. Result: " + success);
                 }
                 catch (Exception ex)
                 {
