@@ -58,16 +58,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataPager.cs" />
+    <Compile Include="Controls\Core\Converters\IntToStringConverter.cs" />
+    <Compile Include="Controls\Core\Converters\InverseBoolConverter.cs" />
+    <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
+    <Compile Include="Controls\Core\Utilities\KeyboardUtilities.cs" />
+    <Compile Include="Controls\DataPager\Implementation\DataPager.cs" />
+    <Compile Include="Controls\TreeHelper.cs" />
+    <Compile Include="Controls\WatermarkPasswordBox\Implementation\WatermarkPasswordBox.cs" />
+    <Compile Include="Controls\WatermarkTextBox\Implementation\WatermarkTextBox.cs" />
+    <Compile Include="DateTimePicker.cs" />
     <Compile Include="DateTimePickerWindow.xaml.cs">
       <DependentUpon>DateTimePickerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IntToStringConverter.cs" />
+    <Compile Include="TimeSelectPanel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Controls\DataPager\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WatermarkPasswordBox\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WatermarkTextBox\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DateTimePickerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

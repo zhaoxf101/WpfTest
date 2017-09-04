@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace WpfTest
+namespace Xceed.Wpf.Toolkit.Core.Converters
 {
     class Int32ToStringConverter : IValueConverter
     {

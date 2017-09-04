@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
         Title="DateTimePickerWindow" Height="600" Width="500">
     <Window.Resources>
@@ -563,6 +564,78 @@
             </Setter>
         </Style>
 
+
+        <Style TargetType="{x:Type DatePicker}">
+            <!--<Setter Property="Foreground" Value="{StaticResource TextForeground}" />
+            <Setter Property="Background" Value="{StaticResource TextBackground}" />-->
+            <Setter Property="BorderThickness" Value="1" />
+            <!--<Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource FontSize}" />-->
+            <Setter Property="MinHeight" Value="26" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="IsTodayHighlighted" Value="True" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SelectedDate" Value="{x:Null}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="CalendarStyle" Value="{StaticResource CalendarStyle1}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DatePicker}">
+                        <Grid x:Name="PART_Root">
+                            <Border x:Name="Bg" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" />
+                            <Grid x:Name="PART_InnerGrid" Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                               
+                                <ToggleButton x:Name="PART_DropDownToggle" IsTabStop="False" Content="HHH" 
+                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="2,1,2,1"
+                                         Grid.Column="3"   />
+                            
+                                <Grid Grid.Column="1">
+                                    <xctk:WatermarkTextBox x:Name="PART_TextBox" HorizontalAlignment="Stretch" Watermark="Hello"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" IsHitTestVisible="True" IsReadOnly="True"
+                                     FontFamily="{TemplateBinding FontFamily}" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}"  
+                                     Text="{Binding Path=SelectedDate,Mode=OneWay,RelativeSource={RelativeSource TemplatedParent},StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
+                                </Grid>
+                                
+                                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom"
+                                   PlacementTarget="{Binding ElementName=PART_Root}" StaysOpen="False" />
+                            </Grid>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!--1.显示水印-->
+                            <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+                                <Setter TargetName="Message" Property="Visibility" Value="Visible" />
+                            </DataTrigger>-->
+                            <!--<Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="{Binding Path=(local:ControlAttachProperty.MouseOverBorderBrush),RelativeSource={RelativeSource Self}}"/>
+                            </Trigger>-->
+                            <!--<Trigger Property="IsFocused" Value="True">
+                                <Setter  Property="BorderBrush" Value="{Binding Path=(local:ControlAttachProperty.FocusBorderBrush),RelativeSource={RelativeSource Self}}"/>
+                            </Trigger>-->
+                            <!--<Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter  Property="BorderBrush" Value="{Binding Path=(local:ControlAttachProperty.FocusBorderBrush),RelativeSource={RelativeSource Self}}"/>
+                            </Trigger>-->
+                            <!--<Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="PART_Root" Property="Opacity" Value="{StaticResource DisableOpacity}" />
+                            </Trigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
     <Grid UseLayoutRounding="True">
         <Grid.ColumnDefinitions>
@@ -577,6 +650,6 @@
 
         <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="10 10 10 10" Style="{StaticResource DatePickerWithHour}" />
 
-        <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="10 50 10 10" />
+        <DatePicker Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="10 50 10 10" HorizontalAlignment="Stretch" Width="500" />
     </Grid>
 </Window>

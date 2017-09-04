@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfTest
+namespace Xceed.Wpf.Toolkit
 {
 
     public class DataPager : Control
@@ -33,7 +33,7 @@ namespace WpfTest
         public event PageChangedRoutedEventHandler PageChanged;
 
         StackPanel _pageButtonWrapper;
-        //internal Button[] _firstLastButtons;
+        internal Button[] _firstLastButtons;
         internal Button[] _prevNextButtons;
 
         internal Button[] _pageButtons;
@@ -193,20 +193,20 @@ namespace WpfTest
                     }
                 }
 
-                //if (_firstLastButtons == null)
-                //{
-                //    _firstLastButtons = new Button[2];
-                //    for (int i = 0; i < _firstLastButtons.Length; i++)
-                //    {
-                //        var button = new Button
-                //        {
-                //            Content = i == 0 ? "首页" : "尾页",
-                //            Style = FirstLastButtonStyle
-                //        };
-                //        button.Click += FirstLastButton_Click;
-                //        _firstLastButtons[i] = button;
-                //    }
-                //}
+                if (_firstLastButtons == null)
+                {
+                    _firstLastButtons = new Button[2];
+                    for (int i = 0; i < _firstLastButtons.Length; i++)
+                    {
+                        var button = new Button
+                        {
+                            Content = i == 0 ? "首页" : "尾页",
+                            Style = FirstLastButtonStyle
+                        };
+                        button.Click += FirstLastButton_Click;
+                        _firstLastButtons[i] = button;
+                    }
+                }
 
                 if (_prevNextButtons == null)
                 {
@@ -236,19 +236,19 @@ namespace WpfTest
             }
         }
 
-        //private void FirstLastButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var index = Array.IndexOf(_firstLastButtons, sender);
+        private void FirstLastButton_Click(object sender, RoutedEventArgs e)
+        {
+            var index = Array.IndexOf(_firstLastButtons, sender);
 
-        //    if (index == 0)
-        //    {
-        //        PageIndex = 1;
-        //    }
-        //    else
-        //    {
-        //        PageIndex = PageCount;
-        //    }
-        //}
+            if (index == 0)
+            {
+                PageIndex = 1;
+            }
+            else
+            {
+                PageIndex = PageCount;
+            }
+        }
 
         private void PrevNextButton_Click(object sender, RoutedEventArgs e)
         {
@@ -257,18 +257,10 @@ namespace WpfTest
             if (index == 0)
             {
                 PageIndex--;
-                if (PageIndex <= 1)
-                {
-                    _prevNextButtons[index].IsEnabled = false;
-                }
             }
             else
             {
                 PageIndex++;
-                if (PageIndex >= PageCount)
-                {
-                    _prevNextButtons[index].IsEnabled = false;
-                }
             }
         }
 
@@ -352,13 +344,16 @@ namespace WpfTest
                     pageCount = 1;
                 }
 
-                PageChanged?.Invoke(this, new PageChangedEventArgs
+                if (pageIndexChanged)
                 {
-                    PageIndex = PageIndex,
-                    PageCount = PageCount,
-                    PageSize = PageSize,
-                    TotalCount = TotalCount
-                });
+                    PageChanged?.Invoke(this, new PageChangedEventArgs
+                    {
+                        PageIndex = PageIndex,
+                        PageCount = PageCount,
+                        PageSize = PageSize,
+                        TotalCount = TotalCount
+                    });
+                }
 
                 ArrangePageButtons();
             }
@@ -370,7 +365,8 @@ namespace WpfTest
             {
                 _pageButtonWrapper.Children.Clear();
 
-                //_pageButtonWrapper.Children.Add(_firstLastButtons[0]);
+                _pageButtonWrapper.Children.Add(_firstLastButtons[0]);
+                _pageButtonWrapper.Children.Add(_prevNextButtons[0]);
 
                 var middleIndex = PageButtonsCount / 2;
                 var startPageIndex = PageIndex - middleIndex;
@@ -413,28 +409,31 @@ namespace WpfTest
                     _pageButtonWrapper.Children.Add(button);
                 }
 
-                _pageButtonWrapper.Children.Add(_prevNextButtons[0]);
                 _pageButtonWrapper.Children.Add(_prevNextButtons[1]);
 
                 if (PageIndex == 1)
                 {
                     _prevNextButtons[0].IsEnabled = false;
+                    _firstLastButtons[0].IsEnabled = false;
                 }
                 else
                 {
                     _prevNextButtons[0].IsEnabled = true;
+                    _firstLastButtons[0].IsEnabled = true;
                 }
 
                 if (PageIndex == PageCount)
                 {
                     _prevNextButtons[1].IsEnabled = false;
+                    _firstLastButtons[1].IsEnabled = false;
                 }
                 else
                 {
                     _prevNextButtons[1].IsEnabled = true;
+                    _firstLastButtons[1].IsEnabled = true;
                 }
 
-                //_pageButtonWrapper.Children.Add(_firstLastButtons[1]);
+                _pageButtonWrapper.Children.Add(_firstLastButtons[1]);
             }
         }
     }
