@@ -15,6 +15,22 @@ namespace ConsoleApp1
             Debug.AutoFlush = true;
 
             Debug.WriteLine("Hello");
+
+            
+            int? i = 13;
+
+            if (i == null)
+            {
+                Trace.Write("");
+            }
+
+            
+        }
+
+        [Conditional("DEBUG")]
+        static void Hello(int i)
+        {
+            Trace.WriteLine("HHH");
         }
 
     }
