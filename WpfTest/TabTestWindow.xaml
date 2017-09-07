@@ -1,0 +1,25 @@
+﻿<Window x:Class="WpfTest.TabTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTest"
+        mc:Ignorable="d"
+        Title="TabTestWindow" Height="700" Width="1100">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Click="Button_Click" Content="SelectedIndex = -1" Width="130" />
+
+        <TabControl Grid.Row="1" Name="Tab" Style="{StaticResource LeftTabControlStyle}">
+            <TabItem Header="one" Style="{StaticResource LeftTabItemStyle}">
+                Hello
+            </TabItem>
+            <TabItem Header="two" Style="{StaticResource LeftTabItemStyle}">
+                World
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

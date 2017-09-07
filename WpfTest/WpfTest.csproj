@@ -70,6 +70,9 @@
     <Compile Include="DateTimePickerWindow.xaml.cs">
       <DependentUpon>DateTimePickerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabTestWindow.xaml.cs">
+      <DependentUpon>TabTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TimeSelectPanel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
@@ -89,6 +92,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DateTimePickerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TabTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
