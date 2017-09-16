@@ -45,6 +45,7 @@
     <Content Include="content\Newtonsoft.Json.dll" />
     <Content Include="content\phantomjs.exe" />
     <Content Include="content\Qiniu.dll" />
+    <Content Include="content\System.IO.dll" />
     <Content Include="content\System.Net.Http.dll" />
     <Content Include="content\System.Net.Http.Extensions.dll" />
     <Content Include="content\System.Net.Http.Primitives.dll" />
