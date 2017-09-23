@@ -73,6 +73,9 @@
     <Compile Include="TabTestWindow.xaml.cs">
       <DependentUpon>TabTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextBoxTestWindow.xaml.cs">
+      <DependentUpon>TextBoxTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TimeSelectPanel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TabTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextBoxTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

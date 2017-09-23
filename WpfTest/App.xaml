@@ -5,7 +5,10 @@
              xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters"
                           xmlns:local="clr-namespace:WpfTest"
 
-    StartupUri="TabTestWindow.xaml">
+    StartupUri="TextBoxTestWindow.xaml">
+
+    
+    <!--StartupUri="TabTestWindow.xaml">-->
 
     <!--StartupUri="DateTimePickerWindow.xaml">-->
 
