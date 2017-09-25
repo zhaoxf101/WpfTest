@@ -22,49 +22,7 @@ namespace WpfTest
         {
             InitializeComponent();
         }
-        
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            var changes = e.Changes;
-            var builder = new StringBuilder();
-            var text = textBox.Text;
-            var caretIndex = 0;
 
-            foreach (var change in changes)
-            {
-                var added = text.Substring(change.Offset, change.AddedLength);
-                foreach (var c in added)
-                {
-                    if (char.IsNumber(c))
-                    {
-                        builder.Append(c);
-                    }
-                }
 
-                if (added.Length != builder.Length)
-                {
-                    text = text.Substring(0, change.Offset) + builder.ToString() + text.Substring(change.Offset + change.AddedLength);
-                    caretIndex = change.Offset + builder.Length;
-                }
-                builder.Clear();
-            }
-
-            if (textBox.Text != text)
-            {
-                textBox.Text = text;
-                textBox.CaretIndex = caretIndex; 
-            }
-        }
-
-        private void TxtName_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            
-        }
-
-        private void HyperlinkOperation_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

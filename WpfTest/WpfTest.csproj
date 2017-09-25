@@ -36,8 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +65,19 @@
     <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
     <Compile Include="Controls\Core\Utilities\KeyboardUtilities.cs" />
     <Compile Include="Controls\DataPager\Implementation\DataPager.cs" />
+    <Compile Include="Controls\RichTextBox\AttachedProperties\RichTextboxAssistant.cs" />
+    <Compile Include="Controls\RichTextBox\Commands\CommandReference.cs" />
+    <Compile Include="Controls\RichTextBox\Commands\DelegateCommand.cs" />
+    <Compile Include="Controls\RichTextBox\Controls\RichTextEditor.xaml.cs">
+      <DependentUpon>RichTextEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlCssParser.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlFromXamlConverter.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlParser.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlSchema.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlTokenType.cs" />
+    <Compile Include="Controls\RichTextBox\XamlToHtmlParser\HtmlToXamlConverter.cs" />
     <Compile Include="Controls\TreeHelper.cs" />
     <Compile Include="Controls\WatermarkPasswordBox\Implementation\WatermarkPasswordBox.cs" />
     <Compile Include="Controls\WatermarkTextBox\Implementation\WatermarkTextBox.cs" />
@@ -83,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\DataPager\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\RichTextBox\Controls\RichTextEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -235,6 +254,28 @@
     <Resource Include="images\矩形-3-拷贝.png" />
     <Resource Include="images\矩形-3.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Controls\RichTextBox\Controls\Images\charactergrowfont.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\charactershrinkfont.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\cross.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\cut.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\editredo.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\editundo.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\page_copy.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\page_paste.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_align_center.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_align_justify.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_align_left.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_align_right.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_bold.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_indent.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_indent_remove.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_italic.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_list_bullets.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_list_numbers.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\text_underline.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\tick.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\world_link.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
