@@ -23,6 +23,9 @@ namespace WpfTest
             InitializeComponent();
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var t = TxtContent.HtmlText;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing.Text;
@@ -55,12 +56,65 @@ namespace WpfRichText
 
         private TextRange textRange = null;
 
+        const string ImageTypeFilterDefault = "图片文件(*png,*.jpg,*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";
+        const int ImageMaxSizeDefaultMB = 2;
+
+
+        private int _imageMaxSizeMB;
+
+        public int ImageMaxSizeMB
+        {
+            get { return _imageMaxSizeMB; }
+            set
+            {
+                if (value > 0)
+                {
+                    _imageMaxSizeMB = value;
+                }
+                else
+                {
+                    _imageMaxSizeMB = ImageMaxSizeDefaultMB;
+                }
+            }
+        }
+
+        private string _imageTypeFilter;
+
+        public string ImageTypeFilter
+        {
+            get { return _imageTypeFilter; }
+            set
+            {
+                if (!string.IsNullOrEmpty(_imageTypeFilter))
+                {
+                    _imageTypeFilter = value;
+                }
+                else
+                {
+                    _imageTypeFilter = ImageTypeFilterDefault;
+                }
+            }
+        }
+
+
+        private Action<string> _showMessageCallback;
+
+        public Action<string> ShowMessageCallback
+        {
+            get { return _showMessageCallback; }
+            set { _showMessageCallback = value; }
+        }
+
+
         List<string> _fontList;
 
         /// <summary></summary>
         public RichTextEditor()
         {
             InitializeComponent();
+
+            ImageMaxSizeMB = ImageMaxSizeDefaultMB;
+            ImageTypeFilter = ImageTypeFilterDefault;
 
             InstalledFontCollection MyFont = new InstalledFontCollection();
 
@@ -122,15 +176,28 @@ namespace WpfRichText
         {
             get
             {
-                TextRange tr = new TextRange(mainRTB.Document.ContentStart, mainRTB.Document.ContentEnd);
+                //TextRange tr = new TextRange(mainRTB.Document.ContentStart, mainRTB.Document.ContentEnd);
 
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    tr.Save(ms, DataFormats.Xaml);
-                    string xamlText = Encoding.UTF8.GetString(ms.ToArray());
-                    var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, false);
-                    return html;
-                }
+                string xw = XamlWriter.Save(mainRTB.Document);
+
+                //MessageBox.Show(xw);
+
+                //System.IO.StringReader sr = new System.IO.StringReader(xw);
+
+                //System.Xml.XmlReader xr = System.Xml.XmlReader.Create(sr);
+
+                //rtb1.Document = (FlowDocument)System.Windows.Markup.XamlReader.Load(xr);
+
+                return xw;
+
+
+                //using (MemoryStream ms = new MemoryStream())
+                //{
+                //    tr.Save(ms, DataFormats.Xaml);
+                //    string xamlText = Encoding.UTF8.GetString(ms.ToArray());
+                //    var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, false);
+                //    return html;
+                //}
             }
             set
             {
@@ -262,5 +329,38 @@ namespace WpfRichText
                 e.Handled = true;
         }
 
+        private void BtnUploadImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = ImageTypeFilter;
+
+            if (dialog.ShowDialog() == true)
+            {
+                var filePath = dialog.FileName;
+
+                var fileInfo = new System.IO.FileInfo(filePath);
+                if (fileInfo.Length > ImageMaxSizeMB * 1024 * 1024)
+                {
+                    var msg = $"文件大小在{ImageMaxSizeMB}M以内！";
+                    if (_showMessageCallback != null)
+                    {
+                        _showMessageCallback(msg);
+                    }
+                    else
+                    {
+                        MessageBox.Show(msg);
+                    }
+                    return;
+                }
+                Image img = new Image();
+                BitmapImage bImg = new BitmapImage(new Uri(filePath));
+                img.IsEnabled = true;
+                img.Source = bImg;
+
+                img.Stretch = Stretch.None;  //图片缩放模式
+
+                new InlineUIContainer(img, mainRTB.Selection.Start); //插入图片到选定位置
+            }
+        }
     }
 }

@@ -1,11 +1,10 @@
 ﻿<UserControl
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:xt="http://schemas.xceed.com/wpf/xaml/toolkit"
-			 xmlns:asis="clr-namespace:WpfRichText" 
-			xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" 
-			x:Class="WpfRichText.RichTextEditor" x:Name="uxRichTextEditor"
-			 >
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:xt="http://schemas.xceed.com/wpf/xaml/toolkit"
+            xmlns:asis="clr-namespace:WpfRichText" 
+            xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" 
+            x:Class="WpfRichText.RichTextEditor" x:Name="uxRichTextEditor" Background="White">
     <UserControl.Resources>
         <Style x:Key="BaseImage" TargetType="{x:Type Image}">
             <Setter Property="Stretch" Value="None" />
@@ -493,7 +492,7 @@
 				Foreground="{Binding Foreground, ElementName=uxRichTextEditor}" 
 				BorderBrush="{Binding BorderBrush, ElementName=uxRichTextEditor}" 
 				BorderThickness="{Binding BorderThickness, ElementName=uxRichTextEditor}" 
-				 Template="{DynamicResource ToolBarControlTemplate1}">
+				Template="{DynamicResource ToolBarControlTemplate1}">
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut">
                 <Image Source="Images/cut.png"/>
             </Button>
@@ -591,9 +590,14 @@
                     </Popup>
                 </Grid>
             </Button>
+            <Separator/>
+            <Button Name="BtnUploadImage" Click="BtnUploadImage_Click" Style="{StaticResource buttonComboBoxStyle}">
+                <Image Source="Images/image_upload.png"/>
+            </Button>
+
         </ToolBar>
         <!--asis:RichTextBoxAssistant.BoundDocument="{Binding Text, ElementName=uxRichTextEditor}"-->
-        <ScrollViewer Grid.Row="1" Margin="0,1,0,0">
+        <ScrollViewer Grid.Row="1" Margin="0,1,0,0" VerticalScrollBarVisibility="Auto">
             <RichTextBox x:Name="mainRTB" 
 							AcceptsTab="True" 
 							MinHeight="100" 

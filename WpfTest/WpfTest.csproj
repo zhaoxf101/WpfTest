@@ -277,5 +277,8 @@
     <Resource Include="Controls\RichTextBox\Controls\Images\tick.png" />
     <Resource Include="Controls\RichTextBox\Controls\Images\world_link.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\RichTextBox\Controls\Images\image_upload.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

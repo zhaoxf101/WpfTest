@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:WpfRichText" 
         x:Class="WpfTest.TextBoxTestWindow"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="TextBoxTestWindow" Height="500" Width="600">
+        Title="TextBoxTestWindow" Height="600" Width="800">
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
             <RowDefinition Height="20" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="Test" />
+        <Button Content="Test" Click="Button_Click" />
         <Controls:RichTextEditor Grid.Row="2" x:Name="TxtContent" Foreground="Black" />
     </Grid>
 </Window>
