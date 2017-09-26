@@ -176,19 +176,14 @@ namespace WpfRichText
         {
             get
             {
-                //TextRange tr = new TextRange(mainRTB.Document.ContentStart, mainRTB.Document.ContentEnd);
+                string xamlText = XamlWriter.Save(mainRTB.Document);
 
-                string xw = XamlWriter.Save(mainRTB.Document);
+               
 
-                //MessageBox.Show(xw);
+                xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
-                //System.IO.StringReader sr = new System.IO.StringReader(xw);
-
-                //System.Xml.XmlReader xr = System.Xml.XmlReader.Create(sr);
-
-                //rtb1.Document = (FlowDocument)System.Windows.Markup.XamlReader.Load(xr);
-
-                return xw;
+                var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
+                return html;
 
 
                 //using (MemoryStream ms = new MemoryStream())
@@ -201,25 +196,12 @@ namespace WpfRichText
             }
             set
             {
-                var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value, false);
-                mainRTB.Document.Blocks.Clear();
-
-                if (!string.IsNullOrEmpty(xaml))
-                {
-                    using (MemoryStream xamlMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
-                    {
-                        ParserContext parser = new ParserContext();
-                        parser.XmlnsDictionary.Add("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
-                        parser.XmlnsDictionary.Add("x", "http://schemas.microsoft.com/winfx/2006/xaml");
-                        //FlowDocument doc = new FlowDocument();
-                        Section section = XamlReader.Load(xamlMemoryStream, parser) as Section;
-
-                        mainRTB.Document.Blocks.Add(section);
-                    }
-                }
+                var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value, true);
+                var sr = new StringReader(xaml);
+                var xr = System.Xml.XmlReader.Create(sr);
+                mainRTB.Document = (FlowDocument)XamlReader.Load(xr);              
             }
         }
-
 
 
         /// <summary></summary>

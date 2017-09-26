@@ -21,7 +21,8 @@ namespace WpfRichText
     using System.Windows; // DependencyProperty
     using System.Windows.Documents;
 	using System.Globalization; // TextElement
-  
+    using System.Windows.Controls;
+
     /// <summary>
     /// HtmlToXamlConverter is a static class that takes an HTML string
     /// and converts it into XAML
@@ -725,6 +726,25 @@ namespace WpfRichText
         private static void AddImage(XmlElement xamlParentElement, XmlElement htmlElement, Hashtable inheritedProperties, CssStylesheet stylesheet, List<XmlElement> sourceContext)
         {
             //  Implement images
+            string source = GetAttribute(htmlElement, "src");
+            if (source == null)
+            {
+                // When src attribute is missing - ignore the img
+                AddSpanOrRun(xamlParentElement, htmlElement, inheritedProperties, stylesheet, sourceContext);
+            }
+            else
+            {
+                // Create currentProperties as a compilation of local and inheritedProperties, set localProperties
+                Hashtable localProperties;
+                Hashtable currentProperties = GetElementProperties(htmlElement, inheritedProperties, out localProperties, stylesheet, sourceContext);
+
+                // Create a XAML element corresponding to this html element
+                XmlElement xamlElement = xamlParentElement.OwnerDocument.CreateElement(/*prefix:*/null, /*localName:*/HtmlToXamlConverter.Xaml_Image, _xamlNamespace);
+                ApplyLocalProperties(xamlElement, localProperties, /*isBlock:*/false);
+
+                // Add the new element to the parent.
+                xamlParentElement.AppendChild(xamlElement);
+            }
         }
 
         // .............................................................
@@ -2215,6 +2235,11 @@ namespace WpfRichText
 
                     case "display":
                         break;
+
+                    case "src":
+                        SetPropertyValue(xamlElement, Image.SourceProperty, (string)propertyEnumerator.Value);
+                        //xamlElement.SetAttribute()
+                        break;
                 }
             }
 
@@ -2386,6 +2411,14 @@ namespace WpfRichText
                 case "sub":
                     break;
                 case "sup":
+                    break;
+
+                case "img":
+                    attributeValue = GetAttribute(htmlElement, "src");
+                    if (attributeValue != null)
+                    {
+                        localProperties["src"] = attributeValue;
+                    }
                     break;
 
                 // Hyperlinks
@@ -2649,8 +2682,11 @@ namespace WpfRichText
 		public const string Xaml_BorderBrush = "BorderBrush";
 		/// <summary></summary>
 		public const string Xaml_BorderThickness = "BorderThickness";
-		/// <summary></summary>
-		public const string Xaml_Table = "Table";
+
+        public const string Xaml_Image = "Image";
+
+        /// <summary></summary>
+        public const string Xaml_Table = "Table";
 		/// <summary></summary>
 		public const string Xaml_TableColumn = "TableColumn";
 		/// <summary></summary>

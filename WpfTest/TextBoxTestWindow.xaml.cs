@@ -26,6 +26,9 @@ namespace WpfTest
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var t = TxtContent.HtmlText;
+
+            //TxtContent.HtmlText = @"<P><IMG SRC=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" TITLE="""" ALT="""" /></P>";
+
         }
     }
 }
