@@ -493,7 +493,7 @@
 				BorderBrush="{Binding BorderBrush, ElementName=uxRichTextEditor}" 
 				BorderThickness="{Binding BorderThickness, ElementName=uxRichTextEditor}" 
 				Template="{DynamicResource ToolBarControlTemplate1}">
-            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut">
+            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut" IsEnabled="{Binding ApplicationCommands.Cut.Can}">
                 <Image Source="Images/cut.png"/>
             </Button>
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Copy">

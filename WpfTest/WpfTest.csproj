@@ -35,11 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
+    <Reference Include="Qiniu, Version=7.2.15.0, Culture=neutral, PublicKeyToken=2894d75bb9f220bf, processorArchitecture=MSIL">
+      <HintPath>packages\Qiniu.Shared.7.2.15\lib\net40\Qiniu.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,6 +75,7 @@
     <Compile Include="Controls\RichTextBox\AttachedProperties\RichTextboxAssistant.cs" />
     <Compile Include="Controls\RichTextBox\Commands\CommandReference.cs" />
     <Compile Include="Controls\RichTextBox\Commands\DelegateCommand.cs" />
+    <Compile Include="Controls\RichTextBox\Controls\UploadImageManager.cs" />
     <Compile Include="Controls\RichTextBox\Controls\RichTextEditor.xaml.cs">
       <DependentUpon>RichTextEditor.xaml</DependentUpon>
     </Compile>
@@ -148,6 +156,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

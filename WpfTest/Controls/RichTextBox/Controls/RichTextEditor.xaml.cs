@@ -105,6 +105,8 @@ namespace WpfRichText
             set { _showMessageCallback = value; }
         }
 
+        UploadImageManager _uploadImageManager;
+
 
         List<string> _fontList;
 
@@ -115,6 +117,8 @@ namespace WpfRichText
 
             ImageMaxSizeMB = ImageMaxSizeDefaultMB;
             ImageTypeFilter = ImageTypeFilterDefault;
+
+            _uploadImageManager = new UploadImageManager();
 
             InstalledFontCollection MyFont = new InstalledFontCollection();
 
@@ -177,22 +181,10 @@ namespace WpfRichText
             get
             {
                 string xamlText = XamlWriter.Save(mainRTB.Document);
-
-               
-
-                xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
-
+                //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
+                
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
                 return html;
-
-
-                //using (MemoryStream ms = new MemoryStream())
-                //{
-                //    tr.Save(ms, DataFormats.Xaml);
-                //    string xamlText = Encoding.UTF8.GetString(ms.ToArray());
-                //    var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, false);
-                //    return html;
-                //}
             }
             set
             {
@@ -334,6 +326,30 @@ namespace WpfRichText
                     }
                     return;
                 }
+
+                if (_uploadImageManager != null)
+                {
+                    var url = "";
+                    var key = $"Image{DateTime.Now.ToString("yyMMddHHmmssfff")}{Guid.NewGuid().ToString().Substring(0, 3)}{System.IO.Path.GetExtension(filePath)}";
+                    if (_uploadImageManager.UploadImage(filePath, key, out url))
+                    {
+                        filePath = url;
+                    }
+                    else
+                    {
+                        var msg = "图片上传失败！";
+                        if (_showMessageCallback != null)
+                        {
+                            _showMessageCallback(msg);
+                        }
+                        else
+                        {
+                            MessageBox.Show(msg);
+                        }
+                        return;
+                    }
+                }
+
                 Image img = new Image();
                 BitmapImage bImg = new BitmapImage(new Uri(filePath));
                 img.IsEnabled = true;
