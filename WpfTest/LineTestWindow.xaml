@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfTest.LineTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTest"
+        mc:Ignorable="d"
+        Title="LineTestWindow" Height="400" Width="800">
+    <Grid UseLayoutRounding="True" SnapsToDevicePixels="False" Height="20" >
+
+        <Canvas VerticalAlignment="Top">
+            <Line X1="24" Y1="0" X2="880" Y2="0" StrokeDashArray="5 1" Stroke="#717171"  StrokeThickness="1"></Line>
+        </Canvas>
+        
+        <!--<Rectangle Width="60" Height="50" Stroke="#717171" StrokeDashArray="2.5 0.5" StrokeThickness="2" />-->
+    </Grid>
+</Window>
