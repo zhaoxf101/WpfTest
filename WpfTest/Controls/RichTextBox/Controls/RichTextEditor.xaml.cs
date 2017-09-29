@@ -53,6 +53,19 @@ namespace WpfRichText
         //}
         )));
 
+        public static double[] FontSizes
+        {
+            get
+            {
+                return new double[] {
+                    3.0, 4.0, 5.0, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5,
+                    10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 15.0,
+                    16.0, 17.0, 18.0, 19.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0,
+                    32.0, 34.0, 36.0, 38.0, 40.0, 44.0, 48.0, 52.0, 56.0, 60.0, 64.0, 68.0, 72.0, 76.0,
+                    80.0, 88.0, 96.0, 104.0, 112.0, 120.0, 128.0, 136.0, 144.0
+                    };
+            }
+        }
 
         private TextRange textRange = null;
 
@@ -134,22 +147,22 @@ namespace WpfRichText
         private void RichTextEditor_Loaded(object sender, RoutedEventArgs e)
         {
             var index = _fontList.FindIndex(p => p == "微软雅黑");
-            if (index != -1)
-            {
-                CmbFonts.SelectedIndex = index;
-            }
-            else
-            {
-                index = _fontList.FindIndex(p => p == "宋体");
-                if (index != -1)
-                {
-                    CmbFonts.SelectedIndex = index;
-                }
-                else
-                {
-                    CmbFonts.SelectedIndex = 0;
-                }
-            }
+            //if (index != -1)
+            //{
+            //    CmbFonts.SelectedIndex = index;
+            //}
+            //else
+            //{
+            //    index = _fontList.FindIndex(p => p == "宋体");
+            //    if (index != -1)
+            //    {
+            //        CmbFonts.SelectedIndex = index;
+            //    }
+            //    else
+            //    {
+            //        CmbFonts.SelectedIndex = 0;
+            //    }
+            //}
         }
 
         /// <summary></summary>
@@ -182,7 +195,7 @@ namespace WpfRichText
             {
                 string xamlText = XamlWriter.Save(mainRTB.Document);
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
-                
+
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
                 return html;
             }
@@ -191,7 +204,7 @@ namespace WpfRichText
                 var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value, true);
                 var sr = new StringReader(xaml);
                 var xr = System.Xml.XmlReader.Create(sr);
-                mainRTB.Document = (FlowDocument)XamlReader.Load(xr);              
+                mainRTB.Document = (FlowDocument)XamlReader.Load(xr);
             }
         }
 
@@ -247,7 +260,9 @@ namespace WpfRichText
             this.mainRTB.Selection.ApplyPropertyValue(ForegroundProperty, e.NewValue.ToString(CultureInfo.InvariantCulture));
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void FontFamily_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.mainRTB != null && this.mainRTB.Selection != null)
                 this.mainRTB.Selection.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
@@ -359,6 +374,22 @@ namespace WpfRichText
 
                 new InlineUIContainer(img, mainRTB.Selection.Start); //插入图片到选定位置
             }
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                e.Handled = true;
+                //Clipboard.Clear();
+                return;
+            }
+            //Get Unicode Text
+            string paste = Clipboard.GetText();
+            Clipboard.Clear();
+            Clipboard.SetText(paste);
+            mainRTB.Paste();
+            e.Handled = true;
         }
     }
 }

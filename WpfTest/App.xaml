@@ -4,10 +4,10 @@
              xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit"
              xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters"
                           xmlns:local="clr-namespace:WpfTest"
-    StartupUri="LineTestWindow.xaml">
 
-    <!--StartupUri="TextBoxTestWindow.xaml">-->
+    StartupUri="TextBoxTestWindow.xaml">
 
+    <!--StartupUri="LineTestWindow.xaml">-->
     
     <!--StartupUri="TabTestWindow.xaml">-->
 

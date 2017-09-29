@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ComboBoxTestWindow.xaml.cs">
+      <DependentUpon>ComboBoxTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Core\Converters\IntToStringConverter.cs" />
     <Compile Include="Controls\Core\Converters\InverseBoolConverter.cs" />
     <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
@@ -109,6 +112,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ComboBoxTestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\DataPager\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
