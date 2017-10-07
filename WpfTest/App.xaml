@@ -5,14 +5,11 @@
              xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters"
                           xmlns:local="clr-namespace:WpfTest"
 
-    StartupUri="TextBoxTestWindow.xaml">
+    StartupUri="TabTestWindow.xaml">
 
+    <!--StartupUri="TextBoxTestWindow.xaml">-->
     <!--StartupUri="LineTestWindow.xaml">-->
-    
-    <!--StartupUri="TabTestWindow.xaml">-->
-
     <!--StartupUri="DateTimePickerWindow.xaml">-->
-
     <!--StartupUri="WindowStyleTest.xaml">-->
     <!--StartupUri="ComboBoxTestWindow.xaml">-->
     <!--StartupUri="ChartTestWindow.xaml">-->
@@ -126,7 +123,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="LeftTabControlStyle" TargetType="{x:Type TabControl}">
+        <Style x:Key="LeftTabControlStyle" TargetType="{x:Type local:TabControl}">
             <Setter Property="Padding" Value="0"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -137,7 +134,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabControl}">
+                    <ControlTemplate TargetType="{x:Type local:TabControl}">
                         <Grid ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="ColumnDefinition0" Width="Auto" />
@@ -446,7 +443,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="LeftTabItemStyle" TargetType="{x:Type TabItem}">
+        <Style x:Key="LeftTabItemStyle" TargetType="{x:Type local:TabItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Foreground" Value="#666666"/>
             <Setter Property="Padding" Value="0"/>
@@ -458,7 +455,7 @@
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabItem}">
+                    <ControlTemplate TargetType="{x:Type local:TabItem}">
                         <Grid SnapsToDevicePixels="True">
                             <Border x:Name="Bd" Height="50" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                                 <Border x:Name="InnerBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}">

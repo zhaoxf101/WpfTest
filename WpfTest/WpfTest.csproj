@@ -97,15 +97,18 @@
       <DependentUpon>DateTimePickerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GuidelineSetDrawingElement.cs" />
+    <Compile Include="KnownBoxes.cs" />
     <Compile Include="LineTestWindow.xaml.cs">
       <DependentUpon>LineTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabControl.cs" />
     <Compile Include="TabTestWindow.xaml.cs">
       <DependentUpon>TabTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextBoxTestWindow.xaml.cs">
       <DependentUpon>TextBoxTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabItem.cs" />
     <Compile Include="TimeSelectPanel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">

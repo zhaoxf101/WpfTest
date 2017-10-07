@@ -13,13 +13,13 @@
         </Grid.RowDefinitions>
         <Button Click="Button_Click" Content="SelectedIndex = -1" Width="130" />
 
-        <TabControl Grid.Row="1" Name="Tab" Style="{StaticResource LeftTabControlStyle}">
-            <TabItem Header="one" Style="{StaticResource LeftTabItemStyle}">
+        <local:TabControl Grid.Row="1" x:Name="Tab" Style="{StaticResource LeftTabControlStyle}">
+            <local:TabItem Header="one" Style="{StaticResource LeftTabItemStyle}">
                 Hello
-            </TabItem>
-            <TabItem Header="two" Style="{StaticResource LeftTabItemStyle}">
+            </local:TabItem>
+            <local:TabItem Header="two" Style="{StaticResource LeftTabItemStyle}">
                 World
-            </TabItem>
-        </TabControl>
+            </local:TabItem>
+        </local:TabControl>
     </Grid>
 </Window>
