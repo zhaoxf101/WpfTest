@@ -126,7 +126,79 @@ namespace WpfTest
             //    BindingOperations.ClearBinding(tabItem, KeyboardNavigation.DirectionalNavigationMarginProperty);
             //}
 
-            //tabItem.UpdateVisualState();
+            tabItem.UpdateVisualState();
+        }
+
+        internal void UpdateVisualState()
+        {
+            UpdateVisualState(true);
+        }
+
+        internal void UpdateVisualState(bool useTransitions)
+        {
+            if (!VisualStateChangeSuspended)
+            {
+                ChangeVisualState(useTransitions);
+            }
+        }
+
+        internal bool VisualStateChangeSuspended
+        {
+            get { return ReadControlFlag(ControlBoolFlags.VisualStateChangeSuspended); }
+            set { WriteControlFlag(ControlBoolFlags.VisualStateChangeSuspended, value); }
+        }
+
+        internal bool ReadControlFlag(ControlBoolFlags reqFlag)
+        {
+            return (_controlBoolField & reqFlag) != 0;
+        }
+
+        internal void WriteControlFlag(ControlBoolFlags reqFlag, bool set)
+        {
+            if (set)
+            {
+                _controlBoolField |= reqFlag;
+            }
+            else
+            {
+                _controlBoolField &= (~reqFlag);
+            }
+        }
+
+
+        void ChangeVisualState(bool useTransitions)
+        {
+            if (!IsEnabled)
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateDisabled, useTransitions);
+            }
+            else if (IsMouseOver)
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateMouseOver, useTransitions);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateNormal, useTransitions);
+            }
+
+            // Update the SelectionStates group
+            if (IsSelected)
+            {
+                VisualStates.GoToState(this, useTransitions, VisualStates.StateSelected, VisualStates.StateUnselected);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateUnselected, useTransitions);
+            }
+
+            if (IsKeyboardFocused)
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateFocused, useTransitions);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateUnfocused, useTransitions);
+            }
         }
 
         /// <summary>
@@ -429,7 +501,25 @@ namespace WpfTest
 
         BoolField _tabItemBoolFieldStore = BoolField.DefaultValue;
 
+
+        internal enum ControlBoolFlags : ushort
+        {
+            ContentIsNotLogical = 0x0001,            // used in contentcontrol.cs
+            IsSpaceKeyDown = 0x0002,            // used in ButtonBase.cs
+            HeaderIsNotLogical = 0x0004,            // used in HeaderedContentControl.cs, HeaderedItemsControl.cs
+            CommandDisabled = 0x0008,            // used in ButtonBase.cs, MenuItem.cs
+            ContentIsItem = 0x0010,            // used in contentcontrol.cs
+            HeaderIsItem = 0x0020,            // used in HeaderedContentControl.cs, HeaderedItemsControl.cs
+            ScrollHostValid = 0x0040,            // used in ItemsControl.cs
+            ContainsSelection = 0x0080,            // used in TreeViewItem.cs
+            VisualStateChangeSuspended = 0x0100,            // used in Control.cs
+        }
+
+        internal ControlBoolFlags _controlBoolField;   // Cache valid bits
+
+
         #endregion Private Fields
     }
+
 
 }

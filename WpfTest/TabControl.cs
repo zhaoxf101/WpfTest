@@ -246,19 +246,17 @@ namespace WpfTest
 
         #region Overrided Methods
 
-        //internal override void ChangeVisualState(bool useTransitions)
-        //{
-        //    if (!IsEnabled)
-        //    {
-        //        VisualStates.GoToState(this, useTransitions, VisualStates.StateDisabled, VisualStates.StateNormal);
-        //    }
-        //    else
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateNormal, useTransitions);
-        //    }
-
-        //    base.ChangeVisualState(useTransitions);
-        //}
+        internal void ChangeVisualState(bool useTransitions)
+        {
+            if (!IsEnabled)
+            {
+                VisualStates.GoToState(this, useTransitions, VisualStates.StateDisabled, VisualStates.StateNormal);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, VisualStates.StateNormal, useTransitions);
+            }
+        }
 
         /// <summary>
         /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>)
@@ -300,7 +298,7 @@ namespace WpfTest
                 TabItem item = GetSelectedTabItem();
                 if (item != null)
                 {
-                    //item.SetFocus();
+                    item.SetFocus();
                 }
             }
             UpdateSelectedContent();
