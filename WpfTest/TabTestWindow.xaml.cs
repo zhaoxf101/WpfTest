@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketingPlatform.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,9 @@ namespace WpfTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Tab.SelectedIndex = -1;
+            //Tab.SelectedIndex = -1;
+
+            Logger.Log($"{Tab.SelectedTabIndex}");
         }
 
 

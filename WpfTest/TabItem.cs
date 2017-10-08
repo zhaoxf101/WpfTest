@@ -20,6 +20,8 @@ using System.Windows.Data;
 
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
+using MarketingPlatform.Client;
+using Xceed.Wpf.Toolkit.Core.Utilities;
 
 // Disable CS3001: Warning as Error: not CLS-compliant
 #pragma warning disable 3001
@@ -29,7 +31,7 @@ namespace WpfTest
     /// <summary>
     ///     A child item of TabControl.
     /// </summary>
-    [DefaultEvent("IsSelectedChanged")]
+    //[DefaultEvent("IsSelectedChanged")]
     public class TabItem : HeaderedContentControl
     {
         //-------------------------------------------------------------------
@@ -53,15 +55,9 @@ namespace WpfTest
 
         static TabItem()
         {
-            EventManager.RegisterClassHandler(typeof(TabItem), AccessKeyManager.AccessKeyPressedEvent, new AccessKeyPressedEventHandler(OnAccessKeyPressed));
-
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TabItem), new FrameworkPropertyMetadata(typeof(TabItem)));
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(TabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(TabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
-
-            //IsEnabledProperty.OverrideMetadata(typeof(TabItem), new UIPropertyMetadata(new PropertyChangedCallback(OnVisualStatePropertyChanged)));
-            //IsMouseOverPropertyKey.OverrideMetadata(typeof(TabItem), new UIPropertyMetadata(new PropertyChangedCallback(OnVisualStatePropertyChanged)));
-            //AutomationProperties.IsOffscreenBehaviorProperty.OverrideMetadata(typeof(TabItem), new FrameworkPropertyMetadata(IsOffscreenBehavior.FromClip));
         }
 
         #endregion
@@ -221,7 +217,46 @@ namespace WpfTest
 
         private void HandleIsSelectedChanged(bool newValue, RoutedEventArgs e)
         {
-            RaiseEvent(e);
+            Logger.Log("");
+            var tab = TabControlParent;
+
+            if (newValue)
+            {
+                if (tab != null)
+                {
+                    foreach (var item in tab.TabItems)
+                    {
+                        var tabItem = item as TabItem;
+                        if (tabItem != null && !object.ReferenceEquals(tabItem, this))
+                        {
+                            if (tabItem.IsSelected)
+                            {
+                                tabItem.IsSelected = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            var parent = item as Control;
+                            if (parent != null)
+                            {
+                                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(parent, true);
+                                foreach (var tabItem2 in tabItems)
+                                {
+                                    if (tabItem2.IsSelected && !object.ReferenceEquals(tabItem2, this))
+                                    {
+                                        tabItem2.IsSelected = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                tab.OnSelectionChanged();
+            }
+            //RaiseEvent(e);
         }
 
 
@@ -232,43 +267,6 @@ namespace WpfTest
         //-------------------------------------------------------------------
 
         #region Protected Methods
-
-        //internal override void ChangeVisualState(bool useTransitions)
-        //{
-        //    if (!IsEnabled)
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateDisabled, useTransitions);
-        //    }
-        //    else if (IsMouseOver)
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateMouseOver, useTransitions);
-        //    }
-        //    else
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateNormal, useTransitions);
-        //    }
-
-        //    // Update the SelectionStates group
-        //    if (IsSelected)
-        //    {
-        //        VisualStates.GoToState(this, useTransitions, VisualStates.StateSelected, VisualStates.StateUnselected);
-        //    }
-        //    else
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateUnselected, useTransitions);
-        //    }
-
-        //    if (IsKeyboardFocused)
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateFocused, useTransitions);
-        //    }
-        //    else
-        //    {
-        //        VisualStateManager.GoToState(this, VisualStates.StateUnfocused, useTransitions);
-        //    }
-
-        //    base.ChangeVisualState(useTransitions);
-        //}
 
         /// <summary>
         /// This is the method that responds to the MouseLeftButtonDownEvent event.
@@ -432,6 +430,13 @@ namespace WpfTest
         {
             bool returnValue = false;
 
+            var groupItem = TreeHelper.FindLogicalParentWithStopType<TabGroupItem, TabControl>(this);
+            if (groupItem != null && !groupItem.IsExpanded)
+            {
+                groupItem.IsExpanded = true;
+                groupItem.UpdateLayout();
+            }
+
             if (!GetBoolField(BoolField.SettingFocus))
             {
                 TabItem currentFocus = Keyboard.FocusedElement as TabItem;
@@ -458,7 +463,8 @@ namespace WpfTest
         {
             get
             {
-                return ItemsControl.ItemsControlFromItemContainer(this) as TabControl;
+                //return ItemsControl.ItemsControlFromItemContainer(this) as TabControl;
+                return TreeHelper.FindParent<TabControl>(this);
             }
         }
 

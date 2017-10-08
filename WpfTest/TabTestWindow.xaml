@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:WpfTest"
         mc:Ignorable="d"
         Title="TabTestWindow" Height="700" Width="1100">
+    <Window.Resources>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,13 +16,41 @@
         </Grid.RowDefinitions>
         <Button Click="Button_Click" Content="SelectedIndex = -1" Width="130" />
 
-        <local:TabControl Grid.Row="1" x:Name="Tab" Style="{StaticResource LeftTabControlStyle}">
+        <local:TabControl Grid.Row="1" x:Name="Tab" Style="{StaticResource LeftTabControlStyle}" BorderBrush="Black" BorderThickness="1">
             <local:TabItem Header="one" Style="{StaticResource LeftTabItemStyle}">
-                Hello
+                <StackPanel>
+                    <local:TabGroupItem Header="Hello">
+                        HHHHH
+                    </local:TabGroupItem>
+                </StackPanel>
+
             </local:TabItem>
-            <local:TabItem Header="two" Style="{StaticResource LeftTabItemStyle}">
-                World
-            </local:TabItem>
+
+            <local:TabGroupItem Header="Group1" IsTabStop="False">
+
+                <local:TabItem Header="Group1World1" Style="{StaticResource LeftTabItemStyle}">
+                    Group1World1
+                </local:TabItem>
+                <local:TabItem Header="Group1World2" Style="{StaticResource LeftTabItemStyle}">
+                    Group1World2
+                </local:TabItem>
+
+            </local:TabGroupItem>
+
+            <local:TabGroupItem Header="Group2" IsTabStop="False">
+                <local:TabItem Header="Group2World1" Style="{StaticResource LeftTabItemStyle}">
+                    Group2World1
+                </local:TabItem>
+                <local:TabItem Header="Group2World2" Style="{StaticResource LeftTabItemStyle}">
+                    Group2World2
+                </local:TabItem>
+
+                <local:TabItem Header="Two" Style="{StaticResource LeftTabItemStyle}">
+                    World
+                </local:TabItem>
+
+            </local:TabGroupItem>
+
         </local:TabControl>
     </Grid>
 </Window>

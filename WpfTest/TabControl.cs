@@ -15,6 +15,9 @@ using MS.Utility;
 
 using System;
 using System.Windows.Controls;
+using Xceed.Wpf.Toolkit.Core.Utilities;
+using System.Collections.Generic;
+using MarketingPlatform.Client;
 
 namespace WpfTest
 {
@@ -22,15 +25,11 @@ namespace WpfTest
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class TabControl : Selector
     {
-        #region Constructors
-
         static TabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TabControl), new FrameworkPropertyMetadata(typeof(TabControl)));
             IsTabStopProperty.OverrideMetadata(typeof(TabControl), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(TabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
-
-            //IsEnabledProperty.OverrideMetadata(typeof(TabControl), new UIPropertyMetadata(new PropertyChangedCallback(OnVisualStatePropertyChanged)));
         }
 
         /// <summary>
@@ -43,24 +42,6 @@ namespace WpfTest
         public TabControl() : base()
         {
         }
-
-        #endregion
-
-        #region Properties
-
-     
-        // When TabControl TabStripPlacement is changing we need to invalidate its TabItem TabStripPlacement
-        //private static void OnTabStripPlacementPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    TabControl tc = (TabControl)d;
-        //    ItemCollection tabItemCollection = tc.Items;
-        //    for (int i = 0; i < tabItemCollection.Count; i++)
-        //    {
-        //        TabItem ti = tc.ItemContainerGenerator.ContainerFromIndex(i) as TabItem;
-        //        if (ti != null)
-        //            ti.CoerceValue(TabItem.TabStripPlacementProperty);
-        //    }
-        //}
 
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(TabControl), new FrameworkPropertyMetadata((object)null));
 
@@ -166,7 +147,7 @@ namespace WpfTest
         /// </summary>
         public String SelectedContentStringFormat
         {
-            get { return (String) GetValue(SelectedContentStringFormatProperty); }
+            get { return (String)GetValue(SelectedContentStringFormatProperty); }
             internal set { SetValue(SelectedContentStringFormatPropertyKey, value); }
         }
 
@@ -228,7 +209,7 @@ namespace WpfTest
                         "ContentStringFormat",
                         typeof(String),
                         typeof(TabControl),
-                        new FrameworkPropertyMetadata((String) null));
+                        new FrameworkPropertyMetadata((String)null));
 
 
         /// <summary>
@@ -238,13 +219,90 @@ namespace WpfTest
         /// </summary>
         public String ContentStringFormat
         {
-            get { return (String) GetValue(ContentStringFormatProperty); }
+            get { return (String)GetValue(ContentStringFormatProperty); }
             set { SetValue(ContentStringFormatProperty, value); }
         }
 
-        #endregion
+        public int SelectedTabIndex
+        {
+            get
+            {
+                var index = 0;
+                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                foreach (var tabItem in tabItems)
+                {
+                    if (tabItem.IsSelected)
+                    {
+                        break;
+                    }
+                    index++;
+                }
 
-        #region Overrided Methods
+                if (index == tabItems.Count)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return index;
+                }
+            }
+            set
+            {
+                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+
+                for (int i = 0; i < tabItems.Count; i++)
+                {
+                    if (i == value)
+                    {
+                        tabItems[i].IsSelected = true;
+                    }
+                    else
+                    {
+                        tabItems[i].IsSelected = false;
+                    }
+                }
+
+                OnSelectionChanged();
+            }
+        }
+
+        public TabItem SelectedTabItem
+        {
+            get
+            {
+                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                foreach (var tabItem in tabItems)
+                {
+                    if (tabItem.IsSelected)
+                    {
+                        return tabItem;
+                    }
+                }
+
+                return null;
+            }
+            set
+            {
+                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                foreach (var tabItem in tabItems)
+                {
+                    if (object.ReferenceEquals(tabItem, value))
+                    {
+                        tabItem.IsSelected = true;
+                        OnSelectionChanged();
+                    }
+                }
+            }
+        }
+
+        public List<TabItem> TabItems
+        {
+            get
+            {
+                return TreeHelper.FindLogicalChildren<TabItem>(this, true);
+            }
+        }
 
         internal void ChangeVisualState(bool useTransitions)
         {
@@ -257,14 +315,6 @@ namespace WpfTest
                 VisualStateManager.GoToState(this, VisualStates.StateNormal, useTransitions);
             }
         }
-
-        /// <summary>
-        /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>)
-        /// </summary>
-        //protected override AutomationPeer OnCreateAutomationPeer()
-        //{
-        //    return new TabControlAutomationPeer(this);
-        //}
 
         /// <summary>
         ///     This virtual method in called when IsInitialized is set to true and it raises an Initialized event
@@ -292,10 +342,15 @@ namespace WpfTest
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
+            OnSelectionChanged();
+        }
+
+        internal void OnSelectionChanged()
+        {
             if (IsKeyboardFocusWithin)
             {
                 // If keyboard focus is within the control, make sure it is going to the correct place
-                TabItem item = GetSelectedTabItem();
+                TabItem item = SelectedTabItem;
                 if (item != null)
                 {
                     item.SetFocus();
@@ -311,15 +366,18 @@ namespace WpfTest
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
-            if (e.Action == NotifyCollectionChangedAction.Remove && SelectedIndex == -1)
+
+            if (e.Action == NotifyCollectionChangedAction.Remove && SelectedTabIndex == -1)
             {
                 // If we remove the selected item we should select the previous item
                 int startIndex = e.OldStartingIndex + 1;
-                if (startIndex > Items.Count)
+                if (startIndex > TabItems.Count)
                     startIndex = 0;
-                //TabItem nextTabItem = FindNextTabItem(startIndex, -1);
-                //if (nextTabItem != null)
-                //    nextTabItem.SetCurrentValueInternal(TabItem.IsSelectedProperty, MS.Internal.KnownBoxes.BooleanBoxes.TrueBox);
+                TabItem nextTabItem = FindNextTabItem(startIndex, -1);
+                if (nextTabItem != null)
+                {
+                    nextTabItem.SetCurrentValue(TabItem.IsSelectedProperty, BooleanBoxes.TrueBox);
+                }
             }
         }
 
@@ -342,7 +400,7 @@ namespace WpfTest
                 case Key.Tab:
                     if ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
                     {
-                        startIndex = ItemContainerGenerator.IndexFromContainer(ItemContainerGenerator.ContainerFromItem(SelectedItem));
+                        startIndex = SelectedTabIndex;
                         if ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
                             direction = -1;
                         else
@@ -355,19 +413,24 @@ namespace WpfTest
                     break;
                 case Key.End:
                     direction = -1;
-                    startIndex = Items.Count;
+                    startIndex = TabItems.Count;
                     break;
             }
 
+
             nextTabItem = FindNextTabItem(startIndex, direction);
 
-            if (nextTabItem != null && nextTabItem != SelectedItem)
+            Logger.Log($"startIndex: {startIndex} direction: {direction} nextTabItem: {nextTabItem}");
+
+            if (nextTabItem != null && nextTabItem != SelectedTabItem)
             {
-                //e.Handled = nextTabItem.SetFocus();
+                e.Handled = nextTabItem.SetFocus();
             }
 
             if (!e.Handled)
+            {
                 base.OnKeyDown(e);
+            }
         }
 
         private TabItem FindNextTabItem(int startIndex, int direction)
@@ -376,15 +439,15 @@ namespace WpfTest
             if (direction != 0)
             {
                 int index = startIndex;
-                for (int i = 0; i < Items.Count; i++)
+                for (int i = 0; i < TabItems.Count; i++)
                 {
                     index += direction;
-                    if (index >= Items.Count)
+                    if (index >= TabItems.Count)
                         index = 0;
                     else if (index < 0)
-                        index = Items.Count - 1;
+                        index = TabItems.Count - 1;
 
-                    TabItem tabItem = ItemContainerGenerator.ContainerFromIndex(index) as TabItem;
+                    TabItem tabItem = TabItems[index];
                     if (tabItem != null && tabItem.IsEnabled && tabItem.Visibility == Visibility.Visible)
                     {
                         nextTabItem = tabItem;
@@ -400,7 +463,8 @@ namespace WpfTest
         /// </summary>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is TabItem);
+            //return (item is TabItem);
+            return true;
         }
 
         /// <summary> Create or identify the element used to display the given item. </summary>
@@ -408,10 +472,6 @@ namespace WpfTest
         {
             return new TabItem();
         }
-
-        #endregion
-
-        #region private helpers
 
         internal ContentPresenter SelectedContentPresenter
         {
@@ -434,39 +494,11 @@ namespace WpfTest
             }
         }
 
-        private TabItem GetSelectedTabItem()
-        {
-            object selectedItem = SelectedItem;
-            if (selectedItem != null)
-            {
-                // Check if the selected item is a TabItem
-                TabItem tabItem = selectedItem as TabItem;
-                if (tabItem == null)
-                {
-                    // It is a data item, get its TabItem container
-                    tabItem = ItemContainerGenerator.ContainerFromIndex(SelectedIndex) as TabItem;
-
-                    // Due to event leapfrogging, we may have the wrong container.
-                    // If so, re-fetch the right container using a more expensive method.
-                    // (BTW, the previous line will cause a debug assert in this case)  [Dev10 452711]
-                    if (tabItem == null ||
-                        !Object.Equals(selectedItem, ItemContainerGenerator.ItemFromContainer(tabItem)))
-                    {
-                        tabItem = ItemContainerGenerator.ContainerFromItem(selectedItem) as TabItem;
-                    }
-                }
-
-                return tabItem;
-            }
-
-            return null;
-        }
-
         // When selection is changed we need to copy the active TabItem content in SelectedContent property
         // SelectedContent is aliased in the TabControl style
         private void UpdateSelectedContent()
         {
-            if (SelectedIndex < 0)
+            if (SelectedTabIndex < 0)
             {
                 SelectedContent = null;
                 SelectedContentTemplate = null;
@@ -475,17 +507,9 @@ namespace WpfTest
                 return;
             }
 
-            TabItem tabItem = GetSelectedTabItem();
+            TabItem tabItem = SelectedTabItem;
             if (tabItem != null)
             {
-                FrameworkElement visualParent = VisualTreeHelper.GetParent(tabItem) as FrameworkElement;
-
-                if (visualParent != null)
-                {
-                    //KeyboardNavigation.SetTabOnceActiveElement(visualParent, tabItem);
-                    //KeyboardNavigation.SetTabOnceActiveElement(this, visualParent);
-                }
-
                 SelectedContent = tabItem.Content;
                 ContentPresenter scp = SelectedContentPresenter;
                 if (scp != null)
@@ -507,17 +531,12 @@ namespace WpfTest
                     SelectedContentTemplateSelector = ContentTemplateSelector;
                     SelectedContentStringFormat = ContentStringFormat;
                 }
-             }
+            }
         }
 
-        #endregion private helpers
-
-        #region private data
 
         // Part name used in the style. The class TemplatePartAttribute should use the same name
         private const string SelectedContentHostTemplateName = "PART_SelectedContentHost";
-
-        #endregion
 
     }
 }

@@ -147,49 +147,6 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
             return null;
         }
 
-        public static T FindLogicalParentWithStopType<T, T2>(DependencyObject startingObject) where T : DependencyObject where T2 : DependencyObject
-        {
-            return TreeHelper.FindLogicalParentWithStopType<T, T2>(startingObject, false, null);
-        }
-
-        public static T FindLogicalParentWithStopType<T, T2>(DependencyObject startingObject, bool checkStartingObject) where T : DependencyObject where T2 : DependencyObject
-        {
-            return TreeHelper.FindParent<T>(startingObject, checkStartingObject, null);
-        }
-
-        public static T FindLogicalParentWithStopType<T, T2>(DependencyObject startingObject, bool checkStartingObject, Func<T, bool> additionalCheck) where T : DependencyObject where T2 : DependencyObject
-        {
-            T foundElement;
-            DependencyObject parent = (checkStartingObject ? startingObject : LogicalTreeHelper.GetParent(startingObject));
-
-            while (parent != null)
-            {
-                if (parent is T2)
-                {
-                    break;
-                }
-
-                foundElement = parent as T;
-
-                if (foundElement != null)
-                {
-                    if (additionalCheck == null)
-                    {
-                        return foundElement;
-                    }
-                    else
-                    {
-                        if (additionalCheck(foundElement))
-                            return foundElement;
-                    }
-                }
-
-                parent = LogicalTreeHelper.GetParent(parent);
-            }
-
-            return null;
-        }
-
         /// <summary>
         /// This will search for a child of the specified type. The search is performed 
         /// hierarchically, breadth first (as opposed to depth first).
@@ -248,46 +205,22 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
 
         public static List<T> FindChildren<T>(DependencyObject parent) where T : DependencyObject
         {
-            return TreeHelper.FindChildren<T>(parent, null);
+            return TreeHelper.FindChildren<T>(parent, false, null);
         }
 
-        public static List<T> FindChildren<T>(DependencyObject parent, Func<T, bool> additionalCheck) where T : DependencyObject
+        public static List<T> FindChildren<T>(DependencyObject parent, bool stopWhenFound) where T : DependencyObject
+        {
+            return TreeHelper.FindChildren<T>(parent, stopWhenFound, null);
+        }
+
+        public static List<T> FindChildren<T>(DependencyObject parent, bool stopWhenFound, Func<T, bool> additionalCheck) where T : DependencyObject
         {
             List<T> list = new List<T>();
-            FindChildrenRecursive(parent, additionalCheck, list);
+            FindChildrenRecursive(parent, stopWhenFound, additionalCheck, list);
             return list;
         }
 
-        public static List<T> FindLogicalDirectChildren<T>(DependencyObject parent) where T : DependencyObject
-        {
-            List<T> list = new List<T>();
-            T child;
-            foreach (var ch in LogicalTreeHelper.GetChildren(parent))
-            {
-                child = ch as T;
-
-                if (child != null)
-                {
-                    list.Add(child);
-                }
-            }
-
-            return list;
-        }
-
-        public static List<T> FindLogicalChildren<T>(DependencyObject parent, bool stopWhenFound) where T : DependencyObject
-        {
-            return TreeHelper.FindLogicalChildren<T>(parent, stopWhenFound, null);
-        }
-
-        public static List<T> FindLogicalChildren<T>(DependencyObject parent, bool stopWhenFound, Func<T, bool> additionalCheck) where T : DependencyObject
-        {
-            List<T> list = new List<T>();
-            FindLogicalChildrenRecursiveDepthFirst(parent, stopWhenFound, additionalCheck, list);
-            return list;
-        }
-
-        static void FindChildrenRecursive<T>(DependencyObject parent, Func<T, bool> additionalCheck, List<T> list) where T : DependencyObject
+        static void FindChildrenRecursive<T>(DependencyObject parent, bool stopWhenFound, Func<T, bool> additionalCheck, List<T> list) where T : DependencyObject
         {
             int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
 
@@ -310,7 +243,6 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
                         }
                     }
                 }
-
             }
 
             for (int index = 0; index < childrenCount; index++)
@@ -319,19 +251,27 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
 
                 if (ch != null)
                 {
-                    FindChildrenRecursive(ch, additionalCheck, list);
+                    child = ch as T;
+
+                    if (child == null || (additionalCheck != null && !additionalCheck(child)) || !stopWhenFound)
+                    {
+                        FindChildrenRecursive(ch, stopWhenFound, additionalCheck, list);
+                    }
                 }
             }
         }
 
-        static void FindLogicalChildrenRecursiveDepthFirst<T>(DependencyObject parent, bool stopWhenFound, Func<T, bool> additionalCheck, List<T> list) where T : DependencyObject
+
+        static void FindChildrenRecursiveDepthFirst<T>(DependencyObject parent, bool stopWhenFound, Func<T, bool> additionalCheck, List<T> list) where T : DependencyObject
         {
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+
             T child;
             var found = false;
-            foreach (var ch in LogicalTreeHelper.GetChildren(parent))
+            for (int index = 0; index < childrenCount; index++)
             {
                 found = false;
-                child = ch as T;
+                child = VisualTreeHelper.GetChild(parent, index) as T;
 
                 if (child != null && (additionalCheck == null || additionalCheck(child)))
                 {
@@ -339,13 +279,12 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
                     found = true;
                 }
 
-                if (ch as DependencyObject != null && (!found || !stopWhenFound))
+                if (child != null && ( !found || !stopWhenFound))
                 {
-                    FindLogicalChildrenRecursiveDepthFirst((DependencyObject)ch, stopWhenFound, additionalCheck, list);
+                    FindChildrenRecursiveDepthFirst(child, stopWhenFound, additionalCheck, list);
                 }
             }
         }
-
 
         /// <summary>
         /// Returns true if the specified element is a child of parent somewhere in the visual 
