@@ -21,6 +21,23 @@ using MarketingPlatform.Client;
 
 namespace WpfTest
 {
+    public class TabItemSelectedEventArgs : EventArgs
+    {
+        private TabItem _tabItem;
+
+        public TabItem TabItem
+        {
+            get { return _tabItem; }
+        }
+
+        public TabItemSelectedEventArgs(TabItem tabItem)
+        {
+            _tabItem = tabItem;
+        }
+    }
+
+    public delegate void TabItemSelectedEventHander(object sender, TabItemSelectedEventArgs args);
+
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(TabItem))]
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class TabControl : Selector
@@ -42,6 +59,8 @@ namespace WpfTest
         public TabControl() : base()
         {
         }
+
+        public event TabItemSelectedEventHander TabItemSelected;
 
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(TabControl), new FrameworkPropertyMetadata((object)null));
 
@@ -434,10 +453,7 @@ namespace WpfTest
                     break;
             }
 
-
             nextTabItem = FindNextTabItem(startIndex, direction);
-
-            Logger.Log($"startIndex: {startIndex} direction: {direction} nextTabItem: {nextTabItem}");
 
             if (nextTabItem != null && nextTabItem != SelectedTabItem)
             {
@@ -551,6 +567,11 @@ namespace WpfTest
             }
         }
 
+
+        internal void NotifyTabItemSelected(TabItem tabItem)
+        {
+            TabItemSelected?.Invoke(this, new TabItemSelectedEventArgs(tabItem));
+        }
 
         // Part name used in the style. The class TemplatePartAttribute should use the same name
         private const string SelectedContentHostTemplateName = "PART_SelectedContentHost";

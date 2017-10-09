@@ -31,6 +31,10 @@ namespace WpfTest
             Logger.Log($"{Tab.SelectedTabIndex}");
         }
 
+        private void Tab_TabItemSelected(object sender, TabItemSelectedEventArgs args)
+        {
+            Logger.Log($"{args.TabItem}");
+        }
 
     }
 }

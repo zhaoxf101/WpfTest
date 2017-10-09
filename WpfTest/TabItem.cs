@@ -372,11 +372,6 @@ namespace WpfTest
                             }
                         }
                     }
-
-
-
-
-                 
                 }
 
                 tab.OnSelectionChanged();
@@ -482,6 +477,12 @@ namespace WpfTest
                 if (SetFocus())
                     e.Handled = true;
             }
+
+            if (e.Source == this)
+            {
+                TabControlParent?.NotifyTabItemSelected(this);
+            }
+
             base.OnMouseLeftButtonDown(e);
         }
 
