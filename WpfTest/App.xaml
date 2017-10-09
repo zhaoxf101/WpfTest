@@ -458,8 +458,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:TabItem}">
                         <Grid SnapsToDevicePixels="True" Height="50">
-                            <Border x:Name="OuterBd" BorderBrush="Transparent" BorderThickness="0" Background="#86c7ff" Visibility="Collapsed" />
-                            <Border x:Name="SelectedBd" Margin="0 5 0 5" BorderBrush="#86c7ff" BorderThickness="5 0 0 0" Visibility="Collapsed" />
+                            <Border x:Name="OuterBd" BorderBrush="Transparent" BorderThickness="0" Background="#86c8ff" Visibility="Collapsed" />
+                            <Border x:Name="SelectedBd" Margin="0 5 0 5" BorderBrush="#86c8ff" BorderThickness="5 0 0 0" Visibility="Collapsed" />
                             <Border x:Name="SeparatedBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}" />
                             <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                                 <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>

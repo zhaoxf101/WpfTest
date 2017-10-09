@@ -152,7 +152,6 @@ namespace WpfTest
             remove { RemoveHandler(CollapsedEvent, value); }
         }
 
-
         internal void ChangeVisualState(bool useTransitions)
         {
             // Handle the Common states
@@ -240,10 +239,10 @@ namespace WpfTest
                 expandSiteWrapper.BeginAnimation(HeightProperty, animation);
             }
 
-            var tabControl = LogicalTreeHelper.GetParent(this) as TabControl;
+            var tabControl = TabControlParent;
             if (tabControl != null)
             {
-                var groupItems = TreeHelper.FindLogicalDirectChildren<TabGroupItem>(tabControl);
+                var groupItems = tabControl.TabGroupItems;
 
                 foreach (var item in groupItems)
                 {
@@ -347,7 +346,7 @@ namespace WpfTest
         {
             get
             {
-                return TreeHelper.FindParent<TabControl>(this);
+                return ItemsControl.ItemsControlFromItemContainer(this) as TabControl;
             }
         }
 

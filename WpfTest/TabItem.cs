@@ -242,6 +242,11 @@ namespace WpfTest
                     if (newValue)
                     {
                         currentGroupItem.IsSelected = true;
+                        Foreground = TabControl.SelectedBackground;
+                    }
+                    else
+                    {
+                        Foreground = TabControl.NormalBackground;
                     }
                     IsInnerSelectorVisible = newValue;
                     IsOuterSelectorVisible = false;
@@ -254,6 +259,11 @@ namespace WpfTest
                     if (newValue)
                     {
                         IsSeparatorVisible = false;
+                        Foreground = Brushes.White;
+                    }
+                    else
+                    {
+                        Foreground = TabControl.NormalBackground;
                     }
                 }
 
@@ -632,11 +642,14 @@ namespace WpfTest
         {
             bool returnValue = false;
 
-            var groupItem = TreeHelper.FindLogicalParentWithStopType<TabGroupItem, TabControl>(this);
-            if (groupItem != null && !groupItem.IsExpanded)
+            var itemsControl = ItemsControl.ItemsControlFromItemContainer(this);
+            if (itemsControl is TabGroupItem groupItem)
             {
-                groupItem.IsExpanded = true;
-                groupItem.UpdateLayout();
+                if (!groupItem.IsExpanded)
+                {
+                    groupItem.IsExpanded = true;
+                    groupItem.UpdateLayout();
+                }
             }
 
             if (!GetBoolField(BoolField.SettingFocus))
@@ -665,8 +678,16 @@ namespace WpfTest
         {
             get
             {
-                //return ItemsControl.ItemsControlFromItemContainer(this) as TabControl;
-                return TreeHelper.FindParent<TabControl>(this);
+                var itemsControl = ItemsControl.ItemsControlFromItemContainer(this);
+                if (itemsControl is TabControl tab)
+                {
+                    return tab;
+                }
+                else if (itemsControl is TabGroupItem)
+                {
+                    return ItemsControl.ItemsControlFromItemContainer(itemsControl) as TabControl;
+                }
+                return null;
             }
         }
 

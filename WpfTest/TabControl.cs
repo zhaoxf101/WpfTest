@@ -42,6 +42,11 @@ namespace WpfTest
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class TabControl : Selector
     {
+        //public static readonly SolidColorBrush SelectedBackground = new SolidColorBrush(Color.FromRgb(0x86, 0xc8, 0xff));
+        public static readonly SolidColorBrush SelectedBackground = new SolidColorBrush(Color.FromRgb(0x00, 0xb2, 0xff));
+
+        public static readonly SolidColorBrush NormalBackground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66));
+        
         static TabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TabControl), new FrameworkPropertyMetadata(typeof(TabControl)));
@@ -247,7 +252,7 @@ namespace WpfTest
             get
             {
                 var index = 0;
-                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                var tabItems = TabItems;
                 foreach (var tabItem in tabItems)
                 {
                     if (tabItem.IsSelected)
@@ -268,7 +273,7 @@ namespace WpfTest
             }
             set
             {
-                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                var tabItems = TabItems;
 
                 for (int i = 0; i < tabItems.Count; i++)
                 {
@@ -290,7 +295,7 @@ namespace WpfTest
         {
             get
             {
-                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                var tabItems = TabItems;
                 foreach (var tabItem in tabItems)
                 {
                     if (tabItem.IsSelected)
@@ -303,7 +308,7 @@ namespace WpfTest
             }
             set
             {
-                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                var tabItems = TabItems;
                 foreach (var tabItem in tabItems)
                 {
                     if (object.ReferenceEquals(tabItem, value))
@@ -319,7 +324,26 @@ namespace WpfTest
         {
             get
             {
-                return TreeHelper.FindLogicalChildren<TabItem>(this, true);
+                var list = new List<TabItem>();
+
+                foreach (var item in Items)
+                {
+                    if (item is TabItem tabItem)
+                    {
+                        list.Add(tabItem);
+                    }
+                    else if (item is TabGroupItem groupItem)
+                    {
+                        foreach (var item2 in groupItem.Items)
+                        {
+                            if (item2 is TabItem tabItem2)
+                            {
+                                list.Add(tabItem2);
+                            }
+                        }
+                    }
+                }
+                return list;
             }
         }
 

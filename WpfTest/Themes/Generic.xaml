@@ -44,7 +44,7 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                                                     <Grid SnapsToDevicePixels="True" Height="50">
-                                                        <Border x:Name="SelectedBd" Margin="0" Background="#86c7ff" Padding="{TemplateBinding Padding}" Visibility="Collapsed" />
+                                                        <Border x:Name="SelectedBd" Margin="0" Background="#86c8ff" Padding="{TemplateBinding Padding}" Visibility="Collapsed" />
                                                         <Border x:Name="SeparatedBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}" />
                                                         <Grid x:Name="ContentWrapper" Background="Transparent" SnapsToDevicePixels="False">
                                                             <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" />
