@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketingPlatform.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -218,6 +219,18 @@ namespace WpfTest
             args.Source = this;
             RaiseEvent(args);
 
+            IsSeparatorVisible = false;
+
+            // 最后一个 TabItem 不要分隔线。
+            for (int i = Items.Count - 1; i >= 0; i--)
+            {
+                if (Items[i] is TabItem tabItem)
+                {
+                    tabItem.IsSeparatorVisible = false;
+                    break;
+                }
+            }
+
             var expandSiteWrapper = GetTemplateChild("ExpandSiteWrapper") as StackPanel;
             var expandSite = GetTemplateChild("ExpandSite") as StackPanel;
 
@@ -243,8 +256,6 @@ namespace WpfTest
                     }
                 }
             }
-
-
         }
 
         /// <summary>
@@ -261,8 +272,84 @@ namespace WpfTest
             if (expandSiteWrapper != null && expandSite != null)
             {
                 DoubleAnimation animation = new DoubleAnimation(expandSite.ActualHeight, 0, new Duration(TimeSpan.FromMilliseconds(250)));
+                animation.Completed += AnimationCollapsed_Completed;
                 expandSiteWrapper.BeginAnimation(HeightProperty, animation);
             }
         }
+
+        private void AnimationCollapsed_Completed(object sender, EventArgs e)
+        {
+            if (!_isSelected)
+            {
+                IsSeparatorVisible = true;
+            }
+        }
+
+        bool _isSelected;
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                var selectedBd = TreeHelper.FindChild<Border>(this, p => p.Name == "SelectedBd");
+                var separatedBd = TreeHelper.FindChild<Border>(this, p => p.Name == "SeparatedBd");
+
+                if (selectedBd != null && separatedBd != null)
+                {
+                    if (value)
+                    {
+                        selectedBd.Visibility = Visibility.Visible;
+                        separatedBd.Visibility = Visibility.Collapsed;
+                        Foreground = Brushes.White;
+                    }
+                    else
+                    {
+                        selectedBd.Visibility = Visibility.Collapsed;
+                        separatedBd.Visibility = Visibility.Visible;
+                        Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66));
+                    }
+                }
+
+                _isSelected = value;
+            }
+        }
+
+        bool _isSeparatorVisible = true;
+        public bool IsSeparatorVisible
+        {
+            get
+            {
+                return _isSeparatorVisible;
+            }
+            set
+            {
+                var separatedBd = TreeHelper.FindChild<Border>(this, p => p.Name == "SeparatedBd");
+                if (separatedBd != null)
+                {
+                    if (value)
+                    {
+                        separatedBd.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        separatedBd.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                _isSeparatorVisible = value;
+            }
+        }
+
+        private TabControl TabControlParent
+        {
+            get
+            {
+                return TreeHelper.FindParent<TabControl>(this);
+            }
+        }
+
     }
 }

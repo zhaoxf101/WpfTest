@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Data;
-
+using System.Linq;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using MarketingPlatform.Client;
@@ -217,48 +217,249 @@ namespace WpfTest
 
         private void HandleIsSelectedChanged(bool newValue, RoutedEventArgs e)
         {
-            Logger.Log("");
             var tab = TabControlParent;
-
-            if (newValue)
+            if (tab != null)
             {
-                if (tab != null)
+                var tabItems = tab.TabItems;
+                var tabGroupItems = tab.TabGroupItems;
+                var _this = this;
+
+                // 处理 TabGroupItem 选中状态。
+                var currentGroupItem = tabGroupItems.Where(p =>
                 {
+                    foreach (var item in p.Items)
+                    {
+                        if (object.ReferenceEquals(_this, item))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).FirstOrDefault();
+
+                if (currentGroupItem != null)
+                {
+                    if (newValue)
+                    {
+                        currentGroupItem.IsSelected = true;
+                    }
+                    IsInnerSelectorVisible = newValue;
+                    IsOuterSelectorVisible = false;
+                }
+                else
+                {
+                    IsInnerSelectorVisible = false;
+                    IsOuterSelectorVisible = newValue;
+
+                    if (newValue)
+                    {
+                        IsSeparatorVisible = false;
+                    }
+                }
+
+                if (newValue)
+                {
+                    foreach (var item in tabGroupItems)
+                    {
+                        if (!object.ReferenceEquals(currentGroupItem, item))
+                        {
+                            item.IsSelected = false;
+
+                            if (item.IsExpanded)
+                            {
+                                item.IsSeparatorVisible = false;
+                            }
+                        }
+                    }
+
                     foreach (var item in tab.TabItems)
                     {
-                        var tabItem = item as TabItem;
-                        if (tabItem != null && !object.ReferenceEquals(tabItem, this))
+                        if (item != null && !object.ReferenceEquals(item, this))
                         {
-                            if (tabItem.IsSelected)
+                            if (item.IsSelected)
                             {
-                                tabItem.IsSelected = false;
+                                item.IsSelected = false;
                                 break;
                             }
                         }
-                        else
+                    }
+
+                    //
+                    // 重置所有的分隔线。
+                    //
+
+                    // 处理 TabGroupItem。
+                    foreach (var groupItem2 in tabGroupItems)
+                    {
+                        if (!groupItem2.IsExpanded && !groupItem2.IsSelected)
                         {
-                            var parent = item as Control;
-                            if (parent != null)
+                            groupItem2.IsSeparatorVisible = true;
+                        }
+
+                        // 最后一个 TabItem 不要分隔线。
+                        TabItem lastTabItem = null;
+                        for (int i = 0; i < groupItem2.Items.Count; i++)
+                        {
+                            if (groupItem2.Items[i] is TabItem tabItem)
                             {
-                                var tabItems = TreeHelper.FindLogicalChildren<TabItem>(parent, true);
-                                foreach (var tabItem2 in tabItems)
+                                tabItem.IsSeparatorVisible = true;
+                                lastTabItem = tabItem;
+                            }
+                        }
+                        if (lastTabItem != null)
+                        {
+                            lastTabItem.IsSeparatorVisible = false;
+                        }
+                    }
+
+                    // 处理一级 TabItem。
+                    foreach (var item in tab.Items)
+                    {
+                        if (item is TabItem tabItem)
+                        {
+                            if (!tabItem.IsSelected)
+                            {
+                                tabItem.IsSeparatorVisible = true;
+                            }
+                        }
+                    }
+
+
+                    // 处理一级元素
+                    for (int i = 0; i < tab.Items.Count - 1; i++)
+                    {
+                        var current = tab.Items[i];
+                        var next = tab.Items[i + 1];
+
+                        if (current is TabItem tabItem)
+                        {
+                            if (tabItem.IsSelected)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                if (next is TabItem tabItem2 && tabItem2.IsSelected)
                                 {
-                                    if (tabItem2.IsSelected && !object.ReferenceEquals(tabItem2, this))
-                                    {
-                                        tabItem2.IsSelected = false;
-                                        break;
-                                    }
+                                    tabItem.IsSeparatorVisible = false;
+                                    break;
+                                }
+                                else if (next is TabGroupItem groupItem2 && groupItem2.IsSelected)
+                                {
+                                    tabItem.IsSeparatorVisible = false;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (current is TabGroupItem groupItem)
+                        {
+                            if (groupItem.IsSelected)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                if (next is TabItem tabItem2 && tabItem2.IsSelected)
+                                {
+                                    groupItem.IsSeparatorVisible = false;
+                                    break;
+                                }
+                                else if (next is TabGroupItem groupItem2 && groupItem2.IsSelected)
+                                {
+                                    groupItem.IsSeparatorVisible = false;
+                                    break;
                                 }
                             }
                         }
                     }
+
+
+
+
+                 
                 }
 
                 tab.OnSelectionChanged();
             }
+
             //RaiseEvent(e);
         }
 
+        bool _isSeparatorVisible = true;
+        public bool IsSeparatorVisible
+        {
+            get
+            {
+                return _isSeparatorVisible;
+            }
+            set
+            {
+                if (GetTemplateChild("SeparatedBd") is Border separatedBd)
+                {
+                    if (value)
+                    {
+                        separatedBd.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        separatedBd.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                _isSeparatorVisible = value;
+            }
+        }
+
+
+        bool _isInnerSelectorVisible;
+        public bool IsInnerSelectorVisible
+        {
+            get
+            {
+                return _isInnerSelectorVisible;
+            }
+            set
+            {
+                if (GetTemplateChild("SelectedBd") is Border selectedBd)
+                {
+                    if (value)
+                    {
+                        selectedBd.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        selectedBd.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                _isInnerSelectorVisible = value;
+            }
+        }
+
+        bool _isOuterSelectorVisible;
+        public bool IsOuterSelectorVisible
+        {
+            get
+            {
+                return _isOuterSelectorVisible;
+            }
+            set
+            {
+                if (GetTemplateChild("OuterBd") is Border selectedBd)
+                {
+                    if (value)
+                    {
+                        selectedBd.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        selectedBd.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                _isOuterSelectorVisible = value;
+            }
+        }
 
         //-------------------------------------------------------------------
         //

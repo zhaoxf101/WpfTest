@@ -17,7 +17,7 @@
         <Button Click="Button_Click" Content="SelectedIndex = -1" Width="130" />
 
         <local:TabControl Grid.Row="1" x:Name="Tab" Style="{StaticResource LeftTabControlStyle}" BorderBrush="Black" BorderThickness="1">
-            <local:TabItem Header="one" Style="{StaticResource LeftTabItemStyle}">
+            <local:TabItem Header="开通服务" Style="{StaticResource LeftTabItemStyle}">
                 <StackPanel>
                     <local:TabGroupItem Header="Hello">
                         HHHHH
@@ -26,26 +26,26 @@
 
             </local:TabItem>
 
-            <local:TabGroupItem Header="Group1" IsTabStop="False">
+            <local:TabGroupItem Header="产品管理" IsTabStop="False">
 
-                <local:TabItem Header="Group1World1" Style="{StaticResource LeftTabItemStyle}">
+                <local:TabItem Header="添加产品" Style="{StaticResource LeftTabItemStyle}">
                     Group1World1
                 </local:TabItem>
-                <local:TabItem Header="Group1World2" Style="{StaticResource LeftTabItemStyle}">
+                <local:TabItem Header="产品维护" Style="{StaticResource LeftTabItemStyle}">
                     Group1World2
                 </local:TabItem>
 
             </local:TabGroupItem>
 
-            <local:TabGroupItem Header="Group2" IsTabStop="False">
-                <local:TabItem Header="Group2World1" Style="{StaticResource LeftTabItemStyle}">
+            <local:TabGroupItem Header="内容管理" IsTabStop="False">
+                <local:TabItem Header="介绍内容" Style="{StaticResource LeftTabItemStyle}">
                     Group2World1
                 </local:TabItem>
-                <local:TabItem Header="Group2World2" Style="{StaticResource LeftTabItemStyle}">
+                <local:TabItem Header="新闻资讯" Style="{StaticResource LeftTabItemStyle}">
                     Group2World2
                 </local:TabItem>
 
-                <local:TabItem Header="Two" Style="{StaticResource LeftTabItemStyle}">
+                <local:TabItem Header="广告图片" Style="{StaticResource LeftTabItemStyle}">
                     World
                 </local:TabItem>
 

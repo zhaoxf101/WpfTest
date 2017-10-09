@@ -304,6 +304,23 @@ namespace WpfTest
             }
         }
 
+        public List<TabGroupItem> TabGroupItems
+        {
+            get
+            {
+                var list = new List<TabGroupItem>();
+
+                foreach (var item in Items)
+                {
+                    if (item is TabGroupItem groupItem)
+                    {
+                        list.Add(groupItem);
+                    }
+                }
+                return list;
+            }
+        }
+
         internal void ChangeVisualState(bool useTransitions)
         {
             if (!IsEnabled)

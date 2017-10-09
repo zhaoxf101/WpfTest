@@ -128,6 +128,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="16" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -452,15 +453,16 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Cursor" Value="Arrow" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:TabItem}">
-                        <Grid SnapsToDevicePixels="True">
-                            <Border x:Name="Bd" Height="50" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                <Border x:Name="InnerBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}">
-                                    <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
-                                </Border>
+                        <Grid SnapsToDevicePixels="True" Height="50">
+                            <Border x:Name="OuterBd" BorderBrush="Transparent" BorderThickness="0" Background="#86c7ff" Visibility="Collapsed" />
+                            <Border x:Name="SelectedBd" Margin="0 5 0 5" BorderBrush="#86c7ff" BorderThickness="5 0 0 0" Visibility="Collapsed" />
+                            <Border x:Name="SeparatedBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}" />
+                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
                             </Border>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -470,22 +472,15 @@
                                     <Condition Property="IsMouseOver" Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="Margin" TargetName="Content" Value="0,-2,0,2" />
+                                <!--<Setter Property="Background" TargetName="Bd" Value="#f0f0f0"/>-->
+                                <!--<Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />-->
                             </MultiTrigger>
 
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="False"/>
-                                    <Condition Property="IsMouseOver" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="#f0f0f0"/>
-                                <Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />
-                            </MultiTrigger>
-
-                            <Trigger Property="IsSelected" Value="True">
+                            <!--<Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background" TargetName="Bd" Value="#86c8ff" />
                                 <Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />
                                 <Setter Property="Foreground" Value="White" />
-                            </Trigger>
+                            </Trigger>-->
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
