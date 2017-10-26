@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.18.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
+  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.19.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
     <Package Id='*' Keywords='Installer' Description="云合景从安装程序"
       Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
@@ -32,7 +32,7 @@
       <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
         <File Id='MainEXE' Source='content/MarketingPlatForm.Client.exe' />
         <File Id='MainEXE.Config' Source='content/MarketingPlatForm.Client.exe.Config' />
-        
+
         <File Id='Lib100' Source='content/Newtonsoft.Json.dll' />
         <File Id='Lib101' Source='content/System.Net.Http.dll' />
         <File Id='Lib102' Source='content/System.Net.Http.Extensions.dll' />
@@ -42,14 +42,14 @@
         <File Id='Lib106' Source='content/System.Threading.Tasks.dll' />
         <File Id='Lib107' Source='content/WPFVisifire.Charts.dll' />
         <File Id='Lib108' Source='content/System.IO.dll' />
-        
+
         <File Id='Lib200' Source='content/UpdateService.exe' />
         <File Id='Lib201' Source='content/Update.exe' />
 
         <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
         <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
         <File Id='Lib302' Source='content/WebDriverHelper.dll' />
-        
+
         <File Id='Lib400' Source='content/phantomjs.exe' />
         <File Id='Lib401' Source='content/UUExtConfig.ini' />
         <File Id='Lib402' Source='content/UUWiseHelper.dll' />
@@ -70,7 +70,7 @@
                   Description="云合景从"
                   Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
                   WorkingDirectory="INSTALLFOLDER">
-          <Icon Id="MainIcon" SourceFile="content/MarketingPlatForm.Client.exe" src="1" />
+          <Icon Id="MainIcon" SourceFile="content/MarketingPlatForm.Client.exe"/>
         </Shortcut>
 
         <Shortcut Id="DesktopShortcut"
