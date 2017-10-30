@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.1"
+           Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
+    <Package Id='*' Keywords='Installer' Description="云合景从安装程序"
+      Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perMachine'
+      InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
+
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
+
+    <CustomAction Id='NoDowngrade' Error='已经安装了较新版本的 [ProductName]，无法继续安装该版本应用程序 .' />
+
+    <InstallExecuteSequence>
+      <Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
+    </InstallExecuteSequence>
+
+
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
+    <Property Id='DiskPrompt' Value="云合景从安装 [1]" />
+
+    <Property Id="ARPPRODUCTICON" Value="MainIcon" />
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message='安装程序需要 .NET Framework 4.0 或更高版本。'>
+      <![CDATA[Installed OR (NETFRAMEWORK40FULL)]]>
+    </Condition>
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder'>
+        <Directory Id='INSTALLFOLDER' Name='XYUNHUI' />
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="云合景从"/>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
+        <File Id='MainEXE' Source='content/MarketingPlatForm.Client.exe' />
+        <File Id='MainEXE.Config' Source='content/MarketingPlatForm.Client.exe.Config' />
+        
+        <File Id='Lib100' Source='content/Newtonsoft.Json.dll' />
+        <File Id='Lib101' Source='content/System.Net.Http.dll' />
+        <File Id='Lib102' Source='content/System.Net.Http.Extensions.dll' />
+        <File Id='Lib103' Source='content/System.Net.Http.Primitives.dll' />
+        <File Id='Lib104' Source='content/System.Net.Http.WebRequest.dll' />
+        <File Id='Lib105' Source='content/System.Runtime.dll' />
+        <File Id='Lib106' Source='content/System.Threading.Tasks.dll' />
+        <File Id='Lib107' Source='content/WPFVisifire.Charts.dll' />
+
+        <File Id='Lib200' Source='content/UpdateService.exe' />
+        <File Id='Lib201' Source='content/Update.exe' />
+        <File Id='Lib202' Source='content/ConsoleApp1.exe' />
+        
+        
+        <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
+        <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
+        <File Id='Lib302' Source='content/WebDriverHelper.dll' />
+        
+        <File Id='Lib400' Source='content/phantomjs.exe' />
+        <File Id='Lib401' Source='content/UUExtConfig.ini' />
+        <File Id='Lib402' Source='content/UUWiseHelper.dll' />
+        <File Id='Lib403' Source='content/UUWiseHelper_x64.dll' />
+        <File Id='Lib404' Source='content/WebDriver.dll' />
+        <File Id='Lib405' Source='content/WebDriver.Support.dll' />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="5A254682-DD5F-453D-8333-144457282026">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Icon="MainIcon"
+                  Name="云合景从"
+                  Description="云合景从"
+                  Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
+                  WorkingDirectory="INSTALLFOLDER">
+          <Icon Id="MainIcon" SourceFile="content/MarketingPlatForm.Client.exe"/>
+        </Shortcut>
+
+        <Shortcut Id="DesktopShortcut"
+                  Directory="DesktopFolder"
+                  Name="云合景从"
+                  Icon="MainIcon"
+                  Description="云合景从"
+                  Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
+                  WorkingDirectory="INSTALLFOLDER">
+        </Shortcut>
+
+        <!--<Shortcut Id="UninstallProduct"
+                  Name="卸载云合景从"
+                  Description="卸载云合景从"
+                  Target="[SystemFolder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>-->
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\云合景从" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id='MainApplication' Title="云合景从 功能列表" Level='1'>
+      <ComponentRef Id='MainExecutable' />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+  </Product>
+
+
+</Wix>

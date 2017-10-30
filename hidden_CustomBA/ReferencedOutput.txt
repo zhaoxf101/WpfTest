@@ -1,0 +1,375 @@
+﻿
+=========================================================================================
+卸载失败
+=========================================================================================
+DetectPackageComplete. PackageId: NetFx40Web State: Present Status: 0
+DetectPackageComplete. PackageId: Setup.msi State: Present Status: 0
+“云合景从.exe”(CLR v4.0.30319: MBA): 已加载“C:\Windows\Microsoft.Net\assembly\GAC_MSIL\UIAutomationTypes\v4.0_4.0.0.0__31bf3856ad364e35\UIAutomationTypes.dll”。已跳过加载符号。模块进行了优化，并且调试器选项“仅我的代码”已启用。
+PlanBegin. PackageCount: 2 Result: None
+PlanPackageComplete. Action: Uninstall Package: Setup.msi RequestedState: Absent Rollback: Install State: Present Status: 0
+PlanPackageComplete. Action: None Package: NetFx40Web RequestedState: None Rollback: None State: Present Status: 0
+PlanComplete. Status: 0
+ApplyBegin. Result: None
+ApplyComplete. Restart: None Result: None Status: -2147024891
+
+
+
+=========================================================================================
+安装成功
+=========================================================================================
+
+DetectPackageComplete. PackageId: NetFx40Web State: Present Status: 0
+
+DetectPackageComplete. PackageId: Setup.msi State: Absent Status: 0
+
+PlanBegin. PackageCount: 2 Result: None
+PlanPackageComplete. Action: None Package: NetFx40Web RequestedState: Present Rollback: None State: Present Status: 0
+PlanPackageComplete. Action: Install Package: Setup.msi RequestedState: Present Rollback: Uninstall State: Absent Status: 0
+PlanComplete. Status: 0
+ApplyBegin. Result: None
+CacheAcquireProgress. OverallPercentage: 100 PackageOrContainerId: Setup.msi PayloadId: Setup.msi Progress: 3018752 Result: None Total: 3018752
+Progress. Progress: 50 Overall: 50
+CacheComplete. e.Status: 0
+
+ExecutePackageBegin. PackageId: Setup.msi Result: None ShouldExecute: True
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 Message: 1: 0 2: 2052 3: 936  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 0 PackageId: Setup.msi ProgressPercentage: 0 Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 Message: 1: 0 2: 2052 3: 936  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 Message: 消息类型: 0, 参数: 2052, 936 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 1,云合景从 DisplayParameters: 0 Message: 消息类型: 1, 参数: 云合景从 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: INSTALL,, DisplayParameters: 0 Message: 操作 20:22:12: INSTALL.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: FindRelatedProducts,正在搜索相关应用程序,找到应用程序: [1] DisplayParameters: 0 Message: 操作 20:22:12: FindRelatedProducts. 正在搜索相关应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: AppSearch,正在搜索已安装的应用程序,属性: [1]，签名: [2] DisplayParameters: 0 Message: 操作 20:22:12: AppSearch. 正在搜索已安装的应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: NETFRAMEWORK40FULL,NetFramework40Full DisplayParameters: 0 Message: 属性: NETFRAMEWORK40FULL，签名: NetFramework40Full MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: LaunchConditions,正在评估启动条件, DisplayParameters: 0 Message: 操作 20:22:12: LaunchConditions. 正在评估启动条件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: ValidateProductID,, DisplayParameters: 0 Message: 操作 20:22:12: ValidateProductID.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: CostInitialize,正在计算空间需求, DisplayParameters: 0 Message: 操作 20:22:12: CostInitialize. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: FileCost,正在计算空间需求, DisplayParameters: 0 Message: 操作 20:22:12: FileCost. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: CostFinalize,正在计算空间需求, DisplayParameters: 0 Message: 操作 20:22:12: CostFinalize. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MigrateFeatureStates,正在从相关应用程序迁移功能状态,应用程序: [1] DisplayParameters: 0 Message: 操作 20:22:12: MigrateFeatureStates. 正在从相关应用程序迁移功能状态 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallValidate,正在验证安装, DisplayParameters: 0 Message: 操作 20:22:12: InstallValidate. 正在验证安装 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 15 PackageId: Setup.msi ProgressPercentage: 15 Result: None
+ExecuteProgress. OverallPercentage: 28 PackageId: Setup.msi ProgressPercentage: 28 Result: None
+ExecuteProgress. OverallPercentage: 41 PackageId: Setup.msi ProgressPercentage: 41 Result: None
+ExecuteProgress. OverallPercentage: 54 PackageId: Setup.msi ProgressPercentage: 54 Result: None
+ExecuteProgress. OverallPercentage: 54 PackageId: Setup.msi ProgressPercentage: 54 Result: None
+ExecuteMsiMessage. Data: RemoveExistingProducts,正在删除应用程序,应用程序: [1]，命令行: [2] DisplayParameters: 0 Message: 操作 20:22:12: RemoveExistingProducts. 正在删除应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallInitialize,, DisplayParameters: 0 Message: 操作 20:22:12: InstallInitialize.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: ProcessComponents,正在更新组件注册, DisplayParameters: 0 Message: 操作 20:22:12: ProcessComponents. 正在更新组件注册 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: GenerateScript,正在生成脚本操作，用于:,[1] DisplayParameters: 0 Message: 操作 20:22:12: GenerateScript. 正在生成脚本操作，用于: MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 55 PackageId: Setup.msi ProgressPercentage: 55 Result: None
+ExecuteProgress. OverallPercentage: 55 PackageId: Setup.msi ProgressPercentage: 55 Result: None
+ExecuteMsiMessage. Data: 正在更新组件注册 DisplayParameters: 0 Message: 正在更新组件注册 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 56 PackageId: Setup.msi ProgressPercentage: 56 Result: None
+ExecuteProgress. OverallPercentage: 56 PackageId: Setup.msi ProgressPercentage: 56 Result: None
+ExecuteProgress. OverallPercentage: 57 PackageId: Setup.msi ProgressPercentage: 57 Result: None
+ExecuteProgress. OverallPercentage: 57 PackageId: Setup.msi ProgressPercentage: 57 Result: None
+ExecuteMsiMessage. Data: UnpublishFeatures,正在取消产品功能的发布,功能: [1] DisplayParameters: 0 Message: 操作 20:22:12: UnpublishFeatures. 正在取消产品功能的发布 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RemoveRegistryValues,正在删除系统注册表值,项: [1]，名称: [2] DisplayParameters: 0 Message: 操作 20:22:12: RemoveRegistryValues. 正在删除系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RemoveShortcuts,正在删除快捷方式,快捷方式: [1] DisplayParameters: 0 Message: 操作 20:22:12: RemoveShortcuts. 正在删除快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RemoveFiles,正在删除文件,文件: [1]，目录: [9] DisplayParameters: 0 Message: 操作 20:22:12: RemoveFiles. 正在删除文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallFiles,正在复制新文件,文件: [1]，目录: [9]，大小: [6] DisplayParameters: 0 Message: 操作 20:22:12: InstallFiles. 正在复制新文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在复制新文件 DisplayParameters: 0 Message: 文件: 正在复制新文件，目录: ，大小:  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 58 PackageId: Setup.msi ProgressPercentage: 58 Result: None
+ExecuteProgress. OverallPercentage: 58 PackageId: Setup.msi ProgressPercentage: 58 Result: None
+ExecuteProgress. OverallPercentage: 59 PackageId: Setup.msi ProgressPercentage: 59 Result: None
+ExecuteProgress. OverallPercentage: 60 PackageId: Setup.msi ProgressPercentage: 60 Result: None
+ExecuteProgress. OverallPercentage: 60 PackageId: Setup.msi ProgressPercentage: 60 Result: None
+ExecuteProgress. OverallPercentage: 61 PackageId: Setup.msi ProgressPercentage: 61 Result: None
+ExecuteProgress. OverallPercentage: 61 PackageId: Setup.msi ProgressPercentage: 61 Result: None
+ExecuteProgress. OverallPercentage: 62 PackageId: Setup.msi ProgressPercentage: 62 Result: None
+ExecuteProgress. OverallPercentage: 62 PackageId: Setup.msi ProgressPercentage: 62 Result: None
+ExecuteProgress. OverallPercentage: 63 PackageId: Setup.msi ProgressPercentage: 63 Result: None
+ExecuteProgress. OverallPercentage: 63 PackageId: Setup.msi ProgressPercentage: 63 Result: None
+ExecuteProgress. OverallPercentage: 64 PackageId: Setup.msi ProgressPercentage: 64 Result: None
+ExecuteProgress. OverallPercentage: 64 PackageId: Setup.msi ProgressPercentage: 64 Result: None
+ExecuteProgress. OverallPercentage: 65 PackageId: Setup.msi ProgressPercentage: 65 Result: None
+ExecuteProgress. OverallPercentage: 65 PackageId: Setup.msi ProgressPercentage: 65 Result: None
+ExecuteProgress. OverallPercentage: 66 PackageId: Setup.msi ProgressPercentage: 66 Result: None
+ExecuteProgress. OverallPercentage: 66 PackageId: Setup.msi ProgressPercentage: 66 Result: None
+ExecuteMsiMessage. Data: CreateShortcuts,正在创建快捷方式,快捷方式: [1] DisplayParameters: 0 Message: 操作 20:22:12: CreateShortcuts. 正在创建快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在创建快捷方式 DisplayParameters: 0 Message: 快捷方式: 正在创建快捷方式 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 67 PackageId: Setup.msi ProgressPercentage: 67 Result: None
+ExecuteProgress. OverallPercentage: 67 PackageId: Setup.msi ProgressPercentage: 67 Result: None
+ExecuteProgress. OverallPercentage: 68 PackageId: Setup.msi ProgressPercentage: 68 Result: None
+ExecuteProgress. OverallPercentage: 69 PackageId: Setup.msi ProgressPercentage: 69 Result: None
+ExecuteProgress. OverallPercentage: 69 PackageId: Setup.msi ProgressPercentage: 69 Result: None
+ExecuteProgress. OverallPercentage: 70 PackageId: Setup.msi ProgressPercentage: 70 Result: None
+ExecuteProgress. OverallPercentage: 70 PackageId: Setup.msi ProgressPercentage: 70 Result: None
+ExecuteProgress. OverallPercentage: 71 PackageId: Setup.msi ProgressPercentage: 71 Result: None
+ExecuteMsiMessage. Data: WriteRegistryValues,正在写入系统注册表值,项: [1]，名称，: [2]值: [3] DisplayParameters: 0 Message: 操作 20:22:12: WriteRegistryValues. 正在写入系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在写入系统注册表值 DisplayParameters: 0 Message: 项: 正在写入系统注册表值，名称，: 值:  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 71 PackageId: Setup.msi ProgressPercentage: 71 Result: None
+ExecuteProgress. OverallPercentage: 72 PackageId: Setup.msi ProgressPercentage: 72 Result: None
+ExecuteProgress. OverallPercentage: 72 PackageId: Setup.msi ProgressPercentage: 72 Result: None
+ExecuteProgress. OverallPercentage: 73 PackageId: Setup.msi ProgressPercentage: 73 Result: None
+ExecuteMsiMessage. Data: RegisterUser,正在注册用户,[1] DisplayParameters: 0 Message: 操作 20:22:12: RegisterUser. 正在注册用户 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RegisterProduct,正在注册产品,[1] DisplayParameters: 0 Message: 操作 20:22:12: RegisterProduct. 正在注册产品 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在注册产品 DisplayParameters: 0 Message: 正在注册产品 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 73 PackageId: Setup.msi ProgressPercentage: 73 Result: None
+ExecuteProgress. OverallPercentage: 74 PackageId: Setup.msi ProgressPercentage: 74 Result: None
+ExecuteProgress. OverallPercentage: 74 PackageId: Setup.msi ProgressPercentage: 74 Result: None
+ExecuteProgress. OverallPercentage: 75 PackageId: Setup.msi ProgressPercentage: 75 Result: None
+ExecuteProgress. OverallPercentage: 75 PackageId: Setup.msi ProgressPercentage: 75 Result: None
+ExecuteMsiMessage. Data: PublishFeatures,正在发布产品功能,功能: [1] DisplayParameters: 0 Message: 操作 20:22:12: PublishFeatures. 正在发布产品功能 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在发布产品功能 DisplayParameters: 0 Message: 功能: 正在发布产品功能 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 76 PackageId: Setup.msi ProgressPercentage: 76 Result: None
+ExecuteProgress. OverallPercentage: 76 PackageId: Setup.msi ProgressPercentage: 76 Result: None
+ExecuteMsiMessage. Data: PublishProduct,正在发布产品信息, DisplayParameters: 0 Message: 操作 20:22:12: PublishProduct. 正在发布产品信息 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在发布产品信息 DisplayParameters: 0 Message:  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 77 PackageId: Setup.msi ProgressPercentage: 77 Result: None
+ExecuteProgress. OverallPercentage: 78 PackageId: Setup.msi ProgressPercentage: 78 Result: None
+ExecuteProgress. OverallPercentage: 78 PackageId: Setup.msi ProgressPercentage: 78 Result: None
+ExecuteProgress. OverallPercentage: 79 PackageId: Setup.msi ProgressPercentage: 79 Result: None
+ExecuteProgress. OverallPercentage: 79 PackageId: Setup.msi ProgressPercentage: 79 Result: None
+ExecuteProgress. OverallPercentage: 80 PackageId: Setup.msi ProgressPercentage: 80 Result: None
+ExecuteProgress. OverallPercentage: 80 PackageId: Setup.msi ProgressPercentage: 80 Result: None
+ExecuteProgress. OverallPercentage: 81 PackageId: Setup.msi ProgressPercentage: 81 Result: None
+ExecuteMsiMessage. Data: InstallFinalize,, DisplayParameters: 0 Message: 操作 20:22:12: InstallFinalize.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 Message: 消息类型: 0, 参数: 2052, 936 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 1,云合景从 DisplayParameters: 0 Message: 消息类型: 1, 参数: 云合景从 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: ProcessComponents,正在更新组件注册 DisplayParameters: 0 Message: 操作 20:22:12: ProcessComponents. 正在更新组件注册 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: InstallFiles,正在复制新文件,文件: [1]，目录: [9]，大小: [6] DisplayParameters: 0 Message: 操作 20:22:12: InstallFiles. 正在复制新文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: MarketingPlatform.Common.dll,,,,,55808,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: MarketingPlatform.Common.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 55808 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: Newtonsoft.Json.dll,,,,,537088,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: Newtonsoft.Json.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 537088 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Net.Http.dll,,,,,186368,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Net.Http.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 186368 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Net.Http.Extensions.dll,,,,,17408,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Net.Http.Extensions.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 17408 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Net.Http.Primitives.dll,,,,,16896,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Net.Http.Primitives.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 16896 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Net.Http.WebRequest.dll,,,,,22528,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Net.Http.WebRequest.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 22528 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Runtime.dll,,,,,17408,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Runtime.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 17408 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: System.Threading.Tasks.dll,,,,,30208,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: System.Threading.Tasks.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 30208 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: WPFVisifire.Charts.dll,,,,,1454592,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: WPFVisifire.Charts.dll，目录: C:\Program Files (x86)\XYUNHUI\，大小: 1454592 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 96 PackageId: Setup.msi ProgressPercentage: 96 Result: None
+ExecuteMsiMessage. Data: MarketingPlatForm.Client.exe,,,,,1529344,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: MarketingPlatForm.Client.exe，目录: C:\Program Files (x86)\XYUNHUI\，大小: 1529344 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteMsiMessage. Data: MarketingPlatForm.Client.exe.Config,,,,,764,,,C:\Program Files (x86)\XYUNHUI\ DisplayParameters: 0 Message: 文件: MarketingPlatForm.Client.exe.Config，目录: C:\Program Files (x86)\XYUNHUI\，大小: 764 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteMsiMessage. Data: CreateShortcuts,正在创建快捷方式,快捷方式: [1] DisplayParameters: 0 Message: 操作 20:22:13: CreateShortcuts. 正在创建快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MainIcon DisplayParameters: 0 Message: 快捷方式: MainIcon MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 云合景从 DisplayParameters: 0 Message: 快捷方式: 云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 云合景从 DisplayParameters: 0 Message: 快捷方式: 云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 卸载云合景从 DisplayParameters: 0 Message: 快捷方式: 卸载云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: WriteRegistryValues,正在写入系统注册表值,项: [1]，名称，: [2]值: [3] DisplayParameters: 0 Message: 操作 20:22:13: WriteRegistryValues. 正在写入系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteMsiMessage. Data: RegisterProduct,正在注册产品,[1] DisplayParameters: 0 Message: 操作 20:22:13: RegisterProduct. 正在注册产品 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 100 PackageId: Setup.msi ProgressPercentage: 100 Result: None
+ExecuteMsiMessage. Data: {5CA331CD-0D08-43E6-80A2-082EB9A7E3DA} DisplayParameters: 0 Message: {5CA331CD-0D08-43E6-80A2-082EB9A7E3DA} MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: PublishFeatures,正在发布产品功能,功能: [1] DisplayParameters: 0 Message: 操作 20:22:13: PublishFeatures. 正在发布产品功能 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MainApplication DisplayParameters: 0 Message: 功能: MainApplication MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: PublishProduct,正在发布产品信息 DisplayParameters: 0 Message: 操作 20:22:13: PublishProduct. 正在发布产品信息 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: {5CA331CD-0D08-43E6-80A2-082EB9A7E3DA} DisplayParameters: 0 Message: 1: {5CA331CD-0D08-43E6-80A2-082EB9A7E3DA}  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,0 DisplayParameters: 0 Message: 消息类型: 2, 参数: 0 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RollbackCleanup,正在删除备份文件,文件: [1] DisplayParameters: 0 Message: 操作 20:22:14: RollbackCleanup. 正在删除备份文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 100 PackageId: Setup.msi ProgressPercentage: 100 Result: None
+ExecuteMsiMessage. Data: 2,1 DisplayParameters: 0 Message: 消息类型: 2, 参数: 1 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,0 DisplayParameters: 0 Message: 1: 2 2: 0  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,1 DisplayParameters: 0 Message: 1: 2 2: 1  MessageType: CommonData PackageId: Setup.msi Result: None
+Progress. Progress: 100 Overall: 100
+ExecutePackageComplete. PackageId: Setup.msi Restart: None Result: None Status: 0
+ApplyComplete. Restart: None Result: None Status: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+DetectPackageComplete. PackageId: NetFx40Web State: Present Status: 0
+DetectPackageComplete. PackageId: Setup.msi State: Present Status: 0
+“云合景从安装程序.exe”(CLR v4.0.30319: MBA): 已加载“C:\Windows\Microsoft.Net\assembly\GAC_MSIL\UIAutomationTypes\v4.0_4.0.0.0__31bf3856ad364e35\UIAutomationTypes.dll”。已跳过加载符号。模块进行了优化，并且调试器选项“仅我的代码”已启用。
+PlanBegin. PackageCount: 2 Result: None
+PlanPackageComplete. Action: Uninstall Package: Setup.msi RequestedState: Absent Rollback: None State: Present Status: 0
+PlanPackageComplete. Action: None Package: NetFx40Web RequestedState: None Rollback: None State: Present Status: 0
+PlanComplete. Status: 0
+ApplyBegin. Result: None
+ExecutePackageBegin. PackageId: Setup.msi Result: None ShouldExecute: True
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 MessageL 1: 0 2: 2052 3: 936  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 MessageL 1: 0 2: 2052 3: 936  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 MessageL 消息类型: 0, 参数: 2052, 936 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 1,云合景从 DisplayParameters: 0 MessageL 消息类型: 1, 参数: 云合景从 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: INSTALL,, DisplayParameters: 0 MessageL 操作 14:36:29: INSTALL.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: FindRelatedProducts,正在搜索相关应用程序,找到应用程序: [1] DisplayParameters: 0 MessageL 操作 14:36:29: FindRelatedProducts. 正在搜索相关应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: AppSearch,正在搜索已安装的应用程序,属性: [1]，签名: [2] DisplayParameters: 0 MessageL 操作 14:36:29: AppSearch. 正在搜索已安装的应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: NETFRAMEWORK40FULL,NetFramework40Full DisplayParameters: 0 MessageL 属性: NETFRAMEWORK40FULL，签名: NetFramework40Full MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: LaunchConditions,正在评估启动条件, DisplayParameters: 0 MessageL 操作 14:36:29: LaunchConditions. 正在评估启动条件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: ValidateProductID,, DisplayParameters: 0 MessageL 操作 14:36:29: ValidateProductID.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: CostInitialize,正在计算空间需求, DisplayParameters: 0 MessageL 操作 14:36:29: CostInitialize. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: FileCost,正在计算空间需求, DisplayParameters: 0 MessageL 操作 14:36:29: FileCost. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: CostFinalize,正在计算空间需求, DisplayParameters: 0 MessageL 操作 14:36:29: CostFinalize. 正在计算空间需求 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MigrateFeatureStates,正在从相关应用程序迁移功能状态,应用程序: [1] DisplayParameters: 0 MessageL 操作 14:36:29: MigrateFeatureStates. 正在从相关应用程序迁移功能状态 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallValidate,正在验证安装, DisplayParameters: 0 MessageL 操作 14:36:29: InstallValidate. 正在验证安装 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 15 PackageId: Setup.msi ProgressPercentage: 15 Result: None
+ExecuteProgress. OverallPercentage: 28 PackageId: Setup.msi ProgressPercentage: 28 Result: None
+ExecuteProgress. OverallPercentage: 41 PackageId: Setup.msi ProgressPercentage: 41 Result: None
+ExecuteProgress. OverallPercentage: 54 PackageId: Setup.msi ProgressPercentage: 54 Result: None
+ExecuteProgress. OverallPercentage: 54 PackageId: Setup.msi ProgressPercentage: 54 Result: None
+ExecuteMsiMessage. Data: RemoveExistingProducts,正在删除应用程序,应用程序: [1]，命令行: [2] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveExistingProducts. 正在删除应用程序 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallInitialize,, DisplayParameters: 0 MessageL 操作 14:36:29: InstallInitialize.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: GenerateScript,正在生成脚本操作，用于:,[1] DisplayParameters: 0 MessageL 操作 14:36:29: GenerateScript. 正在生成脚本操作，用于: MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 55 PackageId: Setup.msi ProgressPercentage: 55 Result: None
+ExecuteProgress. OverallPercentage: 55 PackageId: Setup.msi ProgressPercentage: 55 Result: None
+ExecuteMsiMessage. Data: InstallInitialize DisplayParameters: 0 MessageL InstallInitialize MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 56 PackageId: Setup.msi ProgressPercentage: 56 Result: None
+ExecuteProgress. OverallPercentage: 56 PackageId: Setup.msi ProgressPercentage: 56 Result: None
+ExecuteProgress. OverallPercentage: 57 PackageId: Setup.msi ProgressPercentage: 57 Result: None
+ExecuteProgress. OverallPercentage: 57 PackageId: Setup.msi ProgressPercentage: 57 Result: None
+ExecuteProgress. OverallPercentage: 58 PackageId: Setup.msi ProgressPercentage: 58 Result: None
+ExecuteProgress. OverallPercentage: 58 PackageId: Setup.msi ProgressPercentage: 58 Result: None
+ExecuteProgress. OverallPercentage: 59 PackageId: Setup.msi ProgressPercentage: 59 Result: None
+ExecuteProgress. OverallPercentage: 60 PackageId: Setup.msi ProgressPercentage: 60 Result: None
+ExecuteMsiMessage. Data: ProcessComponents,正在更新组件注册, DisplayParameters: 0 MessageL 操作 14:36:29: ProcessComponents. 正在更新组件注册 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在更新组件注册 DisplayParameters: 0 MessageL  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 60 PackageId: Setup.msi ProgressPercentage: 60 Result: None
+ExecuteProgress. OverallPercentage: 61 PackageId: Setup.msi ProgressPercentage: 61 Result: None
+ExecuteProgress. OverallPercentage: 61 PackageId: Setup.msi ProgressPercentage: 61 Result: None
+ExecuteProgress. OverallPercentage: 62 PackageId: Setup.msi ProgressPercentage: 62 Result: None
+ExecuteProgress. OverallPercentage: 62 PackageId: Setup.msi ProgressPercentage: 62 Result: None
+ExecuteProgress. OverallPercentage: 63 PackageId: Setup.msi ProgressPercentage: 63 Result: None
+ExecuteMsiMessage. Data: UnpublishFeatures,正在取消产品功能的发布,功能: [1] DisplayParameters: 0 MessageL 操作 14:36:29: UnpublishFeatures. 正在取消产品功能的发布 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在取消产品功能的发布 DisplayParameters: 0 MessageL 功能: 正在取消产品功能的发布 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 63 PackageId: Setup.msi ProgressPercentage: 63 Result: None
+ExecuteProgress. OverallPercentage: 64 PackageId: Setup.msi ProgressPercentage: 64 Result: None
+ExecuteMsiMessage. Data: RemoveRegistryValues,正在删除系统注册表值,项: [1]，名称: [2] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveRegistryValues. 正在删除系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在删除系统注册表值 DisplayParameters: 0 MessageL 项: 正在删除系统注册表值，名称:  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 64 PackageId: Setup.msi ProgressPercentage: 64 Result: None
+ExecuteProgress. OverallPercentage: 65 PackageId: Setup.msi ProgressPercentage: 65 Result: None
+ExecuteProgress. OverallPercentage: 65 PackageId: Setup.msi ProgressPercentage: 65 Result: None
+ExecuteProgress. OverallPercentage: 66 PackageId: Setup.msi ProgressPercentage: 66 Result: None
+ExecuteMsiMessage. Data: RemoveShortcuts,正在删除快捷方式,快捷方式: [1] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveShortcuts. 正在删除快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在删除快捷方式 DisplayParameters: 0 MessageL 快捷方式: 正在删除快捷方式 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 66 PackageId: Setup.msi ProgressPercentage: 66 Result: None
+ExecuteProgress. OverallPercentage: 67 PackageId: Setup.msi ProgressPercentage: 67 Result: None
+ExecuteProgress. OverallPercentage: 67 PackageId: Setup.msi ProgressPercentage: 67 Result: None
+ExecuteProgress. OverallPercentage: 68 PackageId: Setup.msi ProgressPercentage: 68 Result: None
+ExecuteProgress. OverallPercentage: 69 PackageId: Setup.msi ProgressPercentage: 69 Result: None
+ExecuteProgress. OverallPercentage: 69 PackageId: Setup.msi ProgressPercentage: 69 Result: None
+ExecuteProgress. OverallPercentage: 70 PackageId: Setup.msi ProgressPercentage: 70 Result: None
+ExecuteMsiMessage. Data: RemoveFiles,正在删除文件,文件: [1]，目录: [9] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveFiles. 正在删除文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在删除文件 DisplayParameters: 0 MessageL 文件: 正在删除文件，目录:  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 70 PackageId: Setup.msi ProgressPercentage: 70 Result: None
+ExecuteProgress. OverallPercentage: 71 PackageId: Setup.msi ProgressPercentage: 71 Result: None
+ExecuteProgress. OverallPercentage: 71 PackageId: Setup.msi ProgressPercentage: 71 Result: None
+ExecuteProgress. OverallPercentage: 72 PackageId: Setup.msi ProgressPercentage: 72 Result: None
+ExecuteProgress. OverallPercentage: 72 PackageId: Setup.msi ProgressPercentage: 72 Result: None
+ExecuteProgress. OverallPercentage: 73 PackageId: Setup.msi ProgressPercentage: 73 Result: None
+ExecuteProgress. OverallPercentage: 73 PackageId: Setup.msi ProgressPercentage: 73 Result: None
+ExecuteProgress. OverallPercentage: 74 PackageId: Setup.msi ProgressPercentage: 74 Result: None
+ExecuteProgress. OverallPercentage: 74 PackageId: Setup.msi ProgressPercentage: 74 Result: None
+ExecuteProgress. OverallPercentage: 75 PackageId: Setup.msi ProgressPercentage: 75 Result: None
+ExecuteProgress. OverallPercentage: 75 PackageId: Setup.msi ProgressPercentage: 75 Result: None
+ExecuteProgress. OverallPercentage: 76 PackageId: Setup.msi ProgressPercentage: 76 Result: None
+ExecuteProgress. OverallPercentage: 76 PackageId: Setup.msi ProgressPercentage: 76 Result: None
+ExecuteProgress. OverallPercentage: 77 PackageId: Setup.msi ProgressPercentage: 77 Result: None
+ExecuteProgress. OverallPercentage: 78 PackageId: Setup.msi ProgressPercentage: 78 Result: None
+ExecuteProgress. OverallPercentage: 78 PackageId: Setup.msi ProgressPercentage: 78 Result: None
+ExecuteMsiMessage. Data: InstallFiles,正在复制新文件,文件: [1]，目录: [9]，大小: [6] DisplayParameters: 0 MessageL 操作 14:36:29: InstallFiles. 正在复制新文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: CreateShortcuts,正在创建快捷方式,快捷方式: [1] DisplayParameters: 0 MessageL 操作 14:36:29: CreateShortcuts. 正在创建快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: WriteRegistryValues,正在写入系统注册表值,项: [1]，名称，: [2]值: [3] DisplayParameters: 0 MessageL 操作 14:36:29: WriteRegistryValues. 正在写入系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RegisterUser,正在注册用户,[1] DisplayParameters: 0 MessageL 操作 14:36:29: RegisterUser. 正在注册用户 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RegisterProduct,正在注册产品,[1] DisplayParameters: 0 MessageL 操作 14:36:29: RegisterProduct. 正在注册产品 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: PublishFeatures,正在发布产品功能,功能: [1] DisplayParameters: 0 MessageL 操作 14:36:29: PublishFeatures. 正在发布产品功能 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: PublishProduct,正在发布产品信息, DisplayParameters: 0 MessageL 操作 14:36:29: PublishProduct. 正在发布产品信息 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 正在发布产品信息 DisplayParameters: 0 MessageL  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 79 PackageId: Setup.msi ProgressPercentage: 79 Result: None
+ExecuteProgress. OverallPercentage: 79 PackageId: Setup.msi ProgressPercentage: 79 Result: None
+ExecuteProgress. OverallPercentage: 80 PackageId: Setup.msi ProgressPercentage: 80 Result: None
+ExecuteProgress. OverallPercentage: 80 PackageId: Setup.msi ProgressPercentage: 80 Result: None
+ExecuteProgress. OverallPercentage: 81 PackageId: Setup.msi ProgressPercentage: 81 Result: None
+ExecuteMsiMessage. Data: InstallFinalize,, DisplayParameters: 0 MessageL 操作 14:36:29: InstallFinalize.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: 0,2052,936 DisplayParameters: 0 MessageL 消息类型: 0, 参数: 2052, 936 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 1,云合景从 DisplayParameters: 0 MessageL 消息类型: 1, 参数: 云合景从 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: InstallInitialize DisplayParameters: 0 MessageL 操作 14:36:29: InstallInitialize.  MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: {2FE0FE1C-0A58-4F60-B0A6-4ACDE4135E1D} DisplayParameters: 0 MessageL 1: {2FE0FE1C-0A58-4F60-B0A6-4ACDE4135E1D}  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: {2FE0FE1C-0A58-4F60-B0A6-4ACDE4135E1D} DisplayParameters: 0 MessageL 1: {2FE0FE1C-0A58-4F60-B0A6-4ACDE4135E1D}  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MainIcon DisplayParameters: 0 MessageL 1: MainIcon  MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: ProcessComponents,正在更新组件注册 DisplayParameters: 0 MessageL 操作 14:36:29: ProcessComponents. 正在更新组件注册 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: UnpublishFeatures,正在取消产品功能的发布,功能: [1] DisplayParameters: 0 MessageL 操作 14:36:29: UnpublishFeatures. 正在取消产品功能的发布 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: MainApplication DisplayParameters: 0 MessageL 功能: MainApplication MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RemoveRegistryValues,正在删除系统注册表值,项: [1]，名称: [2] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveRegistryValues. 正在删除系统注册表值 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteMsiMessage. Data: RemoveShortcuts,正在删除快捷方式,快捷方式: [1] DisplayParameters: 0 MessageL 操作 14:36:29: RemoveShortcuts. 正在删除快捷方式 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 云合景从 DisplayParameters: 0 MessageL 快捷方式: 云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 云合景从 DisplayParameters: 0 MessageL 快捷方式: 云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 卸载云合景从 DisplayParameters: 0 MessageL 快捷方式: 卸载云合景从 MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RemoveFiles,正在删除文件,文件: [1]，目录: [9] DisplayParameters: 0 MessageL 操作 14:36:30: RemoveFiles. 正在删除文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 95 PackageId: Setup.msi ProgressPercentage: 95 Result: None
+ExecuteProgress. OverallPercentage: 96 PackageId: Setup.msi ProgressPercentage: 96 Result: None
+ExecuteProgress. OverallPercentage: 96 PackageId: Setup.msi ProgressPercentage: 96 Result: None
+ExecuteProgress. OverallPercentage: 96 PackageId: Setup.msi ProgressPercentage: 96 Result: None
+ExecuteProgress. OverallPercentage: 96 PackageId: Setup.msi ProgressPercentage: 96 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 97 PackageId: Setup.msi ProgressPercentage: 97 Result: None
+ExecuteProgress. OverallPercentage: 98 PackageId: Setup.msi ProgressPercentage: 98 Result: None
+ExecuteProgress. OverallPercentage: 98 PackageId: Setup.msi ProgressPercentage: 98 Result: None
+ExecuteProgress. OverallPercentage: 98 PackageId: Setup.msi ProgressPercentage: 98 Result: None
+ExecuteProgress. OverallPercentage: 98 PackageId: Setup.msi ProgressPercentage: 98 Result: None
+ExecuteProgress. OverallPercentage: 99 PackageId: Setup.msi ProgressPercentage: 99 Result: None
+ExecuteProgress. OverallPercentage: 99 PackageId: Setup.msi ProgressPercentage: 99 Result: None
+ExecuteProgress. OverallPercentage: 99 PackageId: Setup.msi ProgressPercentage: 99 Result: None
+ExecuteProgress. OverallPercentage: 99 PackageId: Setup.msi ProgressPercentage: 99 Result: None
+ExecuteProgress. OverallPercentage: 99 PackageId: Setup.msi ProgressPercentage: 99 Result: None
+ExecuteProgress. OverallPercentage: 100 PackageId: Setup.msi ProgressPercentage: 100 Result: None
+ExecuteMsiMessage. Data: PublishProduct,正在发布产品信息 DisplayParameters: 0 MessageL 操作 14:36:30: PublishProduct. 正在发布产品信息 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,0 DisplayParameters: 0 MessageL 消息类型: 2, 参数: 0 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: RollbackCleanup,正在删除备份文件,文件: [1] DisplayParameters: 0 MessageL 操作 14:36:30: RollbackCleanup. 正在删除备份文件 MessageType: ActionStart PackageId: Setup.msi Result: None
+ExecuteProgress. OverallPercentage: 100 PackageId: Setup.msi ProgressPercentage: 100 Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768e9.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768e9.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768ea.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768ea.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768eb.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768eb.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768ec.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768ec.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768ed.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768ed.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768ee.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768ee.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768ef.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768ef.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f0.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f0.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f1.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f1.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f2.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f2.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f3.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f3.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f4.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f4.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f5.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f5.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: C:\Config.Msi\13768f6.rbf DisplayParameters: 0 MessageL 文件: C:\Config.Msi\13768f6.rbf MessageType: ActionData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,1 DisplayParameters: 0 MessageL 消息类型: 2, 参数: 1 MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,0 DisplayParameters: 0 MessageL 1: 2 2: 0  MessageType: CommonData PackageId: Setup.msi Result: None
+ExecuteMsiMessage. Data: 2,1 DisplayParameters: 0 MessageL 1: 2 2: 1  MessageType: CommonData PackageId: Setup.msi Result: None
+Progress. Progress: 100 Overall: 100
+ExecutePackageComplete. PackageId: Setup.msi Restart: None Result: None Status: 0
+ApplyComplete. Restart: None Result: None Status: 0

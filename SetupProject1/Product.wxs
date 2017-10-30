@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.19.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
+  <Product Codepage="936" Id="*" Name="云合景从" Language="2052" Version="1.0.20.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="da01fbc1-53a1-4144-8aa3-40818557a01c">
     <Package Id='*' Keywords='Installer' Description="云合景从安装程序"
       Comments='(c) 2016-2017 合肥新云晖科技有限公司' Manufacturer='合肥新云晖科技有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
