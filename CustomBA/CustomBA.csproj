@@ -145,5 +145,8 @@
     <Resource Include="images\chk.png" />
     <Resource Include="images\chked.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\install_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

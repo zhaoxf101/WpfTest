@@ -1,0 +1,14 @@
+﻿The problem is caused by the burn engine not beeing signed.To fix this you just need to perform the following steps after building the bootstrapper package.
+
+    detach the engine from YourInstaller:
+    insignia -ib "YourInstaller.exe" -o engine.exe
+    sign engine.exe with your certificate
+    re-attach the signed engine.exe to the bundle:
+    insignia -ab engine.exe "YourInstaller.exe" -o "YourInstaller.exe"
+    sign "YourInstaller.exe" with your certificate
+
+ 
+
+You will find the insignia.exe in the Wix Toolkit's bin folder.
+
+For more information refer to the Wix Documentation

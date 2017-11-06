@@ -22,7 +22,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/CustomBA;component/images/bg.png"  />
             </Grid.Background>
-
+            <Image Source="/CustomBA;component/images/install_icon.png" Width="200" Height="70" VerticalAlignment="Top" Margin="0 70 0 0" />
             <Button Name="BtnInstall" Click="BtnInstall_Click" Content="快速安装" Margin="0 222 0 0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Center" Width="220" Style="{StaticResource InstallButtonStyle}"/>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 298 0 0" Orientation="Horizontal">
                 <CheckBox Name="CheckBoxPolicy" Style="{StaticResource CheckBoxStyle1}" IsChecked="True">
