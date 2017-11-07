@@ -38,11 +38,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\HtmlAgilityPack.dll" />
+    <Content Include="content\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="content\Launcher.dll" />
+    <Content Include="content\Main.dll" />
     <Content Include="content\MarketingPlatform.Client.exe" />
     <Content Include="content\MarketingPlatForm.Client.exe.Config" />
     <Content Include="content\MarketingPlatForm.TaskExeBLL.dll" />
     <Content Include="content\MarketingPlatForm.TaskUtils.dll" />
     <Content Include="content\Newtonsoft.Json.dll" />
+    <Content Include="content\NPOI.dll" />
+    <Content Include="content\NPOI.OOXML.dll" />
+    <Content Include="content\NPOI.OpenXml4Net.dll" />
+    <Content Include="content\NPOI.OpenXmlFormats.dll" />
     <Content Include="content\phantomjs.exe" />
     <Content Include="content\Qiniu.dll" />
     <Content Include="content\System.IO.dll" />
@@ -56,11 +63,11 @@
     <Content Include="content\UpdateService.exe" />
     <Content Include="content\UUExtConfig.ini" />
     <Content Include="content\UUWiseHelper.dll" />
-    <Content Include="content\UUWiseHelper_x64.dll" />
     <Content Include="content\WebDriver.dll" />
     <Content Include="content\WebDriver.Support.dll" />
     <Content Include="content\WebDriverHelper.dll" />
     <Content Include="content\WPFVisifire.Charts.dll" />
+    <Content Include="content\Xyh.Crawlers.KeyWordsRank.dll" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

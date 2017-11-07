@@ -23,7 +23,7 @@ namespace CustomBA
 
         protected override void Run()
         {
-            var logFile = Path.Combine(Path.GetTempPath(), $"IMS_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
+            var logFile = Path.Combine(Path.GetTempPath(), $"OEM1_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
             Trace.Listeners.Add(new TextWriterTraceListener(logFile));
             Trace.AutoFlush = true;
 
@@ -52,7 +52,7 @@ namespace CustomBA
             else
             {
                 var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                _installFolder = Path.Combine(folder, "XYUNHUI");
+                _installFolder = Path.Combine(folder, "WEIDOUKE");
 
                 Engine.Detect();
             }
@@ -146,7 +146,7 @@ namespace CustomBA
 
             if (_action == LaunchAction.Uninstall)
             {
-                CustomAction.KillRelativeProcesses();
+                CustomAction.KillRelativeProcesses(_mainWindow?.InstallFolder ?? _installFolder);
 
                 // 无窗口卸载，假定是升级安装。因为是先安装升级 msi，再卸载低版本 bundle，所以这里不再执行 Backup 操作。
                 if (_mainWindow != null)
@@ -158,7 +158,7 @@ namespace CustomBA
             else if (_action != LaunchAction.Unknown)
             {
                 // 注意，这里的备份目录是固定的
-                CustomAction.RemoveBackup();
+                CustomAction.RemoveBackup(_mainWindow?.InstallFolder ?? _installFolder);
             }
 
             Engine.Apply(_mainWindow?.WindowPtr ?? IntPtr.Zero);

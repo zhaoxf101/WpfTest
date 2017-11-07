@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="云合景从" Version="1.0.20.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="5225e662-57b9-4876-9cd1-d485f8394e3c" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="云合景从" Version="1.0.21.0" Manufacturer="合肥新云晖科技有限公司" UpgradeCode="5225e662-57b9-4876-9cd1-d485f8394e3c" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBA.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBA.TargetDir)BootstrapperCore.config" />
     </BootstrapperApplicationRef>
 
     <Chain>
-      <PackageGroupRef Id="Netfx4Full"/>
-     
+      <PackageGroupRef Id="NetFx40Web"/>
       <MsiPackage SourceFile="$(var.Setup.TargetPath)">
         <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
       </MsiPackage>
@@ -16,12 +15,7 @@
   </Bundle>
 
   <Fragment>
-    <PackageGroup Id="Netfx4Full">
-      <ExePackage Id="Netfx4Full" Cache="no" Compressed="yes" PerMachine="yes" Permanent="yes" Vital="yes" InstallCommand=" /q /norestart"
-                  SourceFile="dotNetFx40_Full_setup.exe" DetectCondition="DotNetFramework40FullInstallRegValue=1" />
-    </PackageGroup>
     <WixVariable Id="WixMbaPrereqPackageId" Value="Netfx4Full" />
     <WixVariable Id="WixMbaPrereqLicenseUrl" Value="NetfxLicense.rtf" />
   </Fragment>
-
 </Wix>

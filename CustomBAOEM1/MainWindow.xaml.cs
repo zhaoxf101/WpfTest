@@ -50,7 +50,7 @@ namespace CustomBA
 
             _app = app;
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            _installFolder = Path.Combine(folder, "XYUNHUI");
+            _installFolder = Path.Combine(folder, "WEIDOUKE");
 
             //if (Environment.Is64BitOperatingSystem)
             //{
@@ -287,7 +287,7 @@ namespace CustomBA
                     var fileName = Path.Combine(_installFolder, "MarketingPlatForm.Client.exe");
                     if (CheckBoxAutoStart.IsChecked == true)
                     {
-                        Util.RegisterAutoStart(fileName, "IMS_MarketingPlatform.Client", true);
+                        Util.RegisterAutoStart(fileName, "OEM1_MarketingPlatform.Client", true);
                     }
 
                     Process.Start(fileName);
@@ -319,15 +319,15 @@ namespace CustomBA
 
         private void HyperlinkPolicy_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new DialogPolicy
-            {
-                Owner = this
-            };
-            var result = dialog.ShowDialog();
-            if (result == true)
-            {
-                CheckBoxPolicy.IsChecked = true;
-            }
+            //var dialog = new DialogPolicy
+            //{
+            //    Owner = this
+            //};
+            //var result = dialog.ShowDialog();
+            //if (result == true)
+            //{
+            //    CheckBoxPolicy.IsChecked = true;
+            //}
         }
 
         private void HyperlinkInstallFolder_Click(object sender, RoutedEventArgs e)
