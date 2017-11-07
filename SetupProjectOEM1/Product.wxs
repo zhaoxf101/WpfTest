@@ -75,7 +75,7 @@
     </DirectoryRef>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" Guid="5A254682-DD5F-453D-8333-144457282026">
+      <Component Id="ApplicationShortcut" Guid="1AC75866-4155-4638-A587-2985276715D0">
         <Shortcut Id="ApplicationStartMenuShortcut"
                   Icon="MainIcon"
                   Name="微兜客"
