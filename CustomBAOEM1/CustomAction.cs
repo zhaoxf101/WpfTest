@@ -122,8 +122,8 @@ namespace CustomBA
                     }
                 }
 
-                var backupDirectory = Path.GetDirectoryName(BackupFolder);
-                var installDirectory = Path.GetDirectoryName(installFolder);
+                var backupDirectory = Path.GetDirectoryName(BackupFolder + Path.DirectorySeparatorChar);
+                var installDirectory = Path.GetDirectoryName(installFolder + Path.DirectorySeparatorChar);
 
                 Logger.Log($"executablePath: {executablePath}");
                 Logger.Log($"backupDirectory: {backupDirectory}");
@@ -193,6 +193,11 @@ namespace CustomBA
             processes = Process.GetProcessesByName("phantomjs");
             foreach (Process process in processes)
             {
+                if (!CheckModule(process, installFolder))
+                {
+                    continue;
+                }
+
                 try
                 {
                     Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill phantomjs Process.");

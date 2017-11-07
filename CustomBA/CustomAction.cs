@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -73,15 +74,15 @@ namespace CustomBA
             }
         }
 
-        internal static void RemoveBackup()
+        internal static void RemoveBackup(string installFolder)
         {
-            Trace.WriteLine($"RemoveBackup. ");
+            Trace.WriteLine($"RemoveBackup. installFolder: {installFolder}");
 
             var retryCount = RetryCount;
 
             while (retryCount > 0)
             {
-                KillRelativeProcesses();
+                KillRelativeProcesses(installFolder);
 
                 try
                 {
@@ -103,13 +104,57 @@ namespace CustomBA
             Trace.WriteLine($"RemoveBackup Complete. ");
         }
 
-        internal static void KillRelativeProcesses()
+        static bool CheckModule(Process process, string installFolder)
+        {
+            try
+            {
+                var mc = new ManagementClass("Win32_Process");
+                var mci = mc.GetInstances();
+                var executablePath = "";
+
+                foreach (ManagementObject mo in mci)
+                {
+                    var id = (uint)mo["ProcessId"];
+                    if (process.Id == id)
+                    {
+                        executablePath = Path.GetDirectoryName((string)mo["ExecutablePath"]);
+                        break;
+                    }
+                }
+
+                var backupDirectory = Path.GetDirectoryName(BackupFolder + Path.DirectorySeparatorChar);
+                var installDirectory = Path.GetDirectoryName(installFolder + Path.DirectorySeparatorChar);
+
+                Logger.Log($"executablePath: {executablePath}");
+                Logger.Log($"backupDirectory: {backupDirectory}");
+                Logger.Log($"installDirectory: {installDirectory}");
+
+                var result = string.Equals(backupDirectory, executablePath, StringComparison.OrdinalIgnoreCase) ||
+                       string.Equals(installDirectory, executablePath, StringComparison.OrdinalIgnoreCase);
+                Logger.Log($"result: {result}");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var msg = $"CheckModule {process.ProcessName} Failed. Exception: {ex.Message}";
+                Logger.Log(msg);
+                return true;
+            }
+        }
+
+        internal static void KillRelativeProcesses(string installFolder)
         {
             Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin KillRelativeProcesses.");
 
             var processes = Process.GetProcessesByName("UpdateService");
             foreach (Process process in processes)
             {
+                if (!CheckModule(process, installFolder))
+                {
+                    continue;
+                }
+
                 try
                 {
                     Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill UpdateService Process.");
@@ -125,6 +170,11 @@ namespace CustomBA
             processes = Process.GetProcessesByName("MarketingPlatform.Client");
             foreach (Process process in processes)
             {
+                if (!CheckModule(process, installFolder))
+                {
+                    continue;
+                }
+
                 Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Send shutdown to MarketingPlatform.Client Process.");
 
                 try
@@ -142,6 +192,11 @@ namespace CustomBA
             processes = Process.GetProcessesByName("phantomjs");
             foreach (Process process in processes)
             {
+                if (!CheckModule(process, installFolder))
+                {
+                    continue;
+                }
+
                 try
                 {
                     Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Kill phantomjs Process.");
