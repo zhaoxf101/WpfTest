@@ -32,6 +32,8 @@
       <Component Id='MainExecutable' Guid='B8C9BB0A-DDDE-4292-870C-57E1A4768E10'>
         <File Id='MainEXE' Source='content/MarketingPlatForm.Client.exe' />
         <File Id='MainEXE.Config' Source='content/MarketingPlatForm.Client.exe.Config' />
+        <File Id='MainDll' Source='content/Main.dll' />
+        <File Id='LauncherDll' Source='content/Launcher.dll' />
 
         <File Id='Lib100' Source='content/Newtonsoft.Json.dll' />
         <File Id='Lib101' Source='content/System.Net.Http.dll' />
@@ -43,21 +45,31 @@
         <File Id='Lib107' Source='content/WPFVisifire.Charts.dll' />
         <File Id='Lib108' Source='content/System.IO.dll' />
 
+        <File Id='Lib109' Source='content/ICSharpCode.SharpZipLib.dll' />
+        <File Id='Lib110' Source='content/NPOI.dll' />
+        <File Id='Lib111' Source='content/NPOI.OOXML.dll' />
+        <File Id='Lib112' Source='content/NPOI.OpenXml4Net.dll' />
+        <File Id='Lib113' Source='content/NPOI.OpenXmlFormats.dll' />
+        <!--<File Id='Lib114' Source='content/Main.dll' />
+        <File Id='Lib115' Source='content/Main.dll' />
+        <File Id='Lib116' Source='content/Main.dll' />
+        <File Id='Lib117' Source='content/Main.dll' />-->
+
         <File Id='Lib200' Source='content/UpdateService.exe' />
         <File Id='Lib201' Source='content/Update.exe' />
 
         <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
         <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
         <File Id='Lib302' Source='content/WebDriverHelper.dll' />
+        <File Id='Lib303' Source='content/Xyh.Crawlers.KeyWordsRank.dll' />
 
         <File Id='Lib400' Source='content/phantomjs.exe' />
         <File Id='Lib401' Source='content/UUExtConfig.ini' />
         <File Id='Lib402' Source='content/UUWiseHelper.dll' />
-        <File Id='Lib403' Source='content/UUWiseHelper_x64.dll' />
-        <File Id='Lib404' Source='content/WebDriver.dll' />
-        <File Id='Lib405' Source='content/WebDriver.Support.dll' />
-        <File Id='Lib406' Source='content/Qiniu.dll' />
-        <File Id='Lib407' Source='content/HtmlAgilityPack.dll' />
+        <File Id='Lib403' Source='content/WebDriver.dll' />
+        <File Id='Lib404' Source='content/WebDriver.Support.dll' />
+        <File Id='Lib405' Source='content/Qiniu.dll' />
+        <File Id='Lib406' Source='content/HtmlAgilityPack.dll' />
 
       </Component>
     </DirectoryRef>
