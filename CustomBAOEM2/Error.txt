@@ -1,0 +1,43 @@
+﻿[23B0:1360][2017-08-01T10:34:30]i001: Burn v3.11.0.1701, Windows v6.1 (Build 7601: Service Pack 1), path: C:\Users\ADMINI~1\AppData\Local\Temp\{A0779D81-15D9-46C3-97CB-2D2AEDFF597C}\.cr\BundleFull.exe
+[23B0:1360][2017-08-01T10:34:30]i009: Command Line: '-burn.clean.room=D:\Repos\WpfTest\BundleFull\bin\Debug\BundleFull.exe -burn.filehandle.attached=184 -burn.filehandle.self=192'
+[23B0:1360][2017-08-01T10:34:30]i000: Setting string variable 'WixBundleOriginalSource' to value 'D:\Repos\WpfTest\BundleFull\bin\Debug\BundleFull.exe'
+[23B0:1360][2017-08-01T10:34:30]i000: Setting string variable 'WixBundleOriginalSourceFolder' to value 'D:\Repos\WpfTest\BundleFull\bin\Debug\'
+[23B0:1360][2017-08-01T10:34:30]i000: Setting string variable 'WixBundleLog' to value 'C:\Users\ADMINI~1\AppData\Local\Temp\BundleFull_20170801103430.log'
+[23B0:1360][2017-08-01T10:34:30]i000: Setting string variable 'WixBundleName' to value 'BundleFull'
+[23B0:1360][2017-08-01T10:34:30]i000: Setting string variable 'WixBundleManufacturer' to value 'Microsoft'
+[23B0:0F80][2017-08-01T10:34:30]i000: Setting numeric variable 'WixStdBALanguageId' to value 1033
+[23B0:0F80][2017-08-01T10:34:30]i000: Setting version variable 'WixBundleFileVersion' to value '1.0.0.0'
+[23B0:1360][2017-08-01T10:34:30]i100: Detect begin, 1 packages
+[23B0:1360][2017-08-01T10:34:30]i101: Detected package: Setup.msi, state: Absent, cached: None
+[23B0:1360][2017-08-01T10:34:30]i199: Detect complete, result: 0x0
+[23B0:0F80][2017-08-01T10:34:32]i000: Setting numeric variable 'EulaAcceptCheckbox' to value 1
+[23B0:1360][2017-08-01T10:34:32]i200: Plan begin, 1 packages, action: Install
+[23B0:1360][2017-08-01T10:34:32]i000: Setting string variable 'WixBundleRollbackLog_Setup.msi' to value 'C:\Users\ADMINI~1\AppData\Local\Temp\BundleFull_20170801103430_000_Setup.msi_rollback.log'
+[23B0:1360][2017-08-01T10:34:32]i000: Setting string variable 'WixBundleLog_Setup.msi' to value 'C:\Users\ADMINI~1\AppData\Local\Temp\BundleFull_20170801103430_000_Setup.msi.log'
+[23B0:1360][2017-08-01T10:34:32]i201: Planned package: Setup.msi, state: Absent, default requested: Present, ba requested: Present, execute: Install, rollback: Uninstall, cache: Yes, uncache: No, dependency: Register
+[23B0:1360][2017-08-01T10:34:32]i299: Plan complete, result: 0x0
+[23B0:1360][2017-08-01T10:34:32]i300: Apply begin
+[23B0:1360][2017-08-01T10:34:32]i010: Launching elevated engine process.
+[23B0:1360][2017-08-01T10:34:32]i011: Launched elevated engine process.
+[23B0:1360][2017-08-01T10:34:33]i012: Connected to elevated engine.
+[2584:2610][2017-08-01T10:34:33]i358: Pausing automatic updates.
+[2584:2610][2017-08-01T10:34:33]i359: Paused automatic updates.
+[2584:2610][2017-08-01T10:34:33]i360: Creating a system restore point.
+[2584:2610][2017-08-01T10:34:33]w363: Could not create system restore point, error: 0x80070422. Continuing...
+[2584:2610][2017-08-01T10:34:33]i370: Session begin, registration key: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{96254b2b-09e8-4765-89a0-ed965dedc09e}, options: 0x7, disable resume: No
+[2584:2610][2017-08-01T10:34:33]i000: Caching bundle from: 'C:\Users\ADMINI~1\AppData\Local\Temp\{786CCAB3-89B8-4110-8AE7-18B77382E653}\.be\BundleFull.exe' to: 'C:\ProgramData\Package Cache\{96254b2b-09e8-4765-89a0-ed965dedc09e}\BundleFull.exe'
+[2584:2610][2017-08-01T10:34:33]i320: Registering bundle dependency provider: {96254b2b-09e8-4765-89a0-ed965dedc09e}, version: 1.0.0.0
+[2584:2610][2017-08-01T10:34:33]i371: Updating session, registration key: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{96254b2b-09e8-4765-89a0-ed965dedc09e}, resume: Active, restart initiated: No, disable resume: No
+[23B0:1EFC][2017-08-01T10:34:33]i336: Acquiring container: WixAttachedContainer, copy from: D:\Repos\WpfTest\BundleFull\bin\Debug\BundleFull.exe
+[23B0:1EFC][2017-08-01T10:34:33]i000: Setting string variable 'WixBundleLastUsedSource' to value 'D:\Repos\WpfTest\BundleFull\bin\Debug\'
+[23B0:244C][2017-08-01T10:34:33]e000: Error 0x80070001: Failed to extract all files from container, erf: 1:2:0
+[23B0:1EFC][2017-08-01T10:34:33]e000: Error 0x80070001: Failed to wait for operation complete.
+[23B0:1EFC][2017-08-01T10:34:33]e000: Error 0x80070001: Failed to open container.
+[23B0:1EFC][2017-08-01T10:34:33]e000: Error 0x80070001: Failed to open container: WixAttachedContainer.
+[23B0:1EFC][2017-08-01T10:34:33]e312: Failed to extract payloads from container: WixAttachedContainer to working path: C:\Users\ADMINI~1\AppData\Local\Temp\{786CCAB3-89B8-4110-8AE7-18B77382E653}\4B5906D8BC09959A4814EFFE255C903FA6FB405A, error: 0x80070001.
+[23B0:1360][2017-08-01T10:34:33]e000: Error 0x80070001: Failed while caching, aborting execution.
+[2584:2610][2017-08-01T10:34:33]i372: Session end, registration key: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{96254b2b-09e8-4765-89a0-ed965dedc09e}, resume: None, restart: None, disable resume: No
+[2584:2610][2017-08-01T10:34:33]i330: Removed bundle dependency provider: {96254b2b-09e8-4765-89a0-ed965dedc09e}
+[2584:2610][2017-08-01T10:34:33]i352: Removing cached bundle: {96254b2b-09e8-4765-89a0-ed965dedc09e}, from path: C:\ProgramData\Package Cache\{96254b2b-09e8-4765-89a0-ed965dedc09e}\
+[2584:2610][2017-08-01T10:34:33]i371: Updating session, registration key: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{96254b2b-09e8-4765-89a0-ed965dedc09e}, resume: None, restart initiated: No, disable resume: No
+[23B0:1360][2017-08-01T10:34:34]i399: Apply complete, result: 0x80070001, restart: None, ba requested restart:  No

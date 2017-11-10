@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
@@ -23,6 +23,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBAOEM1", "CustomBAOEM1\CustomBAOEM1.csproj", "{73E1E80A-B2AD-4277-9E5A-7777732E473F}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupOEM1", "SetupProjectOEM1\SetupOEM1.wixproj", "{9E827E90-AF19-4C6C-9CC0-68520FE2D48D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBAOEM2", "CustomBAOEM2\CustomBAOEM2.csproj", "{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupOEM2", "SetupProjectOEM2\SetupOEM2.wixproj", "{5969E6F8-9366-4B6E-A99F-6CF39244C528}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BundleOEM2", "WixBundleOEM2\BundleOEM2.wixproj", "{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +78,26 @@ Global
 		{9E827E90-AF19-4C6C-9CC0-68520FE2D48D}.Release|Any CPU.ActiveCfg = Release|x86
 		{9E827E90-AF19-4C6C-9CC0-68520FE2D48D}.Release|x86.ActiveCfg = Release|x86
 		{9E827E90-AF19-4C6C-9CC0-68520FE2D48D}.Release|x86.Build.0 = Release|x86
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Debug|x86.Build.0 = Debug|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{5474B4BB-A1FD-4CAC-8538-0E1792805DDC}.Release|x86.Build.0 = Release|Any CPU
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Debug|x86.ActiveCfg = Debug|x86
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Debug|x86.Build.0 = Debug|x86
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Release|Any CPU.ActiveCfg = Release|x86
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Release|x86.ActiveCfg = Release|x86
+		{5969E6F8-9366-4B6E-A99F-6CF39244C528}.Release|x86.Build.0 = Release|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Debug|x86.ActiveCfg = Debug|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Debug|x86.Build.0 = Debug|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|Any CPU.ActiveCfg = Release|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|x86.ActiveCfg = Release|x86
+		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
