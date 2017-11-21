@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="微兜客" Language="2052" Version="1.0.21.0" Manufacturer="金华市微兜客信息技术有限公司" UpgradeCode="b1807a3b-539b-4f73-af9c-03233366fb20">
+  <Product Codepage="936" Id="*" Name="微兜客" Language="2052" Version="1.0.23.0" Manufacturer="金华市微兜客信息技术有限公司" UpgradeCode="b1807a3b-539b-4f73-af9c-03233366fb20">
     <Package Id='*' Keywords='Installer' Description="微兜客安装程序"
       Comments='金华市微兜客信息技术有限公司 版权所有 2008-2017' Manufacturer='金华市微兜客信息技术有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
