@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Codepage="936" Id="*" Name="八方通" Language="2052" Version="1.0.0.0" Manufacturer="八方资源网" UpgradeCode="696FB544-9B8B-452E-9BE8-ADD44D337BAD">
+    <Package Id='*' Keywords='Installer' Description="八方通安装程序"
+      Comments='Copyright (c) 2004 - 2017 B2b168.com All Rights Reserved' Manufacturer='八方资源网' InstallScope='perUser'
+      InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
+
+    <MajorUpgrade DowngradeErrorMessage="已经安装 [ProductName] 的新版本。" />
+
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' />
+    <Property Id="ARPPRODUCTICON" Value="MainIcon" />
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message='安装程序需要 .NET Framework 4.0 或更高版本。'>
+      <![CDATA[Installed OR (NETFRAMEWORK40FULL)]]>
+    </Condition>
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder'>
+        <Directory Id='INSTALLFOLDER' Name='XYUNHUI' />
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="八方通"/>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id='MainExecutable' Guid='F61C13AD-EFA9-461A-A975-65BD1E546001'>
+        <File Id='MainEXE' Source='content/MarketingPlatForm.Client.exe' />
+        <File Id='MainEXE.Config' Source='content/MarketingPlatForm.Client.exe.Config' />
+        <File Id='MainDll' Source='content/Main.dll' />
+        <File Id='LauncherDll' Source='content/Launcher.dll' />
+
+        <File Id='Lib100' Source='content/Newtonsoft.Json.dll' />
+        <File Id='Lib101' Source='content/System.Net.Http.dll' />
+        <File Id='Lib102' Source='content/System.Net.Http.Extensions.dll' />
+        <File Id='Lib103' Source='content/System.Net.Http.Primitives.dll' />
+        <File Id='Lib104' Source='content/System.Net.Http.WebRequest.dll' />
+        <File Id='Lib105' Source='content/System.Runtime.dll' />
+        <File Id='Lib106' Source='content/System.Threading.Tasks.dll' />
+        <File Id='Lib107' Source='content/WPFVisifire.Charts.dll' />
+        <File Id='Lib108' Source='content/System.IO.dll' />
+
+        <File Id='Lib109' Source='content/ICSharpCode.SharpZipLib.dll' />
+        <File Id='Lib110' Source='content/NPOI.dll' />
+        <File Id='Lib111' Source='content/NPOI.OOXML.dll' />
+        <File Id='Lib112' Source='content/NPOI.OpenXml4Net.dll' />
+        <File Id='Lib113' Source='content/NPOI.OpenXmlFormats.dll' />
+        <!--<File Id='Lib114' Source='content/Main.dll' />
+        <File Id='Lib115' Source='content/Main.dll' />
+        <File Id='Lib116' Source='content/Main.dll' />
+        <File Id='Lib117' Source='content/Main.dll' />-->
+
+        <File Id='Lib200' Source='content/UpdateService.exe' />
+        <File Id='Lib201' Source='content/Update.exe' />
+
+        <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
+        <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
+        <File Id='Lib302' Source='content/WebDriverHelper.dll' />
+        <File Id='Lib303' Source='content/Xyh.Crawlers.KeyWordsRank.dll' />
+
+        <File Id='Lib400' Source='content/phantomjs.exe' />
+        <File Id='Lib401' Source='content/UUExtConfig.ini' />
+        <File Id='Lib402' Source='content/UUWiseHelper.dll' />
+        <File Id='Lib403' Source='content/WebDriver.dll' />
+        <File Id='Lib404' Source='content/WebDriver.Support.dll' />
+        <File Id='Lib405' Source='content/Qiniu.dll' />
+        <File Id='Lib406' Source='content/HtmlAgilityPack.dll' />
+
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="1ED47A48-9763-4D5C-842C-9307D7D8D866">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Icon="MainIcon"
+                  Name="八方通"
+                  Description="八方通"
+                  Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
+                  WorkingDirectory="INSTALLFOLDER">
+          <Icon Id="MainIcon" SourceFile="content/MarketingPlatForm.Client.exe"/>
+        </Shortcut>
+
+        <Shortcut Id="DesktopShortcut"
+                  Directory="DesktopFolder"
+                  Name="八方通"
+                  Icon="MainIcon"
+                  Description="八方通"
+                  Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
+                  WorkingDirectory="INSTALLFOLDER">
+        </Shortcut>
+
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id='MainApplication' Title="Main Application 功能列表" Level='1'>
+      <ComponentRef Id='MainExecutable' />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+  </Product>
+
+
+</Wix>

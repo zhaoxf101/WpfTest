@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
@@ -29,6 +29,12 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupOEM2", "SetupProjectOEM2\SetupOEM2.wixproj", "{5969E6F8-9366-4B6E-A99F-6CF39244C528}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BundleOEM2", "WixBundleOEM2\BundleOEM2.wixproj", "{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupB2b168", "SetupProjectB2b168\SetupB2b168.wixproj", "{837E52F7-4E68-46A8-AC98-695E2497E80C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBAB2b168", "CustomBAB2b168\CustomBAB2b168.csproj", "{D5367DA5-EA34-44E9-9091-CD5EEE808712}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BundleB2b168", "WixBundleB2b168\BundleB2b168.wixproj", "{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +104,26 @@ Global
 		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|Any CPU.ActiveCfg = Release|x86
 		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|x86.ActiveCfg = Release|x86
 		{CCA3D865-CED2-4DA7-BFC7-AE63AD5EBC23}.Release|x86.Build.0 = Release|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|x86.ActiveCfg = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|x86.Build.0 = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|Any CPU.ActiveCfg = Release|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|x86.ActiveCfg = Release|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|x86.Build.0 = Release|x86
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|x86.Build.0 = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|x86.ActiveCfg = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|x86.Build.0 = Release|Any CPU
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|x86.ActiveCfg = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|x86.Build.0 = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|Any CPU.ActiveCfg = Release|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|x86.ActiveCfg = Release|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
