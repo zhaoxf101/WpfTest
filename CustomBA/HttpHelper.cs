@@ -24,6 +24,7 @@ namespace CustomBA
                 request.Headers.Add("XinYunHui-DeviceType", $"{Environment.OSVersion}");
                 request.Headers.Add("XinYunHui-Version", $"I{Assembly.GetExecutingAssembly().GetName().Version}");
                 request.Headers.Add("XinYunHui-Tag", "U");
+                request.Headers.Add("XinYunHui-AgentId", "2");
 
                 //发送请求并获取相应回应数据
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;

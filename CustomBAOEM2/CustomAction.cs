@@ -12,7 +12,7 @@ namespace CustomBA
 {
     static class CustomAction
     {
-        readonly static string BackupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OEM2_UpdateService");
+        readonly static string BackupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"{SysParam.InternalName}_UpdateService");
 
         const int RetryCount = 5;
         const int WaitTimeSeconds = 2;
@@ -64,7 +64,7 @@ namespace CustomBA
                     //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Start UpdateService.");
                     //Process.Start(pi);
 
-                    bool success = Util.RegisterAutoStart(updateServiceFileName, "OEM2_UpdateService", true);
+                    bool success = Util.RegisterAutoStart(updateServiceFileName, $"{SysParam.InternalName}_UpdateService", true);
                     Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Add UpdateService autostart. Result: " + success);
                 }
                 catch (Exception ex)
@@ -217,7 +217,7 @@ namespace CustomBA
         {
             try
             {
-                var result = Util.RegisterAutoStart("", "OEM2_MarketingPlatform.Client", false);
+                var result = Util.RegisterAutoStart("", $"{SysParam.InternalName}_MarketingPlatform.Client", false);
                 Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. RegisterAutoStart. result: " + result);
 
                 //Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "CustomAction. Begin Directory.Delete.");

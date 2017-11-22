@@ -23,7 +23,7 @@ namespace CustomBA
 
         protected override void Run()
         {
-            var logFile = Path.Combine(Path.GetTempPath(), $"OEM2_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
+            var logFile = Path.Combine(Path.GetTempPath(), $"{SysParam.InternalName}_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
             Trace.Listeners.Add(new TextWriterTraceListener(logFile));
             Trace.AutoFlush = true;
 

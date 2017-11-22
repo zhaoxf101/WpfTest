@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomBA"
         mc:Ignorable="d"
-        Title="一比多 - 安装程序" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
+        Title="" Height="400" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -97,7 +97,7 @@
             </Grid>
         </Grid>
 
-        <TextBlock Text="一比多1.0正式版" Foreground="#979797" FontSize="14" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Name="TxtTitle" Text="" Foreground="#979797" FontSize="14" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 5 5 0">
             <Button x:Name="BtnMinimize" Width="18" Height="18" Margin="0,2,2,0" Click="BtnMinimize_Click" Style="{StaticResource ControlButtonStyle}">

@@ -48,6 +48,9 @@ namespace CustomBA
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
+            Title = $"{SysParam.ProductName} - 安装程序";
+            TxtTitle.Text = $"{SysParam.ProductName}1.0正式版";
+
             _app = app;
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             _installFolder = Path.Combine(folder, "YIBIDUO");
@@ -287,7 +290,7 @@ namespace CustomBA
                     var fileName = Path.Combine(_installFolder, "MarketingPlatForm.Client.exe");
                     if (CheckBoxAutoStart.IsChecked == true)
                     {
-                        Util.RegisterAutoStart(fileName, "OEM2_MarketingPlatform.Client", true);
+                        Util.RegisterAutoStart(fileName, $"{SysParam.InternalName}_MarketingPlatform.Client", true);
                     }
 
                     Process.Start(fileName);
