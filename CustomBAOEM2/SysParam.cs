@@ -11,6 +11,10 @@ namespace CustomBA
 
         public const string InternalName = "OEM2";
 
+        public const string InstallFolder = "YIBIDUO";
+
+        public const string PolicyLink = "";
+
         public const string AgentId = "4";
     }
 }

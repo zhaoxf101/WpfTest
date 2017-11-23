@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logger.cs" />
-    <Compile Include="SysParam.cs" />
     <Compile Include="Util.cs" />
     <Page Include="DialogMessage.xaml">
       <Generator>MSBuild:Compile</Generator>

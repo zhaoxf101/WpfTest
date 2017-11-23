@@ -23,7 +23,7 @@ namespace CustomBA
 
         protected override void Run()
         {
-            var logFile = Path.Combine(Path.GetTempPath(), $"{SysParam.InternalName}_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
+            var logFile = Path.Combine(Path.GetTempPath(), $"B2b168_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
             Trace.Listeners.Add(new TextWriterTraceListener(logFile));
             Trace.AutoFlush = true;
 
@@ -52,7 +52,7 @@ namespace CustomBA
             else
             {
                 var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                _installFolder = Path.Combine(folder, SysParam.InstallFolder);
+                _installFolder = Path.Combine(folder, "B2B168");
 
                 Engine.Detect();
             }

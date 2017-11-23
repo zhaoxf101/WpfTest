@@ -48,12 +48,9 @@ namespace CustomBA
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-            Title = $"{SysParam.ProductName} - 安装程序";
-            TxtTitle.Text = $"{SysParam.ProductName}1.0正式版";
-
             _app = app;
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            _installFolder = Path.Combine(folder, "YIBIDUO");
+            _installFolder = Path.Combine(folder, "B2B168");
 
             //if (Environment.Is64BitOperatingSystem)
             //{
@@ -290,7 +287,7 @@ namespace CustomBA
                     var fileName = Path.Combine(_installFolder, "MarketingPlatForm.Client.exe");
                     if (CheckBoxAutoStart.IsChecked == true)
                     {
-                        Util.RegisterAutoStart(fileName, $"{SysParam.InternalName}_MarketingPlatform.Client", true);
+                        Util.RegisterAutoStart(fileName, "B2b168_MarketingPlatform.Client", true);
                     }
 
                     Process.Start(fileName);
@@ -322,10 +319,7 @@ namespace CustomBA
 
         private void HyperlinkPolicy_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(SysParam.PolicyLink))
-            {
-                Process.Start(SysParam.PolicyLink);
-            }
+            Process.Start("http://help.b2b168.com/helpvw235.html");
 
             //var dialog = new DialogPolicy
             //{

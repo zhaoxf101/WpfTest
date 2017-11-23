@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>{0336308a-d9f1-41d7-b990-ce7fa1be3df2}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>八方通</OutputName>
+    <OutputName>八方通助手</OutputName>
     <OutputType>Bundle</OutputType>
     <Name>Bundle</Name>
   </PropertyGroup>

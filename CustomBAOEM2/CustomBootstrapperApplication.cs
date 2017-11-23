@@ -52,7 +52,7 @@ namespace CustomBA
             else
             {
                 var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                _installFolder = Path.Combine(folder, "YIBIDUO");
+                _installFolder = Path.Combine(folder, SysParam.InstallFolder);
 
                 Engine.Detect();
             }

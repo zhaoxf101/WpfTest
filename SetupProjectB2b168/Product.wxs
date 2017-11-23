@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="八方通" Language="2052" Version="1.0.0.0" Manufacturer="八方资源网" UpgradeCode="696FB544-9B8B-452E-9BE8-ADD44D337BAD">
-    <Package Id='*' Keywords='Installer' Description="八方通安装程序"
+  <Product Codepage="936" Id="*" Name="八方通助手" Language="2052" Version="1.0.1.0" Manufacturer="八方资源网" UpgradeCode="696FB544-9B8B-452E-9BE8-ADD44D337BAD">
+    <Package Id='*' Keywords='Installer' Description="八方通助手安装程序"
       Comments='Copyright (c) 2004 - 2017 B2b168.com All Rights Reserved' Manufacturer='八方资源网' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
 
@@ -21,7 +21,7 @@
       </Directory>
 
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="八方通"/>
+        <Directory Id="ApplicationProgramsFolder" Name="八方通助手"/>
       </Directory>
 
       <Directory Id="DesktopFolder" Name="Desktop" />
@@ -78,8 +78,8 @@
       <Component Id="ApplicationShortcut" Guid="1ED47A48-9763-4D5C-842C-9307D7D8D866">
         <Shortcut Id="ApplicationStartMenuShortcut"
                   Icon="MainIcon"
-                  Name="八方通"
-                  Description="八方通"
+                  Name="八方通助手"
+                  Description="八方通助手"
                   Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
                   WorkingDirectory="INSTALLFOLDER">
           <Icon Id="MainIcon" SourceFile="content/MarketingPlatForm.Client.exe"/>
@@ -87,9 +87,9 @@
 
         <Shortcut Id="DesktopShortcut"
                   Directory="DesktopFolder"
-                  Name="八方通"
+                  Name="八方通助手"
                   Icon="MainIcon"
-                  Description="八方通"
+                  Description="八方通助手"
                   Target="[INSTALLFOLDER]MarketingPlatForm.Client.exe"
                   WorkingDirectory="INSTALLFOLDER">
         </Shortcut>
