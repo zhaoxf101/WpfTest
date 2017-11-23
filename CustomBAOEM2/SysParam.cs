@@ -15,6 +15,8 @@ namespace CustomBA
 
         public const string PolicyLink = "";
 
+        public const string PrefixUrl = "http://ims-api.xyunhui.com/";
+
         public const string AgentId = "4";
     }
 }

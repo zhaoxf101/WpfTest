@@ -15,6 +15,8 @@ namespace CustomBA
 
         public const string PolicyLink = "http://help.b2b168.com/helpvw235.html";
 
+        public const string PrefixUrl = "http://ys.b2b168.com:81/";
+
         public const string AgentId = "3";
 
 

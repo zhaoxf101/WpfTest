@@ -21,7 +21,7 @@ namespace CustomBA
         {
             Trace.WriteLine($"Backup. installFolder: {installFolder}");
 
-            var url = "http://ims-api.xyunhui.com/api/common/bootstrap";
+            var url = $"{SysParam.PrefixUrl}api/common/bootstrap";
             var autoStart = false;
 
             Task.Factory.StartNew(() =>
