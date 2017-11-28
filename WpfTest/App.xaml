@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit"
              xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters"
-                          xmlns:local="clr-namespace:WpfTest"
+             xmlns:local="clr-namespace:WpfTest"
 
-    StartupUri="TabTestWindow.xaml">
+    StartupUri="TextBoxTestWindow.xaml">
 
-    <!--StartupUri="TextBoxTestWindow.xaml">-->
+    <!--StartupUri="TabTestWindow.xaml">-->
     <!--StartupUri="LineTestWindow.xaml">-->
     <!--StartupUri="DateTimePickerWindow.xaml">-->
     <!--StartupUri="WindowStyleTest.xaml">-->
@@ -123,7 +123,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="LeftTabControlStyle" TargetType="{x:Type local:TabControl}">
+        <!--<Style x:Key="LeftTabControlStyle" TargetType="{x:Type local:TabControl}">
             <Setter Property="Padding" Value="0"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -153,7 +153,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
 
         <Style x:Key="ValidatableBorderStyle" TargetType="{x:Type Border}">
             <Style.Resources>
@@ -444,7 +444,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="LeftTabItemStyle" TargetType="{x:Type local:TabItem}">
+        <!--<Style x:Key="LeftTabItemStyle" TargetType="{x:Type local:TabItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Foreground" Value="#666666"/>
             <Setter Property="Padding" Value="0"/>
@@ -472,20 +472,20 @@
                                     <Condition Property="IsMouseOver" Value="True"/>
                                 </MultiTrigger.Conditions>
                                 <Setter Property="Margin" TargetName="Content" Value="0,-2,0,2" />
-                                <!--<Setter Property="Background" TargetName="Bd" Value="#f0f0f0"/>-->
-                                <!--<Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />-->
+                                --><!--<Setter Property="Background" TargetName="Bd" Value="#f0f0f0"/>-->
+                                <!--<Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />--><!--
                             </MultiTrigger>
 
-                            <!--<Trigger Property="IsSelected" Value="True">
+                            --><!--<Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background" TargetName="Bd" Value="#86c8ff" />
                                 <Setter Property="BorderThickness" TargetName="InnerBd" Value="0" />
                                 <Setter Property="Foreground" Value="White" />
-                            </Trigger>-->
+                            </Trigger>--><!--
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
 
 
 

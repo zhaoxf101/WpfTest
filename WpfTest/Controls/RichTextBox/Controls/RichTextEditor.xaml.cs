@@ -25,47 +25,20 @@ namespace WpfRichText
     /// </summary>
     public partial class RichTextEditor : UserControl
     {
-        /// <summary></summary>
+
         public static readonly DependencyProperty IsToolBarVisibleProperty =
           DependencyProperty.Register("IsToolBarVisible", typeof(bool), typeof(RichTextEditor),
           new PropertyMetadata(true));
 
-        /// <summary></summary>
+
         public static readonly DependencyProperty IsContextMenuEnabledProperty =
           DependencyProperty.Register("IsContextMenuEnabled", typeof(bool), typeof(RichTextEditor),
           new PropertyMetadata(false));
 
-        /// <summary></summary>
+
         public static readonly DependencyProperty IsReadOnlyProperty =
           DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RichTextEditor),
           new PropertyMetadata(false));
-
-        /// <summary></summary>
-        public static readonly DependencyProperty AvailableFontsProperty =
-          DependencyProperty.Register("AvailableFonts", typeof(Collection<String>), typeof(RichTextEditor),
-          new PropertyMetadata(new Collection<String>(
-              new List<String>()
-        //{
-        //    "Arial",
-        //    "Courier New",
-        //    "Tahoma",
-        //    "Times New Roman"
-        //}
-        )));
-
-        public static double[] FontSizes
-        {
-            get
-            {
-                return new double[] {
-                    3.0, 4.0, 5.0, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5,
-                    10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 15.0,
-                    16.0, 17.0, 18.0, 19.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0,
-                    32.0, 34.0, 36.0, 38.0, 40.0, 44.0, 48.0, 52.0, 56.0, 60.0, 64.0, 68.0, 72.0, 76.0,
-                    80.0, 88.0, 96.0, 104.0, 112.0, 120.0, 128.0, 136.0, 144.0
-                    };
-            }
-        }
 
         private TextRange textRange = null;
 
@@ -120,10 +93,14 @@ namespace WpfRichText
 
         UploadImageManager _uploadImageManager;
 
+        static string[] _PreDefinedFonts = new[] { "宋体", "微软雅黑", "楷体", "黑体", "隶书",
+                "courier new", "arial", "arial black", "comic sans ms", "impact",
+                "times new roman" };
 
-        List<string> _fontList;
+        static double[] _PreDefinedFontSizes = new double[] { 10, 11, 12, 14, 16, 18, 20, 24 };
 
-        /// <summary></summary>
+        bool _isInitialized = false;
+
         public RichTextEditor()
         {
             InitializeComponent();
@@ -133,20 +110,44 @@ namespace WpfRichText
 
             _uploadImageManager = new UploadImageManager();
 
-            InstalledFontCollection MyFont = new InstalledFontCollection();
+            InstalledFontCollection myFont = new InstalledFontCollection();
 
-            _fontList = MyFont.Families.Select(p => p.Name).ToList();
-            foreach (var item in _fontList)
+            var availableFonts = new List<string>();
+            var fontList = myFont.Families.Select(p => p.Name).ToList();
+            foreach (var item in _PreDefinedFonts)
             {
-                AvailableFonts.Add(item);
+                if (fontList.Contains(item, StringComparer.CurrentCultureIgnoreCase))
+                {
+                    availableFonts.Add(item);
+                }
             }
+
+            foreach (var item in availableFonts)
+            {
+                CmbFontFamilies.Items.Add(new TextBlock
+                {
+                    Text = item,
+                    FontFamily = new FontFamily(item)
+                });
+            }
+
+            CmbFontSizes.ItemsSource = _PreDefinedFontSizes;
 
             Loaded += RichTextEditor_Loaded;
         }
 
         private void RichTextEditor_Loaded(object sender, RoutedEventArgs e)
         {
-            var index = _fontList.FindIndex(p => p == "微软雅黑");
+            if (!_isInitialized)
+            {
+                SetToolBarElementsEnabled(IsFocused);
+
+
+                _isInitialized = true;
+            }
+
+
+            //var index = _fontList.FindIndex(p => p == "微软雅黑");
             //if (index != -1)
             //{
             //    CmbFonts.SelectedIndex = index;
@@ -165,12 +166,12 @@ namespace WpfRichText
             //}
         }
 
-        /// <summary></summary>
+
         public string Text
         {
             get
             {
-                TextRange tr = new TextRange(mainRTB.Document.ContentStart, mainRTB.Document.ContentEnd);
+                TextRange tr = new TextRange(MainRichTextBox.Document.ContentStart, MainRichTextBox.Document.ContentEnd);
 
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -181,11 +182,11 @@ namespace WpfRichText
             }
             set
             {
-                mainRTB.Document.Blocks.Clear();
+                MainRichTextBox.Document.Blocks.Clear();
                 Paragraph paragraph = new Paragraph();
                 Run run = new Run() { Text = value };
                 paragraph.Inlines.Add(run);
-                mainRTB.Document.Blocks.Add(paragraph);
+                MainRichTextBox.Document.Blocks.Add(paragraph);
             }
         }
 
@@ -193,7 +194,7 @@ namespace WpfRichText
         {
             get
             {
-                string xamlText = XamlWriter.Save(mainRTB.Document);
+                string xamlText = XamlWriter.Save(MainRichTextBox.Document);
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
@@ -204,12 +205,12 @@ namespace WpfRichText
                 var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value, true);
                 var sr = new StringReader(xaml);
                 var xr = System.Xml.XmlReader.Create(sr);
-                mainRTB.Document = (FlowDocument)XamlReader.Load(xr);
+                MainRichTextBox.Document = (FlowDocument)XamlReader.Load(xr);
             }
         }
 
 
-        /// <summary></summary>
+
         public bool IsToolBarVisible
         {
             get { return (GetValue(IsToolBarVisibleProperty) as bool? == true); }
@@ -220,7 +221,7 @@ namespace WpfRichText
             }
         }
 
-        /// <summary></summary>
+
         public bool IsContextMenuEnabled
         {
             get
@@ -233,7 +234,6 @@ namespace WpfRichText
             }
         }
 
-        /// <summary></summary>
         public bool IsReadOnly
         {
             get { return (GetValue(IsReadOnlyProperty) as bool? == true); }
@@ -245,56 +245,46 @@ namespace WpfRichText
             }
         }
 
-        /// <summary></summary>
-        public Collection<String> AvailableFonts
-        {
-            get { return GetValue(AvailableFontsProperty) as Collection<String>; }
-            set
-            {
-                SetValue(AvailableFontsProperty, value);
-            }
-        }
-
         private void FontColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            this.mainRTB.Selection.ApplyPropertyValue(ForegroundProperty, e.NewValue.ToString(CultureInfo.InvariantCulture));
+            this.MainRichTextBox.Selection.ApplyPropertyValue(ForegroundProperty, e.NewValue.ToString(CultureInfo.InvariantCulture));
         }
 
 
 
         private void FontFamily_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.mainRTB != null && this.mainRTB.Selection != null)
-                this.mainRTB.Selection.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
+            if (this.MainRichTextBox != null && this.MainRichTextBox.Selection != null)
+                this.MainRichTextBox.Selection.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
         }
 
-        private void insertLink_Click(object sender, RoutedEventArgs e)
+        private void BtnInsertLink_Click(object sender, RoutedEventArgs e)
         {
-            this.textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
+            this.textRange = new TextRange(this.MainRichTextBox.Selection.Start, this.MainRichTextBox.Selection.End);
             this.uriInputPopup.IsOpen = true;
         }
 
-        private void uriCancelClick(object sender, RoutedEventArgs e)
+        private void UriCancelClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
             this.uriInputPopup.IsOpen = false;
             this.uriInput.Text = string.Empty;
         }
 
-        private void uriSubmitClick(object sender, RoutedEventArgs e)
+        private void UriSubmitClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
             this.uriInputPopup.IsOpen = false;
-            this.mainRTB.Selection.Select(this.textRange.Start, this.textRange.End);
+            this.MainRichTextBox.Selection.Select(this.textRange.Start, this.textRange.End);
             if (!string.IsNullOrEmpty(this.uriInput.Text))
             {
-                this.textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
+                this.textRange = new TextRange(this.MainRichTextBox.Selection.Start, this.MainRichTextBox.Selection.End);
                 Hyperlink hlink = new Hyperlink(this.textRange.Start, this.textRange.End);
                 hlink.NavigateUri = new Uri(this.uriInput.Text, UriKind.RelativeOrAbsolute);
                 this.uriInput.Text = string.Empty;
             }
             else
-                this.mainRTB.Selection.ClearAllProperties();
+                this.MainRichTextBox.Selection.ClearAllProperties();
         }
 
         private void uriInput_KeyPressed(object sender, KeyEventArgs e)
@@ -302,10 +292,10 @@ namespace WpfRichText
             switch (e.Key)
             {
                 case Key.Enter:
-                    this.uriSubmitClick(sender, e);
+                    this.UriSubmitClick(sender, e);
                     break;
                 case Key.Escape:
-                    this.uriCancelClick(sender, e);
+                    this.UriCancelClick(sender, e);
                     break;
                 default:
                     break;
@@ -372,7 +362,7 @@ namespace WpfRichText
 
                 img.Stretch = Stretch.None;  //图片缩放模式
 
-                new InlineUIContainer(img, mainRTB.Selection.Start); //插入图片到选定位置
+                new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
             }
         }
 
@@ -388,8 +378,26 @@ namespace WpfRichText
             string paste = Clipboard.GetText();
             Clipboard.Clear();
             Clipboard.SetText(paste);
-            mainRTB.Paste();
+            MainRichTextBox.Paste();
             e.Handled = true;
+        }
+
+        void SetToolBarElementsEnabled(bool enabled)
+        {
+            CmbFontFamilies.IsEnabled = enabled;
+            CmbFontSizes.IsEnabled = enabled;
+            BtnInsertLink.IsEnabled = enabled;
+            BtnUploadImage.IsEnabled = enabled;
+        }
+
+        private void MainRichTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SetToolBarElementsEnabled(true);
+        }
+
+        private void MainRichTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SetToolBarElementsEnabled(false);
         }
     }
 }

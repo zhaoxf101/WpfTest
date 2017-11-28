@@ -78,9 +78,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ComboBoxTestWindow.xaml.cs">
-      <DependentUpon>ComboBoxTestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Core\Converters\IntToStringConverter.cs" />
     <Compile Include="Controls\Core\Converters\InverseBoolConverter.cs" />
     <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
@@ -103,36 +100,14 @@
     <Compile Include="Controls\TreeHelper.cs" />
     <Compile Include="Controls\WatermarkPasswordBox\Implementation\WatermarkPasswordBox.cs" />
     <Compile Include="Controls\WatermarkTextBox\Implementation\WatermarkTextBox.cs" />
-    <Compile Include="DateTimePicker.cs" />
-    <Compile Include="DateTimePickerWindow.xaml.cs">
-      <DependentUpon>DateTimePickerWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GuidelineSetDrawingElement.cs" />
-    <Compile Include="KnownBoxes.cs" />
-    <Compile Include="LineTestWindow.xaml.cs">
-      <DependentUpon>LineTestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Logger.cs" />
-    <Compile Include="TabControl.cs" />
-    <Compile Include="TabGroupItem.cs" />
-    <Compile Include="TabTestWindow.xaml.cs">
-      <DependentUpon>TabTestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TextBoxTestWindow.xaml.cs">
       <DependentUpon>TextBoxTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TabItem.cs" />
-    <Compile Include="TimeSelectPanel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VisualStates.cs" />
-    <Page Include="ComboBoxTestWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\DataPager\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,18 +123,6 @@
     <Page Include="Controls\WatermarkTextBox\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="DateTimePickerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LineTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TabTestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TextBoxTestWindow.xaml">
       <SubType>Designer</SubType>

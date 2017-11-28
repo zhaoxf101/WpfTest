@@ -11,7 +11,7 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style TargetType="{x:Type local:TabGroupItem}">
+    <!--<Style TargetType="{x:Type local:TabGroupItem}">
         <Setter Property="Foreground" Value="#666"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontSize" Value="14" />
@@ -29,11 +29,13 @@
                                 <Border x:Name="SeparatedBd" Margin="6,0,6,0" BorderThickness="0,0,0,1" BorderBrush="{TemplateBinding BorderBrush}" />
                                 <Grid x:Name="ContentWrapper" Background="Transparent" SnapsToDevicePixels="False">
                                     <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center">
-                                        <!--<ContentPresenter.Triggers>
+                                        -->
+    <!--<ContentPresenter.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 
                                             </Trigger>
                                         </ContentPresenter.Triggers>-->
+    <!--
                                     </ContentPresenter>
                                     <Path x:Name="Arrow" Data="M1,1.5L4.5,5 8,1.5" HorizontalAlignment="Right" Margin="0 0 20 0" SnapsToDevicePixels="False" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" VerticalAlignment="Center" RenderTransformOrigin="0.5 0.5">
                                         <Path.RenderTransform>
@@ -73,5 +75,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>
