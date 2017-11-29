@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modify", "modify", "{8D904F35-FB69-42A6-BDC0-1A9325B40B8A}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Worker\Desktop\cmd.txt = C:\Users\Worker\Desktop\cmd.txt
+		modify\dtfref.shfbproj = modify\dtfref.shfbproj
+		modify\registration.cpp = modify\registration.cpp
+		modify\wix.pub = modify\wix.pub
+		modify\wix.snk = modify\wix.snk
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupB2b168", "SetupProjectB2b168\SetupB2b168.wixproj", "{837E52F7-4E68-46A8-AC98-695E2497E80C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBAB2b168", "CustomBAB2b168\CustomBAB2b168.csproj", "{D5367DA5-EA34-44E9-9091-CD5EEE808712}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BundleB2b168", "WixBundleB2b168\BundleB2b168.wixproj", "{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|x86.ActiveCfg = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Debug|x86.Build.0 = Debug|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|Any CPU.ActiveCfg = Release|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|x86.ActiveCfg = Release|x86
+		{837E52F7-4E68-46A8-AC98-695E2497E80C}.Release|x86.Build.0 = Release|x86
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Debug|x86.Build.0 = Debug|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|x86.ActiveCfg = Release|Any CPU
+		{D5367DA5-EA34-44E9-9091-CD5EEE808712}.Release|x86.Build.0 = Release|Any CPU
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|x86.ActiveCfg = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Debug|x86.Build.0 = Debug|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|Any CPU.ActiveCfg = Release|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|x86.ActiveCfg = Release|x86
+		{0336308A-D9F1-41D7-B990-CE7FA1BE3DF2}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE321D9B-7FEF-4C78-8656-98302B80CA36}
+	EndGlobalSection
+EndGlobal
