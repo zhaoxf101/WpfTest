@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="微兜客" Version="1.0.23.0" Manufacturer="金华市微兜客信息技术有限公司" UpgradeCode="c76fa141-5ab1-411d-8277-e53e116d8b9b" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="微兜客" Version="1.0.24.0" Manufacturer="金华市微兜客信息技术有限公司" UpgradeCode="c76fa141-5ab1-411d-8277-e53e116d8b9b" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBAOEM1.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBAOEM1.TargetDir)BootstrapperCore.config" />

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Bundle Name="晨飞SEO" Version="1.0.24.0" Manufacturer="合肥晨飞网络科技有限公司" UpgradeCode="7FADD643-16CC-4193-BB3F-BBCCBE32D42B" IconSourceFile="icon.ico" DisableModify="yes">
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
+      <Payload SourceFile="$(var.CustomBAOEM3.TargetDir)CustomBA.dll" />
+      <Payload SourceFile="$(var.CustomBAOEM3.TargetDir)BootstrapperCore.config" />
+    </BootstrapperApplicationRef>
+
+    <Chain>
+      <PackageGroupRef Id="NetFx40Web"/>
+      <MsiPackage SourceFile="$(var.SetupOEM3.TargetPath)">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+
+  <Fragment>
+    <WixVariable Id="WixMbaPrereqPackageId" Value="Netfx4Full" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="NetfxLicense.rtf" />
+  </Fragment>
+
+</Wix>
