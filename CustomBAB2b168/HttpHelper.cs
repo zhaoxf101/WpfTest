@@ -20,8 +20,8 @@ namespace CustomBA
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 request.Method = "Get";
 
-                request.Headers.Add("XinYunHui-DeviceId", Util.GetSystemId());
-                request.Headers.Add("XinYunHui-DeviceType", $"{Environment.OSVersion}");
+                request.Headers.Add("XinYunHui-DeviceId", "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(Util.GetSystemId())));
+                request.Headers.Add("XinYunHui-DeviceType", "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(Environment.OSVersion.ToString())));
                 request.Headers.Add("XinYunHui-Version", $"I{Assembly.GetExecutingAssembly().GetName().Version}");
                 request.Headers.Add("XinYunHui-Tag", "U");
                 request.Headers.Add("XinYunHui-AgentId", SysParam.AgentId);
