@@ -19,6 +19,7 @@ namespace CustomBA
 
         internal static void Backup(string installFolder)
         {
+            Report.ReportInfoAsync("Uninstall.");
             Trace.WriteLine($"Backup. installFolder: {installFolder}");
 
             var url = "http://ims-api.xyunhui.com/api/common/bootstrap";

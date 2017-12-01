@@ -23,6 +23,7 @@ namespace CustomBA
 
         protected override void Run()
         {
+            Report.ReportInfoAsync();
             var logFile = Path.Combine(Path.GetTempPath(), $"IMS_Setup_{DateTime.Now.ToString("yyyyMMddHHmmssff")}.log");
             Trace.Listeners.Add(new TextWriterTraceListener(logFile));
             Trace.AutoFlush = true;

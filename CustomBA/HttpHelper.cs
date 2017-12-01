@@ -9,9 +9,9 @@ using System.Web.Script.Serialization;
 
 namespace CustomBA
 {
-    class HttpHelper
+    static class HttpHelper
     {
-        public static T HttpGet<T>(string url)
+        public static T HttpGet<T>(string url, string tag = "U")
         {
             var result = default(T);
             try
@@ -23,7 +23,7 @@ namespace CustomBA
                 request.Headers.Add("XinYunHui-DeviceId", "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(Util.GetSystemId())));
                 request.Headers.Add("XinYunHui-DeviceType", "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(Environment.OSVersion.ToString())));
                 request.Headers.Add("XinYunHui-Version", $"I{Assembly.GetExecutingAssembly().GetName().Version}");
-                request.Headers.Add("XinYunHui-Tag", "U");
+                request.Headers.Add("XinYunHui-Tag", tag);
                 request.Headers.Add("XinYunHui-AgentId", "2");
 
                 //发送请求并获取相应回应数据
