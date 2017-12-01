@@ -19,7 +19,6 @@ namespace CustomBA
 
         internal static void Backup(string installFolder)
         {
-            Report.ReportInfoAsync("Uninstall.");
             Trace.WriteLine($"Backup. installFolder: {installFolder}");
 
             var url = $"{SysParam.PrefixUrl}api/common/bootstrap";
