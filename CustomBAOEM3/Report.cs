@@ -55,7 +55,7 @@ namespace CustomBA
 
         static void ReportMessage(string message, string tag)
         {
-            var url = $"{SysParam.PrefixUrl}api/common/report";
+            var url = "http://ims-api.xyunhui.com/api/common/report";
             if (!string.IsNullOrEmpty(message))
             {
                 url += $"?={HttpUtility.UrlEncode(message, Encoding.UTF8)}";
