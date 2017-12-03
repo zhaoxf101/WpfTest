@@ -99,6 +99,8 @@ namespace WpfRichText
 
         static double[] _PreDefinedFontSizes = new double[] { 10, 11, 12, 14, 16, 18, 20, 24 };
 
+        List<string> _availableFonts = new List<string>();
+
         bool _isInitialized = false;
 
         public RichTextEditor()
@@ -110,27 +112,16 @@ namespace WpfRichText
 
             _uploadImageManager = new UploadImageManager();
 
-            InstalledFontCollection myFont = new InstalledFontCollection();
-
-            var availableFonts = new List<string>();
-            var fontList = myFont.Families.Select(p => p.Name).ToList();
+            var fontList = Fonts.SystemFontFamilies.Select(p => p.FamilyNames).ToList();
             foreach (var item in _PreDefinedFonts)
             {
-                if (fontList.Contains(item, StringComparer.CurrentCultureIgnoreCase))
+                if (fontList.Any(p => p.Values.Contains(item, StringComparer.CurrentCultureIgnoreCase)))
                 {
-                    availableFonts.Add(item);
+                    _availableFonts.Add(item);
                 }
             }
 
-            foreach (var item in availableFonts)
-            {
-                CmbFontFamilies.Items.Add(new TextBlock
-                {
-                    Text = item,
-                    FontFamily = new FontFamily(item)
-                });
-            }
-
+            CmbFontFamilies.ItemsSource = _availableFonts;
             CmbFontSizes.ItemsSource = _PreDefinedFontSizes;
 
             Loaded += RichTextEditor_Loaded;
@@ -146,24 +137,25 @@ namespace WpfRichText
                 _isInitialized = true;
             }
 
+            var index = _availableFonts.FindIndex(p => p == "微软雅黑");
+            if (index != -1)
+            {
+                CmbFontFamilies.SelectedIndex = index;
+            }
+            else
+            {
+                index = _availableFonts.FindIndex(p => p == "宋体");
+                if (index != -1)
+                {
+                    CmbFontFamilies.SelectedIndex = index;
+                }
+                else
+                {
+                    CmbFontFamilies.SelectedIndex = 0;
+                }
+            }
 
-            //var index = _fontList.FindIndex(p => p == "微软雅黑");
-            //if (index != -1)
-            //{
-            //    CmbFonts.SelectedIndex = index;
-            //}
-            //else
-            //{
-            //    index = _fontList.FindIndex(p => p == "宋体");
-            //    if (index != -1)
-            //    {
-            //        CmbFonts.SelectedIndex = index;
-            //    }
-            //    else
-            //    {
-            //        CmbFonts.SelectedIndex = 0;
-            //    }
-            //}
+            CmbFontSizes.SelectedIndex = 0;
         }
 
 
@@ -368,18 +360,18 @@ namespace WpfRichText
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (Clipboard.ContainsImage())
-            {
-                e.Handled = true;
-                //Clipboard.Clear();
-                return;
-            }
-            //Get Unicode Text
-            string paste = Clipboard.GetText();
-            Clipboard.Clear();
-            Clipboard.SetText(paste);
+            //if (Clipboard.ContainsImage())
+            //{
+            //    e.Handled = true;
+            //    //Clipboard.Clear();
+            //    return;
+            //}
+            ////Get Unicode Text
+            //string paste = Clipboard.GetText();
+            //Clipboard.Clear();
+            //Clipboard.SetText(paste);
             MainRichTextBox.Paste();
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         void SetToolBarElementsEnabled(bool enabled)

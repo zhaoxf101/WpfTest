@@ -339,26 +339,26 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="Padding" Value="14,3,4,3" />
+            <Setter Property="Padding" Value="4,3,4,3" />
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="{x:Type ComboBoxItem}">
                         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
                         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="13,0"/>
+                        <Setter Property="Padding" Value="4,0"/>
                         <Setter Property="Background" Value="Transparent"/>
-                        <!--<Setter Property="ContentTemplate">
+                        <Setter Property="ContentTemplate">
                             <Setter.Value>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}" />
+                                    <TextBlock Text="{Binding}" FontFamily="{Binding}" />
                                 </DataTemplate>
                             </Setter.Value>
-                        </Setter>-->
+                        </Setter>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                                     <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
-                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsHighlighted" Value="True">
@@ -776,8 +776,8 @@
             </Button>
             <Separator Style="{StaticResource SeparatorStyle}" />
 
-            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="100" ToolTip="字体" />
-            <ComboBox x:Name="CmbFontSizes" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="43" ToolTip="字号" />
+            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="140" ToolTip="字体" />
+            <ComboBox x:Name="CmbFontSizes" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="50" ToolTip="字号" />
 
             <Button Style="{StaticResource FormatBarButtonStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="增大字号">
                 <Image Source="Images/charactergrowfont.png" Width="16" Height="16" />
