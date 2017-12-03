@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
@@ -239,16 +240,9 @@ namespace WpfRichText
 
         private void FontColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            this.MainRichTextBox.Selection.ApplyPropertyValue(ForegroundProperty, e.NewValue.ToString(CultureInfo.InvariantCulture));
+            MainRichTextBox.Selection.ApplyPropertyValue(ForegroundProperty, e.NewValue.ToString(CultureInfo.InvariantCulture));
         }
 
-
-
-        private void FontFamily_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (this.MainRichTextBox != null && this.MainRichTextBox.Selection != null)
-                this.MainRichTextBox.Selection.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
-        }
 
         private void BtnInsertLink_Click(object sender, RoutedEventArgs e)
         {
@@ -390,6 +384,85 @@ namespace WpfRichText
         private void MainRichTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             SetToolBarElementsEnabled(false);
+        }
+
+        private void CmbFontSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var newValue = CmbFontSizes.SelectedValue;
+            if (newValue != null)
+            {
+                MainRichTextBox.Selection.ApplyPropertyValue(FontSizeProperty, newValue);
+            }
+        }
+
+        private void CmbFontFamilies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var newValue = CmbFontFamilies.SelectedValue;
+            if (newValue != null)
+            {
+                MainRichTextBox.Selection.ApplyPropertyValue(FontFamilyProperty, newValue);
+            }
+        }
+
+        private void MainRichTextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            TextRange selectionRange = new TextRange(MainRichTextBox.Selection.Start, MainRichTextBox.Selection.End);
+
+            var fontFamilyValue = selectionRange.GetPropertyValue(FontFamilyProperty);
+            if (fontFamilyValue != DependencyProperty.UnsetValue)
+            {
+                var fontFamily = (FontFamily)fontFamilyValue;
+                CmbFontFamilies.SelectedValue = _availableFonts.SingleOrDefault(p => fontFamily.FamilyNames.Values.Contains(p, StringComparer.OrdinalIgnoreCase));
+            }
+            else
+            {
+                CmbFontFamilies.SelectedValue = null;
+            }
+
+            CmbFontSizes.SelectedValue = selectionRange.GetPropertyValue(FontSizeProperty);
+
+            if (selectionRange.GetPropertyValue(FontWeightProperty).ToString() == "Bold")
+            {
+                BtnBold.IsChecked = true;
+            }
+            else
+            {
+                BtnBold.IsChecked = false;
+            }
+
+            if (selectionRange.GetPropertyValue(FontStyleProperty).ToString() == "Italic")
+            {
+                BtnItalic.IsChecked = true;
+            }
+            else
+            {
+                BtnItalic.IsChecked = false;
+            }
+
+            if (selectionRange.GetPropertyValue(Inline.TextDecorationsProperty) == TextDecorations.Underline)
+            {
+                BtnUnderline.IsChecked = true;
+            }
+            else
+            {
+                BtnUnderline.IsChecked = false;
+            }
+
+            if (selectionRange.GetPropertyValue(FlowDocument.TextAlignmentProperty).ToString() == "Left")
+            {
+                BtnAlignLeft.IsChecked = true;
+            }
+
+            if (selectionRange.GetPropertyValue(FlowDocument.TextAlignmentProperty).ToString() == "Center")
+            {
+                BtnAlignCenter.IsChecked = true;
+            }
+
+            if (selectionRange.GetPropertyValue(FlowDocument.TextAlignmentProperty).ToString() == "Right")
+            {
+                BtnAlignRight.IsChecked = true;
+            }
+
         }
     }
 }

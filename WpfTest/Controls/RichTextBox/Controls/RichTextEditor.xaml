@@ -776,8 +776,8 @@
             </Button>
             <Separator Style="{StaticResource SeparatorStyle}" />
 
-            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="140" ToolTip="字体" />
-            <ComboBox x:Name="CmbFontSizes" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="50" ToolTip="字号" />
+            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="140" ToolTip="字体" SelectionChanged="CmbFontFamilies_SelectionChanged" />
+            <ComboBox x:Name="CmbFontSizes" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="50" ToolTip="字号" SelectionChanged="CmbFontSizes_SelectionChanged" />
 
             <Button Style="{StaticResource FormatBarButtonStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="增大字号">
                 <Image Source="Images/charactergrowfont.png" Width="16" Height="16" />
@@ -855,7 +855,7 @@
             </Button>
         </ToolBar>
 
-        <RichTextBox Grid.Row="1" x:Name="MainRichTextBox" AcceptsTab="True" MinHeight="100" IsReadOnly="{Binding IsReadOnly, ElementName=MainRichTextEditor}" ContextMenu="{DynamicResource rtbContextMenu}" ContextMenuOpening="ContextMenu_ContextMenuOpening" Background="{Binding Background, ElementName=MainRichTextEditor}" Foreground="{Binding Foreground, ElementName=MainRichTextEditor}" BorderBrush="{Binding BorderBrush, ElementName=MainRichTextEditor}" BorderThickness="{Binding BorderThickness, ElementName=MainRichTextEditor}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" GotFocus="MainRichTextBox_GotFocus" LostFocus="MainRichTextBox_LostFocus">
+        <RichTextBox Grid.Row="1" x:Name="MainRichTextBox" AcceptsTab="True" MinHeight="100" IsReadOnly="{Binding IsReadOnly, ElementName=MainRichTextEditor}" ContextMenu="{DynamicResource rtbContextMenu}" ContextMenuOpening="ContextMenu_ContextMenuOpening" Background="{Binding Background, ElementName=MainRichTextEditor}" Foreground="{Binding Foreground, ElementName=MainRichTextEditor}" BorderBrush="{Binding BorderBrush, ElementName=MainRichTextEditor}" BorderThickness="{Binding BorderThickness, ElementName=MainRichTextEditor}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" GotFocus="MainRichTextBox_GotFocus" LostFocus="MainRichTextBox_LostFocus" SelectionChanged="MainRichTextBox_SelectionChanged">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0 5" />
