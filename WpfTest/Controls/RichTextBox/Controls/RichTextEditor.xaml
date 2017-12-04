@@ -776,7 +776,7 @@
             </Button>
             <Separator Style="{StaticResource SeparatorStyle}" />
 
-            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="140" ToolTip="字体" SelectionChanged="CmbFontFamilies_SelectionChanged" />
+            <ComboBox x:Name="CmbFontFamilies" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="150" ToolTip="字体" SelectionChanged="CmbFontFamilies_SelectionChanged" />
             <ComboBox x:Name="CmbFontSizes" Style="{StaticResource ComboBoxStyle}" IsEditable="False" IsReadOnly="True" Width="50" ToolTip="字号" SelectionChanged="CmbFontSizes_SelectionChanged" />
 
             <Button Style="{StaticResource FormatBarButtonStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="增大字号">

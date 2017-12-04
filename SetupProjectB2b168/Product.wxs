@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="八方通助手" Language="2052" Version="1.0.6.0" Manufacturer="八方资源网" UpgradeCode="696FB544-9B8B-452E-9BE8-ADD44D337BAD">
+  <Product Codepage="936" Id="*" Name="八方通助手" Language="2052" Version="1.0.7.0" Manufacturer="八方资源网" UpgradeCode="696FB544-9B8B-452E-9BE8-ADD44D337BAD">
     <Package Id='*' Keywords='Installer' Description="八方通助手安装程序"
       Comments='Copyright (c) 2004 - 2017 B2b168.com All Rights Reserved' Manufacturer='八方资源网' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />

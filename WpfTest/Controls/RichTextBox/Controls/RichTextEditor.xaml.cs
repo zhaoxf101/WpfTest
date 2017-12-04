@@ -95,8 +95,8 @@ namespace WpfRichText
         UploadImageManager _uploadImageManager;
 
         static string[] _PreDefinedFonts = new[] { "宋体", "微软雅黑", "楷体", "黑体", "隶书",
-                "courier new", "arial", "arial black", "comic sans ms", "impact",
-                "times new roman" };
+                "Microsoft YaHei UI", "courier new", "arial", "arial black", "comic sans ms",
+                "impact", "times new roman" };
 
         static double[] _PreDefinedFontSizes = new double[] { 10, 11, 12, 14, 16, 18, 20, 24 };
 
@@ -354,6 +354,8 @@ namespace WpfRichText
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var data = Clipboard.GetDataObject();
+
             //if (Clipboard.ContainsImage())
             //{
             //    e.Handled = true;
