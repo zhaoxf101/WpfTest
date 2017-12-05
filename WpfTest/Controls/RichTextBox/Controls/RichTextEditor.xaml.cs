@@ -188,9 +188,12 @@ namespace WpfRichText
             get
             {
                 string xamlText = XamlWriter.Save(MainRichTextBox.Document);
-                //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
-                
+
+                ProcessImages(MainRichTextBox.Document.Blocks);
+
+
+                //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
                 return html;
@@ -203,6 +206,92 @@ namespace WpfRichText
                 MainRichTextBox.Document = (FlowDocument)XamlReader.Load(xr);
             }
         }
+
+        void ProcessImages(BlockCollection blocks)
+        {
+            Type inlineType;
+            InlineUIContainer uic;
+            Image replacementImage;
+            byte[] bytes;
+            BitmapImage bi;
+
+            foreach (Block b in blocks)
+            {
+                Debug.WriteLine("type: " + b.GetType());
+                if (b is Paragraph p)
+                {
+                    foreach (Inline i in p.Inlines)
+                    {
+                        inlineType = i.GetType();
+
+                        if (inlineType == typeof(Run))
+                        {
+                            //The inline is TEXT!!!
+                        }
+                        else if (inlineType == typeof(InlineUIContainer))
+                        {
+                            //The inline has an object, likely an IMAGE!!!
+                            uic = ((InlineUIContainer)i);
+
+                            //if it is an image
+                            if (uic.Child.GetType() == typeof(Image))
+                            {
+                                //grab the image
+                                replacementImage = (Image)uic.Child;
+                                bi = (BitmapImage)replacementImage.Source;
+
+
+                                //get its byte array
+                                bytes = GetImageByteArray(bi);
+
+                                var s = Convert.ToBase64String(bytes);//temp
+                            }
+                        }
+                    }
+                }
+                else if (b is Table t)
+                {
+                    foreach (var rg in t.RowGroups)
+                    {
+                        foreach (var row in rg.Rows)
+                        {
+                            foreach (var cell in row.Cells)
+                            {
+                                ProcessImages(cell.Blocks);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private byte[] GetImageByteArray(BitmapImage src)
+        {
+
+            //PngBitmapEncoder png = new PngBitmapEncoder();
+            //png.Frames.Add(BitmapFrame.Create(src));
+            //using (var fileStream = File.Create("d:/test.png"))
+            //{
+            //    png.Save(fileStream);
+            //}
+
+            //JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+            //jpg.Frames.Add(BitmapFrame.Create(src));
+            //using (var fs = File.Create("d:/test2.jpg"))
+            //{
+            //    jpg.Save(fs);
+            //}
+
+
+            MemoryStream stream = new MemoryStream();
+            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+
+            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)src));
+            encoder.Save(stream);
+            stream.Flush();
+            return stream.ToArray();
+        }
+
 
 
 
