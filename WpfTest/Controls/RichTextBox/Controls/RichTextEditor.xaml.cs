@@ -190,6 +190,8 @@ namespace WpfRichText
                 string xamlText = XamlWriter.Save(MainRichTextBox.Document);
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
+                
+
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
                 return html;
             }
