@@ -859,6 +859,8 @@
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0 5" />
+                    <Setter Property="FontFamily" Value="微软雅黑" />
+                    <Setter Property="FontSize" Value="14" />
                 </Style>
             </RichTextBox.Resources>
             <RichTextBox.CommandBindings>

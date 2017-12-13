@@ -21,6 +21,15 @@ using System.Windows.Shapes;
 
 namespace WpfRichText
 {
+    public class RichTextBoxImageInfo
+    {
+        public ImageSource Source { get; set; }
+
+        public byte[] Data { get; set; }
+
+        public string UploadedUrl { get; set; }
+    }
+
     /// <summary>
     /// Interaction logic for BindableRichTextbox.xaml
     /// </summary>
@@ -189,9 +198,11 @@ namespace WpfRichText
             {
                 string xamlText = XamlWriter.Save(MainRichTextBox.Document);
 
+                var dic = new Dictionary<ImageSource, RichTextBoxImageInfo>();
+                ProcessWpfImageList(MainRichTextBox.Document.Blocks, dic);
 
-                ProcessImages(MainRichTextBox.Document.Blocks);
 
+                // <FlowDocument PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><BlockUIContainer TextAlignment="Justify"><Image Width="400" Height="134"><Image.Source><BitmapImage BaseUri="pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource="./Image1.bmp" CacheOption="OnLoad" /></Image.Source></Image></BlockUIContainer></FlowDocument>
 
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
@@ -207,17 +218,14 @@ namespace WpfRichText
             }
         }
 
-        void ProcessImages(BlockCollection blocks)
+        void ProcessWpfImageList(BlockCollection blocks, Dictionary<ImageSource, RichTextBoxImageInfo> dic)
         {
             Type inlineType;
-            InlineUIContainer uic;
-            Image replacementImage;
+            InlineUIContainer uiContainer;
             byte[] bytes;
-            BitmapImage bi;
 
             foreach (Block b in blocks)
             {
-                Debug.WriteLine("type: " + b.GetType());
                 if (b is Paragraph p)
                 {
                     foreach (Inline i in p.Inlines)
@@ -231,20 +239,18 @@ namespace WpfRichText
                         else if (inlineType == typeof(InlineUIContainer))
                         {
                             //The inline has an object, likely an IMAGE!!!
-                            uic = ((InlineUIContainer)i);
+                            uiContainer = ((InlineUIContainer)i);
 
                             //if it is an image
-                            if (uic.Child.GetType() == typeof(Image))
+                            if (uiContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap)
                             {
-                                //grab the image
-                                replacementImage = (Image)uic.Child;
-                                bi = (BitmapImage)replacementImage.Source;
-
-
                                 //get its byte array
-                                bytes = GetImageByteArray(bi);
-
-                                var s = Convert.ToBase64String(bytes);//temp
+                                bytes = GetImageByteArray(bitmap);
+                                dic[targetImage.Source] = new RichTextBoxImageInfo
+                                {
+                                    Source = targetImage.Source,
+                                    Data = bytes
+                                };
                             }
                         }
                     }
@@ -257,7 +263,7 @@ namespace WpfRichText
                         {
                             foreach (var cell in row.Cells)
                             {
-                                ProcessImages(cell.Blocks);
+                                ProcessWpfImageList(cell.Blocks, dic);
                             }
                         }
                     }
@@ -284,16 +290,13 @@ namespace WpfRichText
 
 
             MemoryStream stream = new MemoryStream();
-            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
-
+            //BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+            var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create((BitmapSource)src));
             encoder.Save(stream);
             stream.Flush();
             return stream.ToArray();
         }
-
-
-
 
         public bool IsToolBarVisible
         {

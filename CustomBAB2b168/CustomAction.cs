@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,25 @@ namespace CustomBA
                 if (response != null && response.IsSuccess)
                 {
                     var result = response.Result;
-                    autoStart = result.SingleOrDefault(p => p.Key == "ClientAutoStart")?.Value == "1";
+
+                    var clientAutoStart = false;
+                    var clientVersion = new Version();
+
+                    foreach (var item in result)
+                    {
+                        if (item.Key.Equals("ClientAutoStart", StringComparison.OrdinalIgnoreCase))
+                        {
+                            clientAutoStart = item.Value.Equals("1", StringComparison.Ordinal);
+                        }
+                        else if (item.Key.Equals("ClientVersion", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (!string.IsNullOrEmpty(item.Value))
+                            {
+                                clientVersion = new Version(item.Value);
+                            }
+                        }
+                    }
+                    autoStart = clientAutoStart && Assembly.GetExecutingAssembly().GetName().Version <= clientVersion;
                 }
                 Trace.WriteLine(DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff] ") + "Get Request Complete.");
 

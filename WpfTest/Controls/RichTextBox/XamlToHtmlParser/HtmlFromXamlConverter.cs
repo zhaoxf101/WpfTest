@@ -184,6 +184,9 @@ namespace WpfRichText
 
             bool borderSet = false;
 
+            var baseUri = "";
+            var uriSource = "";
+
             while (xamlReader.MoveToNextAttribute())
             {
                 string css = null;
@@ -287,6 +290,22 @@ namespace WpfRichText
                         htmlWriter.WriteAttributeString("ALT", "");
                         break;
 
+                    case "BaseUri":
+                        baseUri = xamlReader.Value;
+                        if (!string.IsNullOrEmpty(uriSource))
+                        {
+
+                        }
+                        break;
+
+
+                    case "UriSource":
+                        uriSource = xamlReader.Value;
+                        if (!string.IsNullOrEmpty(baseUri))
+                        {
+
+                        }
+                        break;
                 }
 
                 if (css != null)
@@ -451,10 +470,43 @@ namespace WpfRichText
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
-            if (inlineStyle != null && xamlReader.Name.EndsWith(".TextDecorations", StringComparison.OrdinalIgnoreCase))
+            if (inlineStyle != null)
             {
-                inlineStyle.Append("text-decoration:underline;");
+                var name = xamlReader.Name;
+                if (name.EndsWith(".TextDecorations", StringComparison.OrdinalIgnoreCase))
+                {
+                    inlineStyle.Append("text-decoration:underline;");
+                }
+                else if (name.Equals("Image.Source", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (ReadNextToken(xamlReader) && xamlReader.NodeType != XmlNodeType.EndElement && xamlReader.Name == "BitmapImage")
+                    {
+                        var baseUri = "";
+                        var uriSource = "";
+                        while (xamlReader.MoveToNextAttribute())
+                        {
+                            switch (xamlReader.Name)
+                            {
+                                case "BaseUri":
+                                    baseUri = xamlReader.Value;
+                                    break;
+                                case "UriSource":
+                                    uriSource = xamlReader.Value;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(baseUri) && !string.IsNullOrEmpty(uriSource))
+                        {
+                        }
+                    }
+                    xamlReader.MoveToElement();
+                }
             }
+
+
 
             // Skip the element representing the complex property
             WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null);

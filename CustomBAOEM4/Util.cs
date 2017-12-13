@@ -123,6 +123,20 @@ namespace CustomBA
             return result;
         }
 
-
+        public static string GetSystemIdFromRegistry()
+        {
+            try
+            {
+                using (var keyHKLM = Microsoft.Win32.Registry.CurrentUser)
+                {
+                    var key = keyHKLM.CreateSubKey(@"SOFTWARE\MarketingPlatForm.Client");
+                    return $"{key.GetValue("DeviceId")}";
+                }
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
     }
 }
