@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="一比多" Version="1.0.27.0" Manufacturer="上海一比多网络科技有限公司" UpgradeCode="4d5fe171-5e4f-436a-a13d-6fb5f24226a5" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="一比多" Version="1.0.28.0" Manufacturer="上海一比多网络科技有限公司" UpgradeCode="4d5fe171-5e4f-436a-a13d-6fb5f24226a5" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBAOEM2.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBAOEM2.TargetDir)BootstrapperCore.config" />
