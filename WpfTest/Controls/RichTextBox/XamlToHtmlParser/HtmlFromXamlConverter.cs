@@ -17,32 +17,16 @@ namespace WpfRichText
     using System.Text;
     using System.Xml;
 
-    /// <summary>
-    /// HtmlToXamlConverter is a static class that takes an HTML string
-    /// and converts it into XAML
-    /// </summary>
     internal static class HtmlFromXamlConverter
     {
-        // ---------------------------------------------------------------------
-        //
-        // Internal Methods
-        //
-        // ---------------------------------------------------------------------
+        const string DefaultFontFamily = "Î¢ÈíÑÅºÚ";
+        const int DefaultFontSize = 14;
 
-        #region Internal Methods
         internal static string ConvertXamlToHtml(string xamlString)
         {
             return ConvertXamlToHtml(xamlString, true);
         }
-        /// <summary>
-        /// Main entry point for Xaml-to-Html converter.
-        /// Converts a xaml string into html string.
-        /// </summary>
-		/// <param name="xamlString">Xaml strinng to convert.</param>
-		/// <param name="asFlowDocument"></param>
-		/// <returns>
-        /// Html string produced from a source xaml.
-        /// </returns>
+
         internal static string ConvertXamlToHtml(string xamlString, bool asFlowDocument)
         {
             StringBuilder htmlStringBuilder;
@@ -99,25 +83,6 @@ namespace WpfRichText
             }
         }
 
-
-        #endregion Internal Methods
-
-        // ---------------------------------------------------------------------
-        //
-        // Private Methods
-        //
-        // ---------------------------------------------------------------------
-
-        #region Private Methods
-        /// <summary>
-        /// Processes a root level element of XAML (normally it's FlowDocument element).
-        /// </summary>
-        /// <param name="xamlReader">
-        /// XmlTextReader for a source xaml.
-        /// </param>
-        /// <param name="htmlWriter">
-        /// XmlTextWriter producing resulting html
-        /// </param>
         private static bool WriteFlowDocument(XmlTextReader xamlReader, XmlTextWriter htmlWriter, bool withHtmlAndBody = true)
         {
             if (!ReadNextToken(xamlReader))
@@ -143,7 +108,7 @@ namespace WpfRichText
             }
 
             WriteFormattingProperties(xamlReader, htmlWriter, inlineStyle);
-            WriteElementContent(xamlReader, htmlWriter, inlineStyle);
+            WriteElementContent(xamlReader, htmlWriter, inlineStyle, out bool isContentEmpty);
 
             if (withHtmlAndBody)
             {
@@ -154,25 +119,10 @@ namespace WpfRichText
             return true;
         }
 
-        /// <summary>
-        /// Reads attributes of the current xaml element and converts
-        /// them into appropriate html attributes or css styles.
-        /// </summary>
-        /// <param name="xamlReader">
-        /// XmlTextReader which is expected to be at XmlNodeType.Element
-        /// (opening element tag) position.
-        /// The reader will remain at the same level after function complete.
-        /// </param>
-        /// <param name="htmlWriter">
-        /// XmlTextWriter for output html, which is expected to be in
-        /// after WriteStartElement state.
-        /// </param>
-        /// <param name="inlineStyle">
-        /// String builder for collecting css properties for inline STYLE attribute.
-        /// </param>
         private static void WriteFormattingProperties(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
+            var elementName = xamlReader.Name;
 
             // Clear string builder for the inline style
             inlineStyle.Remove(0, inlineStyle.Length);
@@ -183,9 +133,8 @@ namespace WpfRichText
             }
 
             bool borderSet = false;
-
-            var baseUri = "";
-            var uriSource = "";
+            var fontSizeSet = false;
+            var fontFamilySet = false;
 
             while (xamlReader.MoveToNextAttribute())
             {
@@ -200,6 +149,7 @@ namespace WpfRichText
                         break;
                     case "FontFamily":
                         css = "font-family:" + xamlReader.Value + ";";
+                        fontFamilySet = true;
                         break;
                     case "FontStyle":
                         css = "font-style:" + xamlReader.Value.ToLower(CultureInfo.InvariantCulture) + ";";
@@ -210,7 +160,8 @@ namespace WpfRichText
                     case "FontStretch":
                         break;
                     case "FontSize":
-                        css = "font-size:" + xamlReader.Value + ";";
+                        css = "font-size:" + xamlReader.Value + "px;";
+                        fontSizeSet = true;
                         break;
                     case "Foreground":
                         css = "color:" + ParseXamlColor(xamlReader.Value) + ";";
@@ -289,23 +240,6 @@ namespace WpfRichText
                         htmlWriter.WriteAttributeString("TITLE", "");
                         htmlWriter.WriteAttributeString("ALT", "");
                         break;
-
-                    case "BaseUri":
-                        baseUri = xamlReader.Value;
-                        if (!string.IsNullOrEmpty(uriSource))
-                        {
-
-                        }
-                        break;
-
-
-                    case "UriSource":
-                        uriSource = xamlReader.Value;
-                        if (!string.IsNullOrEmpty(baseUri))
-                        {
-
-                        }
-                        break;
                 }
 
                 if (css != null)
@@ -317,6 +251,18 @@ namespace WpfRichText
             if (borderSet)
             {
                 inlineStyle.Append("border-style:solid;mso-element:para-border-div;");
+            }
+
+            if (elementName == "Run" || elementName == "Span")
+            {
+                if (!fontSizeSet)
+                {
+                    inlineStyle.Append("font-size:" + DefaultFontSize + "px;");
+                }
+                if (!fontFamilySet)
+                {
+                    inlineStyle.Append("font-family:" + DefaultFontFamily + ";");
+                }
             }
 
             // Return the xamlReader back to element level
@@ -371,24 +317,11 @@ namespace WpfRichText
             return cssThickness;
         }
 
-        /// <summary>
-        /// Reads a content of current xaml element, converts it
-        /// </summary>
-        /// <param name="xamlReader">
-        /// XmlTextReader which is expected to be at XmlNodeType.Element
-        /// (opening element tag) position.
-        /// </param>
-        /// <param name="htmlWriter">
-        /// May be null, in which case we are skipping the xaml element;
-        /// witout producing any output to html.
-        /// </param>
-        /// <param name="inlineStyle">
-        /// StringBuilder used for collecting css properties for inline STYLE attribute.
-        /// </param>
-        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle)
+        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, out bool isContentEmpty)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
+            isContentEmpty = true;
             bool elementContentStarted = false;
 
             if (xamlReader.IsEmptyElement)
@@ -398,6 +331,8 @@ namespace WpfRichText
                     // Output STYLE attribute and clear inlineStyle buffer.
                     htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
                     inlineStyle.Remove(0, inlineStyle.Length);
+
+                    isContentEmpty = true;
                 }
                 elementContentStarted = true;
             }
@@ -408,7 +343,36 @@ namespace WpfRichText
                     switch (xamlReader.NodeType)
                     {
                         case XmlNodeType.Element:
-                            if (xamlReader.Name.Contains("."))
+                            if (xamlReader.Name.Equals("Image.Source", StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (ReadNextToken(xamlReader) && xamlReader.NodeType != XmlNodeType.EndElement && xamlReader.Name == "BitmapImage")
+                                {
+                                    var baseUri = "";
+                                    var uriSource = "";
+                                    while (xamlReader.MoveToNextAttribute())
+                                    {
+                                        switch (xamlReader.Name)
+                                        {
+                                            case "BaseUri":
+                                                baseUri = xamlReader.Value;
+                                                break;
+                                            case "UriSource":
+                                                uriSource = xamlReader.Value;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                    if (!string.IsNullOrEmpty(baseUri) && !string.IsNullOrEmpty(uriSource))
+                                    {
+                                        htmlWriter.WriteAttributeString("SRC", "http://www.baidu.com");
+                                        isContentEmpty = false;
+                                    }
+                                }
+                                xamlReader.MoveToElement();
+                            }
+                            else if (xamlReader.Name.Contains("."))
                             {
                                 AddComplexProperty(xamlReader, inlineStyle);
                             }
@@ -421,10 +385,12 @@ namespace WpfRichText
                                     inlineStyle.Remove(0, inlineStyle.Length);
                                 }
                                 elementContentStarted = true;
-                                WriteElement(xamlReader, htmlWriter, inlineStyle);
+                                WriteElement(xamlReader, htmlWriter, inlineStyle, out isContentEmpty);
                             }
+
                             Debug.Assert(xamlReader.NodeType == XmlNodeType.EndElement || xamlReader.NodeType == XmlNodeType.Element && xamlReader.IsEmptyElement);
                             break;
+
                         case XmlNodeType.Comment:
                             if (htmlWriter != null)
                             {
@@ -435,17 +401,23 @@ namespace WpfRichText
                                 htmlWriter.WriteComment(xamlReader.Value);
                             }
                             elementContentStarted = true;
+                            isContentEmpty = false;
                             break;
+
                         case XmlNodeType.CDATA:
                         case XmlNodeType.Text:
                         case XmlNodeType.SignificantWhitespace:
                             if (htmlWriter != null)
                             {
-                                if (!elementContentStarted && inlineStyle.Length > 0)
+                                if (!string.IsNullOrEmpty(xamlReader.Value))
                                 {
-                                    htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
+                                    if (!elementContentStarted && inlineStyle.Length > 0)
+                                    {
+                                        htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
+                                    }
+                                    htmlWriter.WriteRaw(xamlReader.Value.Replace(" ", "&nbsp;"));
+                                    isContentEmpty = false;
                                 }
-                                htmlWriter.WriteString(xamlReader.Value);
                             }
                             elementContentStarted = true;
                             break;
@@ -456,16 +428,6 @@ namespace WpfRichText
             }
         }
 
-        /// <summary>
-        /// Conberts an element notation of complex property into
-        /// </summary>
-        /// <param name="xamlReader">
-        /// On entry this XmlTextReader must be on Element start tag;
-        /// on exit - on EndElement tag.
-        /// </param>
-        /// <param name="inlineStyle">
-        /// StringBuilder containing a value for STYLE attribute.
-        /// </param>
         private static void AddComplexProperty(XmlTextReader xamlReader, StringBuilder inlineStyle)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
@@ -477,63 +439,20 @@ namespace WpfRichText
                 {
                     inlineStyle.Append("text-decoration:underline;");
                 }
-                else if (name.Equals("Image.Source", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (ReadNextToken(xamlReader) && xamlReader.NodeType != XmlNodeType.EndElement && xamlReader.Name == "BitmapImage")
-                    {
-                        var baseUri = "";
-                        var uriSource = "";
-                        while (xamlReader.MoveToNextAttribute())
-                        {
-                            switch (xamlReader.Name)
-                            {
-                                case "BaseUri":
-                                    baseUri = xamlReader.Value;
-                                    break;
-                                case "UriSource":
-                                    uriSource = xamlReader.Value;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-
-                        if (!string.IsNullOrEmpty(baseUri) && !string.IsNullOrEmpty(uriSource))
-                        {
-                        }
-                    }
-                    xamlReader.MoveToElement();
-                }
             }
 
-
-
             // Skip the element representing the complex property
-            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null);
+            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null, out bool isContentEmpty);
         }
 
-        /// <summary>
-        /// Converts a xaml element into an appropriate html element.
-        /// </summary>
-        /// <param name="xamlReader">
-        /// On entry this XmlTextReader must be on Element start tag;
-        /// on exit - on EndElement tag.
-        /// </param>
-        /// <param name="htmlWriter">
-        /// May be null, in which case we are skipping xaml content
-        /// without producing any html output
-        /// </param>
-        /// <param name="inlineStyle">
-        /// StringBuilder used for collecting css properties for inline STYLE attributes on every level.
-        /// </param>
-        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle)
+        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, out bool isContentEmpty)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
             if (htmlWriter == null)
             {
                 // Skipping mode; recurse into the xaml element without any output
-                WriteElementContent(xamlReader, /*htmlWriter:*/null, null);
+                WriteElementContent(xamlReader, /*htmlWriter:*/null, null, out isContentEmpty);
             }
             else
             {
@@ -604,34 +523,37 @@ namespace WpfRichText
 
                 if (htmlWriter != null && !String.IsNullOrEmpty(htmlElementName))
                 {
-                    htmlWriter.WriteStartElement(htmlElementName);
+                    var builder = new StringBuilder(100);
+                    using (StringWriter htmlStringWiter = new StringWriter(builder, CultureInfo.InvariantCulture))
+                    {
+                        var htmlWriterTemp = new XmlTextWriter(htmlStringWiter);
 
-                    WriteFormattingProperties(xamlReader, htmlWriter, inlineStyle);
+                        htmlWriterTemp.WriteStartElement(htmlElementName);
+                        WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
+                        WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, out isContentEmpty);
+                        htmlWriterTemp.WriteEndElement();
+                    }
 
-                    WriteElementContent(xamlReader, htmlWriter, inlineStyle);
-
-                    htmlWriter.WriteEndElement();
+                    if (isContentEmpty)
+                    {
+                        if (xamlReader.Name == "Paragraph")
+                        {
+                            htmlWriter.WriteRaw("<P><BR /></P>");
+                        }
+                    }
+                    else
+                    {
+                        htmlWriter.WriteRaw(builder.ToString());
+                    }
                 }
                 else
                 {
                     // Skip this unrecognized xaml element
-                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null);
+                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null, out isContentEmpty);
                 }
             }
         }
 
-        // Reader advance helpers
-        // ----------------------
-
-        /// <summary>
-        /// Reads several items from xamlReader skipping all non-significant stuff.
-        /// </summary>
-        /// <param name="xamlReader">
-        /// XmlTextReader from tokens are being read.
-        /// </param>
-        /// <returns>
-        /// True if new token is available; false if end of stream reached.
-        /// </returns>
         private static bool ReadNextToken(XmlReader xamlReader)
         {
             while (xamlReader.Read())
@@ -676,16 +598,5 @@ namespace WpfRichText
             return false;
         }
 
-        #endregion Private Methods
-
-        // ---------------------------------------------------------------------
-        //
-        // Private Fields
-        //
-        // ---------------------------------------------------------------------
-
-        #region Private Fields
-
-        #endregion Private Fields
     }
 }

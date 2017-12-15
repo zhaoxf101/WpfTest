@@ -835,7 +835,7 @@
             <Button x:Name="BtnInsertLink" Style="{StaticResource FormatBarButtonStyle}" Click="BtnInsertLink_Click" ToolTip="插入超链接">
                 <Grid>
                     <Image Source="Images/world_link.png" Width="16" Height="16" />
-                    <Popup x:Name="uriInputPopup" StaysOpen="False" PlacementTarget="{Binding ElementName=insertLink, Mode=OneWay}">
+                    <Popup x:Name="uriInputPopup" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnInsertLink, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal" Background="Silver">
                             <TextBox Margin="2,2,0,2" x:Name="uriInput" Width="100" KeyUp="uriInput_KeyPressed" />
                             <Button Margin="0,2" x:Name="uriSubmit" Click="UriSubmitClick">

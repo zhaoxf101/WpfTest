@@ -201,6 +201,9 @@ namespace WpfRichText
                 var dic = new Dictionary<ImageSource, RichTextBoxImageInfo>();
                 ProcessWpfImageList(MainRichTextBox.Document.Blocks, dic);
 
+                Debug.WriteLine("xamlText:");
+                Debug.WriteLine(xamlText);
+                Debug.WriteLine("");
 
                 // <FlowDocument PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><BlockUIContainer TextAlignment="Justify"><Image Width="400" Height="134"><Image.Source><BitmapImage BaseUri="pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource="./Image1.bmp" CacheOption="OnLoad" /></Image.Source></Image></BlockUIContainer></FlowDocument>
 
