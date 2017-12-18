@@ -17,7 +17,6 @@ namespace WpfRichText
     using System.Collections.Generic;
     using System.Text;
     using System.IO;
-
     using System.Windows; // DependencyProperty
     using System.Windows.Documents;
 	using System.Globalization; // TextElement

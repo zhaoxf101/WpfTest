@@ -108,7 +108,8 @@ namespace WpfRichText
             }
 
             WriteFormattingProperties(xamlReader, htmlWriter, inlineStyle);
-            WriteElementContent(xamlReader, htmlWriter, inlineStyle, out bool isContentEmpty);
+            var isContentEmpty = true;
+            WriteElementContent(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty);
 
             if (withHtmlAndBody)
             {
@@ -317,11 +318,10 @@ namespace WpfRichText
             return cssThickness;
         }
 
-        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, out bool isContentEmpty)
+        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
-            isContentEmpty = true;
             bool elementContentStarted = false;
 
             if (xamlReader.IsEmptyElement)
@@ -331,8 +331,6 @@ namespace WpfRichText
                     // Output STYLE attribute and clear inlineStyle buffer.
                     htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
                     inlineStyle.Remove(0, inlineStyle.Length);
-
-                    isContentEmpty = true;
                 }
                 elementContentStarted = true;
             }
@@ -385,7 +383,7 @@ namespace WpfRichText
                                     inlineStyle.Remove(0, inlineStyle.Length);
                                 }
                                 elementContentStarted = true;
-                                WriteElement(xamlReader, htmlWriter, inlineStyle, out isContentEmpty);
+                                WriteElement(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty);
                             }
 
                             Debug.Assert(xamlReader.NodeType == XmlNodeType.EndElement || xamlReader.NodeType == XmlNodeType.Element && xamlReader.IsEmptyElement);
@@ -442,17 +440,18 @@ namespace WpfRichText
             }
 
             // Skip the element representing the complex property
-            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null, out bool isContentEmpty);
+            var isContentEmpty = true;
+            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null, ref isContentEmpty);
         }
 
-        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, out bool isContentEmpty)
+        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
             if (htmlWriter == null)
             {
                 // Skipping mode; recurse into the xaml element without any output
-                WriteElementContent(xamlReader, /*htmlWriter:*/null, null, out isContentEmpty);
+                WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty);
             }
             else
             {
@@ -530,7 +529,7 @@ namespace WpfRichText
 
                         htmlWriterTemp.WriteStartElement(htmlElementName);
                         WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
-                        WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, out isContentEmpty);
+                        WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, ref isContentEmpty);
                         htmlWriterTemp.WriteEndElement();
                     }
 
@@ -549,7 +548,7 @@ namespace WpfRichText
                 else
                 {
                     // Skip this unrecognized xaml element
-                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null, out isContentEmpty);
+                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty);
                 }
             }
         }
