@@ -2105,8 +2105,16 @@ namespace WpfRichText
                         break;
 
                     case "width":
+                        if (xamlElement.Name == "Image")
+                        {
+                            xamlElement.SetAttribute(Xaml_Width, (string)propertyEnumerator.Value);
+                        }
+                        break;
                     case "height":
-                        //  Decide what to do with width and height propeties
+                        if (xamlElement.Name == "Image")
+                        {
+                            xamlElement.SetAttribute(Xaml_Height, (string)propertyEnumerator.Value);
+                        }
                         break;
 
                     case "margin-top":
@@ -2629,118 +2637,120 @@ namespace WpfRichText
         // ----------------------------------------------------------------
 
         // The constants reprtesent all Xaml names used in a conversion
-		/// <summary></summary>
+		
         public const string XamlFlowDocument = "FlowDocument";
-		/// <summary></summary>
+		
 		public const string XamlRun = "Run";
-		/// <summary></summary>
+		
 		public const string XamlSpan = "Span";
-		/// <summary></summary>
+		
 		public const string XamlHyperlink = "Hyperlink";
-		/// <summary></summary>
+		
 		public const string XamlHyperlinkNavigateUri = "NavigateUri";
-		/// <summary></summary>
+		
 		public const string XamlHyperlinkTargetName = "TargetName";
-		/// <summary></summary>
+		
 		public const string XamlSection = "Section";
-		/// <summary></summary>
+		
 		public const string XamlList = "List";
-		/// <summary></summary>
+		
 		public const string XamlListMarkerStyle = "MarkerStyle";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_None = "None";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_Decimal = "Decimal";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_Disc = "Disc";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_Circle = "Circle";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_Square = "Square";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_Box = "Box";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_LowerLatin = "LowerLatin";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_UpperLatin = "UpperLatin";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_LowerRoman = "LowerRoman";
-		/// <summary></summary>
+		
 		public const string Xaml_List_MarkerStyle_UpperRoman = "UpperRoman";
-		/// <summary></summary>
+		
 		public const string Xaml_ListItem = "ListItem";
-		/// <summary></summary>
+		
 		public const string Xaml_LineBreak = "LineBreak";
-		/// <summary></summary>
+		
 		public const string Xaml_Paragraph = "Paragraph";
-		/// <summary></summary>
+		
 		public const string Xaml_Margin = "Margin";
-		/// <summary></summary>
+		
 		public const string Xaml_Padding = "Padding";
-		/// <summary></summary>
+		
 		public const string Xaml_BorderBrush = "BorderBrush";
-		/// <summary></summary>
+		
 		public const string Xaml_BorderThickness = "BorderThickness";
 
         public const string Xaml_Image = "Image";
 
-        /// <summary></summary>
+        
         public const string Xaml_Table = "Table";
-		/// <summary></summary>
+		
 		public const string Xaml_TableColumn = "TableColumn";
-		/// <summary></summary>
+		
 		public const string Xaml_TableRowGroup = "TableRowGroup";
-		/// <summary></summary>
+		
 		public const string Xaml_TableRow = "TableRow";
-		/// <summary></summary>
+		
 		public const string Xaml_TableCell = "TableCell";
-		/// <summary></summary>
+		
 		public const string Xaml_TableCell_BorderThickness = "BorderThickness";
-		/// <summary></summary>
+		
 		public const string Xaml_TableCell_BorderBrush = "BorderBrush";
-		/// <summary></summary>
+		
         public const string Xaml_TableCell_ColumnSpan = "ColumnSpan";
-		/// <summary></summary>
+		
 		public const string Xaml_TableCell_RowSpan = "RowSpan";
-		/// <summary></summary>
+        
         public const string Xaml_Width = "Width";
-		/// <summary></summary>
-		public const string Xaml_Brushes_Black = "Black";
-		/// <summary></summary>
+
+        public const string Xaml_Height = "Height";
+        
+        public const string Xaml_Brushes_Black = "Black";
+		
 		public const string Xaml_FontFamily = "FontFamily";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize = "FontSize";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_XXLarge = "22pt"; // "XXLarge";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_XLarge = "20pt"; // "XLarge";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_Large = "18pt"; // "Large";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_Medium = "16pt"; // "Medium";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_Small = "12pt"; // "Small";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_XSmall = "10pt"; // "XSmall";
-		/// <summary></summary>
+		
 		public const string Xaml_FontSize_XXSmall = "8pt"; // "XXSmall";
-		/// <summary></summary>
+		
 		public const string Xaml_FontWeight = "FontWeight";
-		/// <summary></summary>
+		
 		public const string Xaml_FontWeight_Bold = "Bold";
-		/// <summary></summary>
+		
         public const string Xaml_FontStyle = "FontStyle";
-		/// <summary></summary>
+		
 		public const string Xaml_Foreground = "Foreground";
-		/// <summary></summary>
+		
 		public const string Xaml_Background = "Background";
-		/// <summary></summary>
+		
 		public const string Xaml_TextDecorations = "TextDecorations";
-		/// <summary></summary>
+		
 		public const string Xaml_TextDecorations_Underline = "Underline";
-		/// <summary></summary>
+		
 		public const string Xaml_TextIndent = "TextIndent";
-		/// <summary></summary>
+		
 		public const string Xaml_TextAlignment = "TextAlignment";
 
         // ---------------------------------------------------------------------

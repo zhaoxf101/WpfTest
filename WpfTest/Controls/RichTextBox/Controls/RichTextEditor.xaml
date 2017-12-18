@@ -863,9 +863,9 @@
                     <Setter Property="FontSize" Value="14" />
                 </Style>
             </RichTextBox.Resources>
-            <RichTextBox.CommandBindings>
+            <!--<RichTextBox.CommandBindings>
                 <CommandBinding Command="Paste" Executed="CommandBinding_Executed"></CommandBinding>
-            </RichTextBox.CommandBindings>
+            </RichTextBox.CommandBindings>-->
         </RichTextBox>
     </Grid>
 </UserControl>

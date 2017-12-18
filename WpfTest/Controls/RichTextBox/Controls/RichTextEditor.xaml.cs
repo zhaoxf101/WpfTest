@@ -18,18 +18,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfTest.Controls.RichTextBox.Controls;
 
 namespace WpfRichText
 {
-    public class RichTextBoxImageInfo
-    {
-        public ImageSource Source { get; set; }
-
-        public byte[] Data { get; set; }
-
-        public string UploadedUrl { get; set; }
-    }
-
     /// <summary>
     /// Interaction logic for BindableRichTextbox.xaml
     /// </summary>
@@ -53,23 +45,25 @@ namespace WpfRichText
         private TextRange textRange = null;
 
         const string ImageTypeFilterDefault = "图片文件(*png,*.jpg,*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";
-        const int ImageMaxSizeDefaultMB = 2;
+        const int ImageMaxSizeDefaultBytes = 2 * 1024 * 1024;
 
+        private int _imageMaxSizeBytes;
 
-        private int _imageMaxSizeMB;
-
-        public int ImageMaxSizeMB
+        public int ImageMaxSizeBytes
         {
-            get { return _imageMaxSizeMB; }
+            get
+            {
+                return _imageMaxSizeBytes;
+            }
             set
             {
                 if (value > 0)
                 {
-                    _imageMaxSizeMB = value;
+                    _imageMaxSizeBytes = value;
                 }
                 else
                 {
-                    _imageMaxSizeMB = ImageMaxSizeDefaultMB;
+                    _imageMaxSizeBytes = ImageMaxSizeDefaultBytes;
                 }
             }
         }
@@ -101,7 +95,7 @@ namespace WpfRichText
             set { _showMessageCallback = value; }
         }
 
-        UploadImageManager _uploadImageManager;
+        IUploadImageManager _uploadImageManager;
 
         static string[] _PreDefinedFonts = new[] { "宋体", "微软雅黑", "楷体", "黑体", "隶书",
                 "Microsoft YaHei UI", "courier new", "arial", "arial black", "comic sans ms",
@@ -117,10 +111,10 @@ namespace WpfRichText
         {
             InitializeComponent();
 
-            ImageMaxSizeMB = ImageMaxSizeDefaultMB;
+            ImageMaxSizeBytes = ImageMaxSizeDefaultBytes;
             ImageTypeFilter = ImageTypeFilterDefault;
 
-            _uploadImageManager = new UploadImageManager();
+            _uploadImageManager = new UploadImageManagerQiniu();
 
             var fontList = Fonts.SystemFontFamilies.Select(p => p.FamilyNames).ToList();
             foreach (var item in _PreDefinedFonts)
@@ -198,16 +192,13 @@ namespace WpfRichText
             {
                 string xamlText = XamlWriter.Save(MainRichTextBox.Document);
 
-                var dic = new Dictionary<ImageSource, RichTextBoxImageInfo>();
-                ProcessWpfImageList(MainRichTextBox.Document.Blocks, dic);
-
-                Debug.WriteLine("xamlText:");
-                Debug.WriteLine(xamlText);
-                Debug.WriteLine("");
 
                 // <FlowDocument PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><BlockUIContainer TextAlignment="Justify"><Image Width="400" Height="134"><Image.Source><BitmapImage BaseUri="pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource="./Image1.bmp" CacheOption="OnLoad" /></Image.Source></Image></BlockUIContainer></FlowDocument>
-
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
+
+                Debug.WriteLine("xaml:");
+                Debug.WriteLine(xamlText);
+                Debug.WriteLine("");
 
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
                 return html;
@@ -221,40 +212,42 @@ namespace WpfRichText
             }
         }
 
-        void ProcessWpfImageList(BlockCollection blocks, Dictionary<ImageSource, RichTextBoxImageInfo> dic)
+        public void ProcessWpfImages()
         {
-            Type inlineType;
-            InlineUIContainer uiContainer;
-            byte[] bytes;
+            ProcessWpfImages(MainRichTextBox.Document.Blocks);
+        }
 
+        void ProcessWpfImages(BlockCollection blocks)
+        {
             foreach (Block b in blocks)
             {
                 if (b is Paragraph p)
                 {
                     foreach (Inline i in p.Inlines)
                     {
-                        inlineType = i.GetType();
-
-                        if (inlineType == typeof(Run))
+                        if (i is InlineUIContainer uiContainer)
                         {
-                            //The inline is TEXT!!!
-                        }
-                        else if (inlineType == typeof(InlineUIContainer))
-                        {
-                            //The inline has an object, likely an IMAGE!!!
-                            uiContainer = ((InlineUIContainer)i);
-
-                            //if it is an image
-                            if (uiContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap)
+                            if (uiContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap && bitmap.BaseUri != null)
                             {
-                                //get its byte array
-                                bytes = GetImageByteArray(bitmap);
-                                dic[targetImage.Source] = new RichTextBoxImageInfo
+                                var data = GetImageByteArray(bitmap);
+                                if (_uploadImageManager != null)
                                 {
-                                    Source = targetImage.Source,
-                                    Data = bytes
-                                };
+                                    _uploadImageManager.UploadImage(data, "", out string url);
+                                    targetImage.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                                }
                             }
+                        }
+                    }
+                }
+                else if (b is BlockUIContainer blockUIContainer)
+                {
+                    if (blockUIContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap && bitmap.BaseUri != null)
+                    {
+                        var data = GetImageByteArray(bitmap);
+                        if (_uploadImageManager != null)
+                        {
+                            _uploadImageManager.UploadImage(data, "", out string url);
+                            targetImage.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
                         }
                     }
                 }
@@ -266,7 +259,7 @@ namespace WpfRichText
                         {
                             foreach (var cell in row.Cells)
                             {
-                                ProcessWpfImageList(cell.Blocks, dic);
+                                ProcessWpfImages(cell.Blocks);
                             }
                         }
                     }
@@ -393,17 +386,26 @@ namespace WpfRichText
 
         private void BtnUploadImage_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = ImageTypeFilter;
+            var dialog = new OpenFileDialog
+            {
+                Filter = ImageTypeFilter
+            };
 
             if (dialog.ShowDialog() == true)
             {
                 var filePath = dialog.FileName;
 
-                var fileInfo = new System.IO.FileInfo(filePath);
-                if (fileInfo.Length > ImageMaxSizeMB * 1024 * 1024)
+                byte[] data = null;
+                using (var fileStream = File.OpenRead(filePath))
                 {
-                    var msg = $"文件大小在{ImageMaxSizeMB}M以内！";
+                    data = new byte[fileStream.Length];
+                    fileStream.Read(data, 0, data.Length);
+                }
+                var fileInfo = new System.IO.FileInfo(filePath);
+
+                if (data.Length > ImageMaxSizeBytes)
+                {
+                    var msg = $"文件大小在{GetImageMaxSizeDescription()}以内！";
                     if (_showMessageCallback != null)
                     {
                         _showMessageCallback(msg);
@@ -417,13 +419,13 @@ namespace WpfRichText
 
                 if (_uploadImageManager != null)
                 {
-                    var url = "";
                     var key = $"Image{DateTime.Now.ToString("yyMMddHHmmssfff")}{Guid.NewGuid().ToString().Substring(0, 3)}{System.IO.Path.GetExtension(filePath)}";
-                    if (_uploadImageManager.UploadImage(filePath, key, out url))
+                    try
                     {
+                        _uploadImageManager.UploadImage(data, key, out string url);
                         filePath = url;
                     }
-                    else
+                    catch (Exception)
                     {
                         var msg = "图片上传失败！";
                         if (_showMessageCallback != null)
@@ -440,12 +442,32 @@ namespace WpfRichText
 
                 Image img = new Image();
                 BitmapImage bImg = new BitmapImage(new Uri(filePath));
+                bImg.DownloadCompleted += (sender1, e1) =>
+                {
+                    img.Width = bImg.PixelWidth;
+                    img.Height = bImg.PixelHeight;
+                };
                 img.IsEnabled = true;
                 img.Source = bImg;
-
                 img.Stretch = Stretch.None;  //图片缩放模式
-
                 new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
+            }
+        }
+
+        string GetImageMaxSizeDescription()
+        {
+            var value = _imageMaxSizeBytes / (1024 * 1024);
+            if (value > 0)
+            {
+                return $"{value}M";
+            }
+            else if ((value = _imageMaxSizeBytes / 1024) > 0)
+            {
+                return $"{value}K";
+            }
+            else
+            {
+                return $"{value}B";
             }
         }
 

@@ -217,12 +217,16 @@ namespace WpfRichText
                         break;
                     case "FlowDirection":
                         break;
+                    case "Width":
+                        css = "width:" + ParseXamlLength(xamlReader.Value) + ";";
+                        break;
+                    case "Height":
+                        css = "height:" + ParseXamlLength(xamlReader.Value) + ";";
+                        break;
 
                     // Table attributes
                     // ----------------
-                    case "Width":
-                        css = "width:" + xamlReader.Value + ";";
-                        break;
+
                     case "ColumnSpan":
                         htmlWriter.WriteAttributeString("COLSPAN", xamlReader.Value);
                         break;
@@ -254,7 +258,7 @@ namespace WpfRichText
                 inlineStyle.Append("border-style:solid;mso-element:para-border-div;");
             }
 
-            if (elementName == "Run" || elementName == "Span")
+            if (elementName == "Paragraph" || elementName == "Run" || elementName == "Span")
             {
                 if (!fontSizeSet)
                 {
@@ -381,7 +385,7 @@ namespace WpfRichText
 
                                     if (!string.IsNullOrEmpty(baseUri) && !string.IsNullOrEmpty(uriSource))
                                     {
-                                        htmlWriter.WriteAttributeString("SRC", "http://www.baidu.com");
+                                        htmlWriter.WriteAttributeString("SRC", "");
                                         isContentEmpty = false;
                                     }
                                 }
@@ -430,7 +434,9 @@ namespace WpfRichText
                                     {
                                         htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
                                     }
-                                    htmlWriter.WriteRaw(xamlReader.Value.Replace(" ", "&nbsp;").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;"));
+                                    var buider = new StringBuilder(xamlReader.Value);
+                                    buider.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace(" ", "&nbsp;").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                                    htmlWriter.WriteRaw(buider.ToString());
                                     isContentEmpty = false;
                                 }
                             }
@@ -534,6 +540,7 @@ namespace WpfRichText
                         break;
                     case "Image":
                         htmlElementName = "IMG";
+                        isContentEmpty = false;
                         break;
                     default:
                         htmlElementName = null; // Ignore the element
@@ -547,8 +554,20 @@ namespace WpfRichText
                     {
                         var htmlWriterTemp = new XmlTextWriter(htmlStringWiter);
 
-                        htmlWriterTemp.WriteStartElement(htmlElementName);
-                        WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
+                        if (htmlElementName == "DIV")
+                        {
+                            htmlWriterTemp.WriteStartElement("P");
+                            if (inlineStyle != null && !inlineStyle.ToString().Contains("text-align"))
+                            {
+                                inlineStyle.Append("text-align:center");
+                            }
+                        }
+                        else
+                        {
+                            htmlWriterTemp.WriteStartElement(htmlElementName);
+                            WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
+                        }
+
                         if (htmlElementName == "P")
                         {
                             paragraphProperties = inlineStyle.ToString();
@@ -565,7 +584,7 @@ namespace WpfRichText
                             var style = "";
                             if (!string.IsNullOrEmpty(paragraphProperties))
                             {
-                                style  = $@" STYLE=""{paragraphProperties}""";
+                                style = $@" STYLE=""{paragraphProperties}""";
                             }
                             htmlWriter.WriteRaw($"<P{style}><BR /></P>");
                         }
