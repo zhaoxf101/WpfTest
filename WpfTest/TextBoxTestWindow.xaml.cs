@@ -25,7 +25,8 @@ namespace WpfTest
         {
             InitializeComponent();
 
-            TxtContent.HtmlText = @"<P><SPAN STYLE=""font-size:14;"">应用早在《内经》中就已有了记载，如《灵枢》中有</SPAN></P>";
+            //TxtContent.HtmlText = @"<P><SPAN STYLE=""font-size:14;"">应用早在《内经》中就已有了记载，如《灵枢》中有</SPAN></P>";
+            TxtContent.HtmlText = @"<P><SPAN STYLE=""font-size:14px;font-family:微软雅黑;"">应用早在《内经》中就已有了记载，如《灵枢》中有</SPAN></P><P STYLE=""text-indent:20px;""><SPAN STYLE=""font-size:14px;font-family:微软雅黑;"">&nbsp;</SPAN></P><P STYLE=""text-indent:20px;""><SPAN STYLE=""font-size:14px;font-family:微软雅黑;"">&nbsp;　</SPAN></P>";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
