@@ -161,7 +161,7 @@ namespace WpfRichText
                     case "FontStretch":
                         break;
                     case "FontSize":
-                        css = "font-size:" + xamlReader.Value + "px;";
+                        css = "font-size:" + ParseXamlLength(xamlReader.Value) + ";";
                         fontSizeSet = true;
                         break;
                     case "Foreground":
@@ -202,7 +202,7 @@ namespace WpfRichText
                     case "LineHeight":
                         break;
                     case "TextIndent":
-                        css = "text-indent:" + xamlReader.Value + ";";
+                        css = "text-indent:" + ParseXamlLength(xamlReader.Value) + ";";
                         break;
                     case "TextAlignment":
                         css = "text-align:" + xamlReader.Value + ";";
@@ -281,6 +281,23 @@ namespace WpfRichText
             return color;
         }
 
+        private static string ParseXamlLength(string length)
+        {
+            if (string.IsNullOrWhiteSpace(length))
+            {
+                return "";
+            }
+
+            if (length == "0")
+            {
+                return length;
+            }
+            else
+            {
+                return length + "px";
+            }
+        }
+
         private static string ParseXamlThickness(string thickness)
         {
             string[] values = thickness.Split(',');
@@ -290,11 +307,11 @@ namespace WpfRichText
                 double value;
                 if (double.TryParse(values[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out value))
                 {
-                    values[i] = Math.Ceiling(value).ToString(CultureInfo.InvariantCulture);
+                    values[i] = ParseXamlLength(Math.Ceiling(value).ToString(CultureInfo.InvariantCulture));
                 }
                 else
                 {
-                    values[i] = "1";
+                    values[i] = "1px";
                 }
             }
 
@@ -413,7 +430,7 @@ namespace WpfRichText
                                     {
                                         htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
                                     }
-                                    htmlWriter.WriteRaw(xamlReader.Value.Replace(" ", "&nbsp;"));
+                                    htmlWriter.WriteRaw(xamlReader.Value.Replace(" ", "&nbsp;").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;"));
                                     isContentEmpty = false;
                                 }
                             }
@@ -448,6 +465,8 @@ namespace WpfRichText
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
+            var paragraphProperties = "";
+
             if (htmlWriter == null)
             {
                 // Skipping mode; recurse into the xaml element without any output
@@ -474,6 +493,7 @@ namespace WpfRichText
                         break;
                     case "Paragraph":
                         htmlElementName = "P";
+                        isContentEmpty = true;
                         break;
                     case "BlockUIContainer":
                         htmlElementName = "DIV";
@@ -529,6 +549,11 @@ namespace WpfRichText
 
                         htmlWriterTemp.WriteStartElement(htmlElementName);
                         WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
+                        if (htmlElementName == "P")
+                        {
+                            paragraphProperties = inlineStyle.ToString();
+                        }
+
                         WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, ref isContentEmpty);
                         htmlWriterTemp.WriteEndElement();
                     }
@@ -537,7 +562,12 @@ namespace WpfRichText
                     {
                         if (xamlReader.Name == "Paragraph")
                         {
-                            htmlWriter.WriteRaw("<P><BR /></P>");
+                            var style = "";
+                            if (!string.IsNullOrEmpty(paragraphProperties))
+                            {
+                                style  = $@" STYLE=""{paragraphProperties}""";
+                            }
+                            htmlWriter.WriteRaw($"<P{style}><BR /></P>");
                         }
                     }
                     else
