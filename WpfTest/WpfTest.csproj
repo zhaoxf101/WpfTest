@@ -88,7 +88,7 @@
     <Compile Include="Controls\RichTextBox\Commands\DelegateCommand.cs" />
     <Compile Include="Controls\RichTextBox\Controls\UploadImageException.cs" />
     <Compile Include="Controls\RichTextBox\Controls\UploadImageManagerQiniu.cs" />
-    <Compile Include="Controls\RichTextBox\Controls\UploadImageManager.cs" />
+    <Compile Include="Controls\RichTextBox\Controls\IUploadImageManager.cs" />
     <Compile Include="Controls\RichTextBox\Controls\RichTextEditor.xaml.cs">
       <DependentUpon>RichTextEditor.xaml</DependentUpon>
     </Compile>

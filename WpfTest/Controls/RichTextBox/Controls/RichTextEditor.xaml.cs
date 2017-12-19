@@ -190,8 +190,9 @@ namespace WpfRichText
         {
             get
             {
-                string xamlText = XamlWriter.Save(MainRichTextBox.Document);
+                ProcessWpfImages();
 
+                string xamlText = XamlWriter.Save(MainRichTextBox.Document);
 
                 // <FlowDocument PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><BlockUIContainer TextAlignment="Justify"><Image Width="400" Height="134"><Image.Source><BitmapImage BaseUri="pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource="./Image1.bmp" CacheOption="OnLoad" /></Image.Source></Image></BlockUIContainer></FlowDocument>
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
@@ -363,7 +364,7 @@ namespace WpfRichText
                 this.MainRichTextBox.Selection.ClearAllProperties();
         }
 
-        private void uriInput_KeyPressed(object sender, KeyEventArgs e)
+        private void UriInput_KeyPressed(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {

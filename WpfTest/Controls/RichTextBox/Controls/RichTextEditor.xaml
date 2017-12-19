@@ -5,7 +5,7 @@
             xmlns:asis="clr-namespace:WpfRichText" 
             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" 
             xmlns:System="clr-namespace:System;assembly=mscorlib" 
-            x:Class="WpfRichText.RichTextEditor" x:Name="MainRichTextEditor" Background="White">
+            x:Class="WpfRichText.RichTextEditor" x:Name="MainRichTextEditor" Background="White" Foreground="#444">
     <UserControl.Resources>
         <LinearGradientBrush x:Key="VerticalScrollBarBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#E1E1E1" Offset="0" />
@@ -837,7 +837,7 @@
                     <Image Source="Images/world_link.png" Width="16" Height="16" />
                     <Popup x:Name="uriInputPopup" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnInsertLink, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal" Background="Silver">
-                            <TextBox Margin="2,2,0,2" x:Name="uriInput" Width="100" KeyUp="uriInput_KeyPressed" />
+                            <TextBox Margin="2,2,0,2" x:Name="uriInput" Width="100" KeyUp="UriInput_KeyPressed" />
                             <Button Margin="0,2" x:Name="uriSubmit" Click="UriSubmitClick">
                                 <Image Source="Images/tick.png" Width="16" Height="16" />
                             </Button>
