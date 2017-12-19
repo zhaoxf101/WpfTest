@@ -36,15 +36,7 @@ namespace WpfTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                TxtContent.ProcessWpfImages();
-            }
-            catch (Exception)
-            {
-                return;
-            }
-
+            
             var t = TxtContent.HtmlText;
 
             Debug.WriteLine(t);

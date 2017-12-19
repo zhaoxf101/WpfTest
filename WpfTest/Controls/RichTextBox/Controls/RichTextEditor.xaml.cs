@@ -224,17 +224,25 @@ namespace WpfRichText
             {
                 if (b is Paragraph p)
                 {
-                    foreach (Inline i in p.Inlines)
+                    foreach (Inline inline in p.Inlines)
                     {
-                        if (i is InlineUIContainer uiContainer)
+                        if (inline is InlineUIContainer uiContainer)
                         {
-                            if (uiContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap && bitmap.BaseUri != null)
+                            if (uiContainer.Child is Image targetImage)
                             {
-                                var data = GetImageByteArray(bitmap);
-                                if (_uploadImageManager != null)
+                                ProcessWpfImage(targetImage);
+                            }
+                        }
+                        else if (inline is Span span)
+                        {
+                            foreach (Inline inline2 in span.Inlines)
+                            {
+                                if (inline2 is InlineUIContainer uiContainer2)
                                 {
-                                    _uploadImageManager.UploadImage(data, "", out string url);
-                                    targetImage.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                                    if (uiContainer2.Child is Image targetImage)
+                                    {
+                                        ProcessWpfImage(targetImage);
+                                    }
                                 }
                             }
                         }
@@ -242,14 +250,9 @@ namespace WpfRichText
                 }
                 else if (b is BlockUIContainer blockUIContainer)
                 {
-                    if (blockUIContainer.Child is Image targetImage && targetImage.Source is BitmapImage bitmap && bitmap.BaseUri != null)
+                    if (blockUIContainer.Child is Image targetImage)
                     {
-                        var data = GetImageByteArray(bitmap);
-                        if (_uploadImageManager != null)
-                        {
-                            _uploadImageManager.UploadImage(data, "", out string url);
-                            targetImage.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
-                        }
+                        ProcessWpfImage(targetImage);
                     }
                 }
                 else if (b is Table t)
@@ -264,6 +267,19 @@ namespace WpfRichText
                             }
                         }
                     }
+                }
+            }
+        }
+
+        void ProcessWpfImage(Image image)
+        {
+            if (image.Source is BitmapImage bitmap && bitmap.BaseUri != null)
+            {
+                var data = GetImageByteArray(bitmap);
+                if (_uploadImageManager != null)
+                {
+                    _uploadImageManager.UploadImage(data, "", out string url);
+                    image.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
                 }
             }
         }
