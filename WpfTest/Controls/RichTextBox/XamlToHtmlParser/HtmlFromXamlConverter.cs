@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 // 
 // File: HtmlFromXamlConverter.cs
 //
@@ -19,7 +19,7 @@ namespace WpfRichText
 
     internal static class HtmlFromXamlConverter
     {
-        const string DefaultFontFamily = "΢���ź�";
+        const string DefaultFontFamily = "微软雅黑";
         const int DefaultFontSize = 14;
 
         internal static string ConvertXamlToHtml(string xamlString)
@@ -435,7 +435,7 @@ namespace WpfRichText
                                         htmlWriter.WriteAttributeString("STYLE", inlineStyle.ToString());
                                     }
                                     var buider = new StringBuilder(xamlReader.Value);
-                                    buider.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace(" ", "&nbsp;").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                                    buider.Replace(" ", " ").Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace(" ", "&nbsp;").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
                                     htmlWriter.WriteRaw(buider.ToString());
                                     isContentEmpty = false;
                                 }

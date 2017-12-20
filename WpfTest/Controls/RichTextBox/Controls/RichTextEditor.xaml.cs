@@ -141,22 +141,14 @@ namespace WpfRichText
                 _isInitialized = true;
             }
 
-            var index = _availableFonts.FindIndex(p => p == "微软雅黑");
+            var index = _availableFonts.FindIndex(p => p == "宋体");
             if (index != -1)
             {
                 CmbFontFamilies.SelectedIndex = index;
             }
             else
             {
-                index = _availableFonts.FindIndex(p => p == "宋体");
-                if (index != -1)
-                {
-                    CmbFontFamilies.SelectedIndex = index;
-                }
-                else
-                {
-                    CmbFontFamilies.SelectedIndex = 0;
-                }
+                CmbFontFamilies.SelectedIndex = 0;
             }
 
             CmbFontSizes.SelectedIndex = 0;
