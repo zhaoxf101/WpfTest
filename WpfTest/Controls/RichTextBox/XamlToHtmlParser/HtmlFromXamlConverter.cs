@@ -19,15 +19,12 @@ namespace WpfRichText
 
     internal static class HtmlFromXamlConverter
     {
-        const string DefaultFontFamily = "微软雅黑";
-        const int DefaultFontSize = 14;
-
-        internal static string ConvertXamlToHtml(string xamlString)
+        internal static string ConvertXamlToHtml(string xamlString, string defaultFontFamily, string defaultFontSize)
         {
-            return ConvertXamlToHtml(xamlString, true);
+            return ConvertXamlToHtml(xamlString, true, defaultFontFamily, defaultFontSize);
         }
 
-        internal static string ConvertXamlToHtml(string xamlString, bool asFlowDocument)
+        internal static string ConvertXamlToHtml(string xamlString, bool asFlowDocument, string defaultFontFamily, string defaultFontSize)
         {
             StringBuilder htmlStringBuilder;
             XmlTextWriter htmlWriter;
@@ -44,7 +41,7 @@ namespace WpfRichText
                 {
                     htmlWriter = new XmlTextWriter(htmlStringWiter);
 
-                    if (!WriteFlowDocument(xamlReader, htmlWriter))
+                    if (!WriteFlowDocument(xamlReader, htmlWriter, true, defaultFontFamily, defaultFontSize))
                     {
                         return "";
                     }
@@ -55,7 +52,7 @@ namespace WpfRichText
             }
         }
 
-        internal static string ConvertXamlToHtmlWithoutHtmlAndBody(string xamlString, bool asFlowDocument)
+        internal static string ConvertXamlToHtmlWithoutHtmlAndBody(string xamlString, bool asFlowDocument, string defaultFontFamily, string defaultFontSize)
         {
             StringBuilder htmlStringBuilder;
             XmlTextWriter htmlWriter;
@@ -72,7 +69,7 @@ namespace WpfRichText
                 {
                     htmlWriter = new XmlTextWriter(htmlStringWiter);
 
-                    if (!WriteFlowDocument(xamlReader, htmlWriter, false))
+                    if (!WriteFlowDocument(xamlReader, htmlWriter, false, defaultFontFamily, defaultFontSize))
                     {
                         return "";
                     }
@@ -83,7 +80,7 @@ namespace WpfRichText
             }
         }
 
-        private static bool WriteFlowDocument(XmlTextReader xamlReader, XmlTextWriter htmlWriter, bool withHtmlAndBody = true)
+        private static bool WriteFlowDocument(XmlTextReader xamlReader, XmlTextWriter htmlWriter, bool withHtmlAndBody, string defaultFontFamily, string defaultFontSize)
         {
             if (!ReadNextToken(xamlReader))
             {
@@ -107,9 +104,9 @@ namespace WpfRichText
                 htmlWriter.WriteStartElement("BODY");
             }
 
-            WriteFormattingProperties(xamlReader, htmlWriter, inlineStyle);
+            WriteFormattingProperties(xamlReader, htmlWriter, inlineStyle, defaultFontFamily, defaultFontSize);
             var isContentEmpty = true;
-            WriteElementContent(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty);
+            WriteElementContent(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty, defaultFontFamily, defaultFontSize);
 
             if (withHtmlAndBody)
             {
@@ -120,7 +117,7 @@ namespace WpfRichText
             return true;
         }
 
-        private static void WriteFormattingProperties(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle)
+        private static void WriteFormattingProperties(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, string defaultFontFamily, string defaultFontSize)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
             var elementName = xamlReader.Name;
@@ -262,11 +259,11 @@ namespace WpfRichText
             {
                 if (!fontSizeSet)
                 {
-                    inlineStyle.Append("font-size:" + DefaultFontSize + "px;");
+                    inlineStyle.Append("font-size:" + defaultFontSize + "px;");
                 }
                 if (!fontFamilySet)
                 {
-                    inlineStyle.Append("font-family:" + DefaultFontFamily + ";");
+                    inlineStyle.Append("font-family:" + defaultFontFamily + ";");
                 }
             }
 
@@ -339,7 +336,7 @@ namespace WpfRichText
             return cssThickness;
         }
 
-        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty)
+        private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty, string defaultFontFamily, string defaultFontSize)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
@@ -393,7 +390,7 @@ namespace WpfRichText
                             }
                             else if (xamlReader.Name.Contains("."))
                             {
-                                AddComplexProperty(xamlReader, inlineStyle);
+                                AddComplexProperty(xamlReader, inlineStyle, defaultFontFamily, defaultFontSize);
                             }
                             else
                             {
@@ -404,7 +401,7 @@ namespace WpfRichText
                                     inlineStyle.Remove(0, inlineStyle.Length);
                                 }
                                 elementContentStarted = true;
-                                WriteElement(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty);
+                                WriteElement(xamlReader, htmlWriter, inlineStyle, ref isContentEmpty, defaultFontFamily, defaultFontSize);
                             }
 
                             Debug.Assert(xamlReader.NodeType == XmlNodeType.EndElement || xamlReader.NodeType == XmlNodeType.Element && xamlReader.IsEmptyElement);
@@ -449,7 +446,7 @@ namespace WpfRichText
             }
         }
 
-        private static void AddComplexProperty(XmlTextReader xamlReader, StringBuilder inlineStyle)
+        private static void AddComplexProperty(XmlTextReader xamlReader, StringBuilder inlineStyle, string defaultFontFamily, string defaultFontSize)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
@@ -464,10 +461,10 @@ namespace WpfRichText
 
             // Skip the element representing the complex property
             var isContentEmpty = true;
-            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null, ref isContentEmpty);
+            WriteElementContent(xamlReader, /*htmlWriter:*/null, /*inlineStyle:*/null, ref isContentEmpty, defaultFontFamily, defaultFontSize);
         }
 
-        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty)
+        private static void WriteElement(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty, string defaultFontFamily, string defaultFontSize)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
 
@@ -476,7 +473,7 @@ namespace WpfRichText
             if (htmlWriter == null)
             {
                 // Skipping mode; recurse into the xaml element without any output
-                WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty);
+                WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty, defaultFontFamily, defaultFontSize);
             }
             else
             {
@@ -565,7 +562,7 @@ namespace WpfRichText
                         else
                         {
                             htmlWriterTemp.WriteStartElement(htmlElementName);
-                            WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle);
+                            WriteFormattingProperties(xamlReader, htmlWriterTemp, inlineStyle, defaultFontFamily, defaultFontSize);
                         }
 
                         if (htmlElementName == "P")
@@ -573,7 +570,7 @@ namespace WpfRichText
                             paragraphProperties = inlineStyle.ToString();
                         }
 
-                        WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, ref isContentEmpty);
+                        WriteElementContent(xamlReader, htmlWriterTemp, inlineStyle, ref isContentEmpty, defaultFontFamily, defaultFontSize);
                         htmlWriterTemp.WriteEndElement();
                     }
 
@@ -597,7 +594,7 @@ namespace WpfRichText
                 else
                 {
                     // Skip this unrecognized xaml element
-                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty);
+                    WriteElementContent(xamlReader, /*htmlWriter:*/null, null, ref isContentEmpty, defaultFontFamily, defaultFontSize);
                 }
             }
         }

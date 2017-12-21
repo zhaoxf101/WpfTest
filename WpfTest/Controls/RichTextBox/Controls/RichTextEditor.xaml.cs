@@ -105,6 +105,22 @@ namespace WpfRichText
 
         List<string> _availableFonts = new List<string>();
 
+        string _defaultFontFamily = "宋体";
+
+        public string DefaultFontFamily
+        {
+            get { return _defaultFontFamily; }
+            set { _defaultFontFamily = value; }
+        }
+
+        string _defaultFontSize = "14";
+
+        public string DefaultFontSize
+        {
+            get { return _defaultFontSize; }
+            set { _defaultFontSize = value; }
+        }
+
         bool _isInitialized = false;
 
         public RichTextEditor()
@@ -137,21 +153,37 @@ namespace WpfRichText
             {
                 SetToolBarElementsEnabled(IsFocused);
 
+                var index = _availableFonts.FindIndex(p => p == _defaultFontFamily);
+                if (index != -1)
+                {
+                    CmbFontFamilies.SelectedIndex = index;
+                }
+                else
+                {
+                    CmbFontFamilies.SelectedIndex = 0;
+                    _defaultFontFamily = _availableFonts[0];
+                }
+
+                index = Array.FindIndex(_PreDefinedFontSizes, p => p.ToString() == _defaultFontSize);
+                if (index != -1)
+                {
+                    CmbFontSizes.SelectedIndex = index;
+                }
+                else
+                {
+                    CmbFontSizes.SelectedIndex = 0;
+                    _defaultFontSize = _PreDefinedFontSizes[0].ToString();
+                }
+
+                var style = new Style(typeof(Paragraph));
+                style.Setters.Add(new Setter(MarginProperty, new Thickness(0, 5, 0, 5)));
+                style.Setters.Add(new Setter(FontFamilyProperty, new FontFamily(_defaultFontFamily)));
+                style.Setters.Add(new Setter(FontSizeProperty, double.Parse(_defaultFontSize)));
+
+                MainRichTextBox.Resources.Add(typeof(Paragraph), style);
 
                 _isInitialized = true;
             }
-
-            var index = _availableFonts.FindIndex(p => p == "宋体");
-            if (index != -1)
-            {
-                CmbFontFamilies.SelectedIndex = index;
-            }
-            else
-            {
-                CmbFontFamilies.SelectedIndex = 0;
-            }
-
-            CmbFontSizes.SelectedIndex = 0;
         }
 
 
@@ -193,7 +225,7 @@ namespace WpfRichText
                 Debug.WriteLine(xamlText);
                 Debug.WriteLine("");
 
-                var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true);
+                var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true, _defaultFontFamily, _defaultFontSize);
                 return html;
             }
             set

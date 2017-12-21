@@ -83,7 +83,6 @@
     <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
     <Compile Include="Controls\Core\Utilities\KeyboardUtilities.cs" />
     <Compile Include="Controls\DataPager\Implementation\DataPager.cs" />
-    <Compile Include="Controls\RichTextBox\AttachedProperties\RichTextboxAssistant.cs" />
     <Compile Include="Controls\RichTextBox\Commands\CommandReference.cs" />
     <Compile Include="Controls\RichTextBox\Commands\DelegateCommand.cs" />
     <Compile Include="Controls\RichTextBox\Controls\UploadImageException.cs" />
@@ -286,6 +285,7 @@
   <ItemGroup>
     <Resource Include="Controls\RichTextBox\Controls\Images\image_upload.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

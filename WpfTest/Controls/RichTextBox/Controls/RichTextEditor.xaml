@@ -856,13 +856,6 @@
         </ToolBar>
 
         <RichTextBox Grid.Row="1" x:Name="MainRichTextBox" AcceptsTab="True" MinHeight="100" IsReadOnly="{Binding IsReadOnly, ElementName=MainRichTextEditor}" ContextMenu="{DynamicResource rtbContextMenu}" ContextMenuOpening="ContextMenu_ContextMenuOpening" Background="{Binding Background, ElementName=MainRichTextEditor}" Foreground="{Binding Foreground, ElementName=MainRichTextEditor}" BorderBrush="{Binding BorderBrush, ElementName=MainRichTextEditor}" BorderThickness="{Binding BorderThickness, ElementName=MainRichTextEditor}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" GotFocus="MainRichTextBox_GotFocus" LostFocus="MainRichTextBox_LostFocus" SelectionChanged="MainRichTextBox_SelectionChanged">
-            <RichTextBox.Resources>
-                <Style TargetType="{x:Type Paragraph}">
-                    <Setter Property="Margin" Value="0 5" />
-                    <Setter Property="FontFamily" Value="宋体" />
-                    <Setter Property="FontSize" Value="14" />
-                </Style>
-            </RichTextBox.Resources>
             <!--<RichTextBox.CommandBindings>
                 <CommandBinding Command="Paste" Executed="CommandBinding_Executed"></CommandBinding>
             </RichTextBox.CommandBindings>-->
