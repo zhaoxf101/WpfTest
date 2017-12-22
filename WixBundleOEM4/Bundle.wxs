@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="一网推" Version="1.0.28.0" Manufacturer="一网推(江苏)网络技术有限公司" UpgradeCode="0C7E138C-964B-4363-9C3A-67C1C4E50AB5" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="一网推" Version="1.0.27.0" Manufacturer="一网推(江苏)网络技术有限公司" UpgradeCode="0C7E138C-964B-4363-9C3A-67C1C4E50AB5" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBAOEM4.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBAOEM4.TargetDir)BootstrapperCore.config" />

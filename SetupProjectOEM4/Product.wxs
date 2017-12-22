@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="一网推" Language="2052" Version="1.0.28.0" Manufacturer="一网推(江苏)网络技术有限公司" UpgradeCode="CD84DF63-289B-4D20-AF43-6CCB4BA1EB97">
+  <Product Codepage="936" Id="*" Name="一网推" Language="2052" Version="1.0.27.0" Manufacturer="一网推(江苏)网络技术有限公司" UpgradeCode="CD84DF63-289B-4D20-AF43-6CCB4BA1EB97">
     <Package Id='*' Keywords='Installer' Description="一网推安装程序"
       Comments='(c)2013-2017 一网推(江苏)网络技术有限公司 版权所有' Manufacturer='一网推(江苏)网络技术有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />

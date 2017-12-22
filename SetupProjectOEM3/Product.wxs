@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="晨飞SEO" Language="2052" Version="1.0.28.0" Manufacturer="合肥晨飞网络科技有限公司" UpgradeCode="E9F58999-891F-4AF8-AAB0-77C7B48546A2">
+  <Product Codepage="936" Id="*" Name="晨飞SEO" Language="2052" Version="1.0.27.0" Manufacturer="合肥晨飞网络科技有限公司" UpgradeCode="E9F58999-891F-4AF8-AAB0-77C7B48546A2">
     <Package Id='*' Keywords='Installer' Description="晨飞SEO安装程序"
       Comments='Copyright (c) 合肥晨飞网络科技有限公司 2014-2017' Manufacturer='合肥晨飞网络科技有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Codepage="936" Id="*" Name="一比多" Language="2052" Version="1.0.28.0" Manufacturer="上海一比多网络科技有限公司" UpgradeCode="B929063B-60E6-4527-BC4D-76C76489377C">
+  <Product Codepage="936" Id="*" Name="一比多" Language="2052" Version="1.0.27.0" Manufacturer="上海一比多网络科技有限公司" UpgradeCode="B929063B-60E6-4527-BC4D-76C76489377C">
     <Package Id='*' Keywords='Installer' Description="一比多安装程序"
       Comments='一比多(EBDoor) 版权所有 Copyright 1998-2017' Manufacturer='上海一比多网络科技有限公司' InstallScope='perUser'
       InstallerVersion='100' Languages='2052' Compressed='yes' SummaryCodepage='1252' />
