@@ -160,6 +160,10 @@ namespace WpfRichText
                     case "FontSize":
                         css = "font-size:" + ParseXamlLength(xamlReader.Value) + ";";
                         fontSizeSet = true;
+                        if (double.TryParse(xamlReader.Value, out double value))
+                        {
+                            defaultFontSize = value.ToString();
+                        }
                         break;
                     case "Foreground":
                         css = "color:" + ParseXamlColor(xamlReader.Value) + ";";

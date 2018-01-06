@@ -10,15 +10,15 @@
 
 namespace WpfRichText
 {
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
-	using System.Diagnostics;
-	// DependencyProperty
-	using System.Globalization; // TextElement
-	using System.Text;
-	using System.Xml;
-  
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    // DependencyProperty
+    using System.Globalization; // TextElement
+    using System.Text;
+    using System.Xml;
+
     internal static class HtmlCssParser
     {
         // .................................................................
@@ -27,7 +27,7 @@ namespace WpfRichText
         //
         // .................................................................
 
-		internal static void GetElementPropertiesFromCssAttributes(XmlElement htmlElement, string elementName, CssStylesheet stylesheet, Hashtable localProperties, List<XmlElement> sourceContext)
+        internal static void GetElementPropertiesFromCssAttributes(XmlElement htmlElement, string elementName, CssStylesheet stylesheet, Hashtable localProperties, List<XmlElement> sourceContext)
         {
             string styleFromStylesheet = stylesheet.GetStyle(elementName, sourceContext);
 
@@ -53,7 +53,7 @@ namespace WpfRichText
                     if (styleNameValue.Length == 2)
                     {
                         string styleName = styleNameValue[0].Trim().ToLower(CultureInfo.InvariantCulture);
-						string styleValue = HtmlToXamlConverter.UnQuote(styleNameValue[1].Trim()).ToLower(CultureInfo.InvariantCulture);
+                        string styleValue = HtmlToXamlConverter.UnQuote(styleNameValue[1].Trim()).ToLower(CultureInfo.InvariantCulture);
                         int nextIndex = 0;
 
                         switch (styleName)
@@ -276,12 +276,28 @@ namespace WpfRichText
                 }
 
                 string number = styleValue.Substring(startIndex, nextIndex - startIndex);
+                if (!double.TryParse(number, out double value))
+                {
+                    value = 0;
+                }
+
+                if (value == 0)
+                {
+                    return "0";
+                }
 
                 string unit = ParseWordEnumeration(_fontSizeUnits, styleValue, ref nextIndex);
-                if (unit == null)
+                switch (unit)
                 {
-                    unit = "px"; // Assuming pixels by default
+                    case "em":
+                        value = value * 12;
+                        break;
+                    case "%":
+                        value = value / 100 * 12;
+                        break;
                 }
+
+                unit = "px";
 
                 if (mustBeNonNegative && styleValue[startIndex] == '-')
                 {
@@ -289,7 +305,7 @@ namespace WpfRichText
                 }
                 else
                 {
-                    return number + unit;
+                    return value + unit;
                 }
             }
 
@@ -316,7 +332,7 @@ namespace WpfRichText
                 "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew", "hotpink", "indianred",
                 "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
                 "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen",
-                "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", 
+                "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta",
                 "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
                 "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin",
                 "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
@@ -356,7 +372,7 @@ namespace WpfRichText
                     nextIndex++;
                     while (nextIndex < styleValue.Length)
                     {
-						character = Char.ToUpper(styleValue[nextIndex], CultureInfo.InvariantCulture);
+                        character = Char.ToUpper(styleValue[nextIndex], CultureInfo.InvariantCulture);
                         if (!('0' <= character && character <= '9' || 'A' <= character && character <= 'F'))
                         {
                             break;
@@ -368,7 +384,7 @@ namespace WpfRichText
                         color = styleValue.Substring(startIndex, nextIndex - startIndex);
                     }
                 }
-				else if (styleValue.Substring(nextIndex, 3).ToLower(CultureInfo.InvariantCulture) == "rbg")
+                else if (styleValue.Substring(nextIndex, 3).ToLower(CultureInfo.InvariantCulture) == "rbg")
                 {
                     //  Implement real rgb() color parsing
                     while (nextIndex < styleValue.Length && styleValue[nextIndex] != ')')
@@ -572,56 +588,56 @@ namespace WpfRichText
         private static readonly string[] _listStyleTypes = new string[] { "disc", "circle", "square", "decimal", "lower-roman", "upper-roman", "lower-alpha", "upper-alpha", "none" };
         private static readonly string[] _listStylePositions = new string[] { "inside", "outside" };
 
-		private static void ParseCssListStyle(string styleValue, Hashtable localProperties)
-		{
-			int nextIndex = 0;
+        private static void ParseCssListStyle(string styleValue, Hashtable localProperties)
+        {
+            int nextIndex = 0;
 
-			while (nextIndex < styleValue.Length)
-			{
-				string listStyleType = ParseCssListStyleType(styleValue, ref nextIndex);
-				if (listStyleType != null)
-				{
-					localProperties["list-style-type"] = listStyleType;
-				}
-				else
-				{
-					string listStylePosition = ParseCssListStylePosition(styleValue, ref nextIndex);
-					if (listStylePosition != null)
-					{
-						localProperties["list-style-position"] = listStylePosition;
-					}
-					else
-					{
-						string listStyleImage = ParseCssListStyleImage(styleValue, ref nextIndex);
-						if (listStyleImage != null)
-						{
-							localProperties["list-style-image"] = listStyleImage;
-						}
-						else
-						{
-							// TODO: Process unrecognized list style value
-							break;
-						}
-					}
-				}
-			}
-		}
+            while (nextIndex < styleValue.Length)
+            {
+                string listStyleType = ParseCssListStyleType(styleValue, ref nextIndex);
+                if (listStyleType != null)
+                {
+                    localProperties["list-style-type"] = listStyleType;
+                }
+                else
+                {
+                    string listStylePosition = ParseCssListStylePosition(styleValue, ref nextIndex);
+                    if (listStylePosition != null)
+                    {
+                        localProperties["list-style-position"] = listStylePosition;
+                    }
+                    else
+                    {
+                        string listStyleImage = ParseCssListStyleImage(styleValue, ref nextIndex);
+                        if (listStyleImage != null)
+                        {
+                            localProperties["list-style-image"] = listStyleImage;
+                        }
+                        else
+                        {
+                            // TODO: Process unrecognized list style value
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
-		private static string ParseCssListStyleType(string styleValue, ref int nextIndex)
-		{
-			return ParseWordEnumeration(_listStyleTypes, styleValue, ref nextIndex);
-		}
+        private static string ParseCssListStyleType(string styleValue, ref int nextIndex)
+        {
+            return ParseWordEnumeration(_listStyleTypes, styleValue, ref nextIndex);
+        }
 
-		private static string ParseCssListStylePosition(string styleValue, ref int nextIndex)
-		{
-			return ParseWordEnumeration(_listStylePositions, styleValue, ref nextIndex);
-		}
+        private static string ParseCssListStylePosition(string styleValue, ref int nextIndex)
+        {
+            return ParseWordEnumeration(_listStylePositions, styleValue, ref nextIndex);
+        }
 
-		private static string ParseCssListStyleImage(string styleValue, ref int nextIndex)
-		{
-			// TODO: Implement URL parsing for images
-			return null;
-		}
+        private static string ParseCssListStyleImage(string styleValue, ref int nextIndex)
+        {
+            // TODO: Implement URL parsing for images
+            return null;
+        }
 
         // .................................................................
         //
@@ -831,21 +847,21 @@ namespace WpfRichText
         // for further cascading style application
         public void DiscoverStyleDefinitions(XmlElement htmlElement)
         {
-			if (htmlElement.LocalName.ToLower(CultureInfo.InvariantCulture) == "link")
+            if (htmlElement.LocalName.ToLower(CultureInfo.InvariantCulture) == "link")
             {
                 return;
                 //  Add LINK elements processing for included stylesheets
                 // <LINK href="http://sc.msn.com/global/css/ptnr/orange.css" type=text/css \r\nrel=stylesheet>
             }
 
-			if (htmlElement.LocalName.ToLower(CultureInfo.InvariantCulture) != "style")
+            if (htmlElement.LocalName.ToLower(CultureInfo.InvariantCulture) != "style")
             {
                 // This is not a STYLE element. Recurse into it
                 for (XmlNode htmlChildNode = htmlElement.FirstChild; htmlChildNode != null; htmlChildNode = htmlChildNode.NextSibling)
                 {
-					if (htmlChildNode is XmlElement)
+                    if (htmlChildNode is XmlElement)
                     {
-						this.DiscoverStyleDefinitions((XmlElement)htmlChildNode);
+                        this.DiscoverStyleDefinitions((XmlElement)htmlChildNode);
                     }
                 }
                 return;
@@ -938,8 +954,8 @@ namespace WpfRichText
         public void AddStyleDefinition(string selector, string definition)
         {
             // Notrmalize parameter values
-			selector = selector.Trim().ToLower(CultureInfo.InvariantCulture);
-			definition = definition.Trim().ToLower(CultureInfo.InvariantCulture);
+            selector = selector.Trim().ToLower(CultureInfo.InvariantCulture);
+            definition = definition.Trim().ToLower(CultureInfo.InvariantCulture);
             if (selector.Length == 0 || definition.Length == 0)
             {
                 return;
@@ -970,7 +986,7 @@ namespace WpfRichText
             //  Add id processing for style selectors
             if (_styleDefinitions != null)
             {
-                for (int i = _styleDefinitions.Count - 1; i >= 0;  i--)
+                for (int i = _styleDefinitions.Count - 1; i >= 0; i--)
                 {
                     string selector = _styleDefinitions[i].Selector;
 

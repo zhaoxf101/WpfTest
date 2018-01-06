@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="八方通助手" Version="1.0.11.0" Manufacturer="八方资源网" UpgradeCode="214F6F75-ED27-4B99-9B63-4D9EA0C9CA74" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="八方通助手" Version="1.0.12.0" Manufacturer="八方资源网" UpgradeCode="214F6F75-ED27-4B99-9B63-4D9EA0C9CA74" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBAB2b168.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBAB2b168.TargetDir)BootstrapperCore.config" />
