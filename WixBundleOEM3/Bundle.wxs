@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Bundle Name="晨飞SEO" Version="1.0.26.0" Manufacturer="合肥晨飞网络科技有限公司" UpgradeCode="7FADD643-16CC-4193-BB3F-BBCCBE32D42B" IconSourceFile="icon.ico" DisableModify="yes">
+  <Bundle Name="晨飞SEO" Version="1.0.27.0" Manufacturer="合肥晨飞网络科技有限公司" UpgradeCode="7FADD643-16CC-4193-BB3F-BBCCBE32D42B" IconSourceFile="icon.ico" DisableModify="yes">
     <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost"   >
       <Payload SourceFile="$(var.CustomBAOEM3.TargetDir)CustomBA.dll" />
       <Payload SourceFile="$(var.CustomBAOEM3.TargetDir)BootstrapperCore.config" />
