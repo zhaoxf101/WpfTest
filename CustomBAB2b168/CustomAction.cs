@@ -138,6 +138,12 @@ namespace CustomBA
                     if (process.Id == id)
                     {
                         executablePath = Path.GetDirectoryName((string)mo["ExecutablePath"]);
+
+                        // 有种情况，进程存在，PID有效，但是进程句柄无效
+                        if (string.IsNullOrEmpty(executablePath))
+                        {
+                            return true;
+                        }
                         break;
                     }
                 }
