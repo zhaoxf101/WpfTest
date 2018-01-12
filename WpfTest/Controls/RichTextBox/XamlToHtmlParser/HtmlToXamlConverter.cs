@@ -774,6 +774,9 @@ namespace WpfRichText
             Hashtable localProperties;
             Hashtable currentProperties = GetElementProperties(htmlListElement, inheritedProperties, out localProperties, stylesheet, sourceContext);
 
+            // List ²»Ö§³Ö text-indent
+            localProperties.Remove("text-indent");
+
             // Create Xaml List element
             XmlElement xamlListElement = xamlParentElement.OwnerDocument.CreateElement(null, XamlList, _xamlNamespace);
 
