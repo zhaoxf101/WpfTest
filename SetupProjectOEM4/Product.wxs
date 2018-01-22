@@ -57,6 +57,7 @@
 
         <File Id='Lib200' Source='content/UpdateService.exe' />
         <File Id='Lib201' Source='content/Update.exe' />
+        <File Id='Lib202' Source='content/UpdateService.Launcher.dll' />
 
         <File Id='Lib300' Source='content/MarketingPlatForm.TaskExeBLL.dll' />
         <File Id='Lib301' Source='content/MarketingPlatForm.TaskUtils.dll' />
