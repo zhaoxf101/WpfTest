@@ -41,7 +41,7 @@
     <Content Include="content\ICSharpCode.SharpZipLib.dll" />
     <Content Include="content\Launcher.dll" />
     <Content Include="content\Main.dll" />
-    <Content Include="content\MarketingPlatform.Client.exe" />
+    <Content Include="content\MarketingPlatForm.Client.exe" />
     <Content Include="content\MarketingPlatForm.Client.exe.Config" />
     <Content Include="content\MarketingPlatForm.TaskExeBLL.dll" />
     <Content Include="content\MarketingPlatForm.TaskUtils.dll" />
