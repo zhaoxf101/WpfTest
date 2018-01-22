@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CustomBA"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Title="DialogPolicy" Width="610" Height="360">
+        ShowInTaskbar="False" Title=""
+        Width="610" Height="360">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

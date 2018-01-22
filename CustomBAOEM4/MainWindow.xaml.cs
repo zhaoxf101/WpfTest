@@ -322,20 +322,20 @@ namespace CustomBA
 
         private void HyperlinkPolicy_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(SysParam.PolicyLink))
-            {
-                Process.Start(SysParam.PolicyLink);
-            }
-
-            //var dialog = new DialogPolicy
+            //if (!string.IsNullOrEmpty(SysParam.PolicyLink))
             //{
-            //    Owner = this
-            //};
-            //var result = dialog.ShowDialog();
-            //if (result == true)
-            //{
-            //    CheckBoxPolicy.IsChecked = true;
+            //    Process.Start(SysParam.PolicyLink);
             //}
+
+            var dialog = new DialogPolicy
+            {
+                Owner = this
+            };
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                CheckBoxPolicy.IsChecked = true;
+            }
         }
 
         private void HyperlinkInstallFolder_Click(object sender, RoutedEventArgs e)

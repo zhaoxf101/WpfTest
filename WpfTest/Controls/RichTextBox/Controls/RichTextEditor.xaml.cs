@@ -297,7 +297,7 @@ namespace WpfRichText
 
         void ProcessWpfImage(Image image)
         {
-            if (image.Source is BitmapImage bitmap && bitmap.BaseUri != null)
+            if (image.Source is BitmapImage bitmap && !(bitmap.UriSource?.ToString().StartsWith("http") == true))
             {
                 var data = GetImageByteArray(bitmap);
                 if (_uploadImageManager != null)
@@ -442,7 +442,6 @@ namespace WpfRichText
                     data = new byte[fileStream.Length];
                     fileStream.Read(data, 0, data.Length);
                 }
-                var fileInfo = new System.IO.FileInfo(filePath);
 
                 if (data.Length > ImageMaxSizeBytes)
                 {
@@ -458,13 +457,14 @@ namespace WpfRichText
                     return;
                 }
 
+                var imgUrl = "";
+
                 if (_uploadImageManager != null)
                 {
                     var key = $"Image{DateTime.Now.ToString("yyMMddHHmmssfff")}{Guid.NewGuid().ToString().Substring(0, 3)}{System.IO.Path.GetExtension(filePath)}";
                     try
                     {
-                        _uploadImageManager.UploadImage(data, key, out string url);
-                        filePath = url;
+                        _uploadImageManager.UploadImage(data, key, out imgUrl);
                     }
                     catch (Exception)
                     {
@@ -481,17 +481,43 @@ namespace WpfRichText
                     }
                 }
 
-                Image img = new Image();
-                BitmapImage bImg = new BitmapImage(new Uri(filePath));
-                bImg.DownloadCompleted += (sender1, e1) =>
+                if (string.IsNullOrEmpty(imgUrl))
                 {
+                    var stream = new MemoryStream(data);
+
+                    Image img = new Image();
+                    BitmapImage bImg = new BitmapImage();
+                    bImg.BeginInit();
+                    bImg.StreamSource = stream;
+                    bImg.EndInit();
+
                     img.Width = bImg.PixelWidth;
                     img.Height = bImg.PixelHeight;
-                };
-                img.IsEnabled = true;
-                img.Source = bImg;
-                img.Stretch = Stretch.None;  //图片缩放模式
-                new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
+
+                    img.IsEnabled = true;
+                    img.Source = bImg;
+                    
+                    new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
+                }
+                else
+                {
+                    Image img = new Image();
+                    BitmapImage bImg = new BitmapImage(new Uri(imgUrl));
+
+                    bImg.DownloadCompleted += (sender1, e1) =>
+                    {
+                        img.Width = bImg.PixelWidth;
+                        img.Height = bImg.PixelHeight;
+                    };
+                    img.IsEnabled = true;
+                    img.Source = bImg;
+
+                    new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
+                }
+
+                //targetBitmap.CopyPixels(pixelData, width * 4, 0);
+                //BitmapSource bmpSource = BitmapSource.Create(width, height, 147, 147, PixelFormats.Bgra32, null, pixelData, width * 4);
+
             }
         }
 
