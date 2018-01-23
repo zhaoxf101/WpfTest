@@ -61,6 +61,7 @@
     <Content Include="content\System.Threading.Tasks.dll" />
     <Content Include="content\Update.exe" />
     <Content Include="content\UpdateService.exe" />
+    <Content Include="content\UpdateService.Launcher.dll" />
     <Content Include="content\UUExtConfig.ini" />
     <Content Include="content\UUWiseHelper.dll" />
     <Content Include="content\WebDriver.dll" />
