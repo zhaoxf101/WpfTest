@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "SetupProject1\Setup.wixproj", "{63799059-A662-47C3-A1C7-F8E6608ADA5D}"
 EndProject
@@ -41,6 +41,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBAOEM4", "CustomBAOEM4\CustomBAOEM4.csproj", "{B7F5D8D8-6935-4FC5-8BA1-D38E0E74DEBF}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupOEM4", "SetupProjectOEM4\SetupOEM4.wixproj", "{002C53F8-86ED-4B30-9C1B-06C8195B436A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckUrl", "CheckUrl\CheckUrl.csproj", "{014BF4B5-8821-4001-A1E1-E42A01A18B7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +152,14 @@ Global
 		{002C53F8-86ED-4B30-9C1B-06C8195B436A}.Release|Any CPU.ActiveCfg = Release|x86
 		{002C53F8-86ED-4B30-9C1B-06C8195B436A}.Release|x86.ActiveCfg = Release|x86
 		{002C53F8-86ED-4B30-9C1B-06C8195B436A}.Release|x86.Build.0 = Release|x86
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Debug|x86.Build.0 = Debug|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{014BF4B5-8821-4001-A1E1-E42A01A18B7C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
