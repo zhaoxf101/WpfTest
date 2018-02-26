@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="字符串加密工具" Height="350" Width="525">
     <Grid>
-        <Image Name="ImageTest" />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox Name="Txt1" AcceptsReturn="True" TextChanged="Txt1_TextChanged" />
+        <TextBox Grid.Row="1" Name="Txt2" AcceptsReturn="True" GotFocus="Txt2_GotFocus" PreviewMouseDown="Txt2_PreviewMouseDown"  />
+
     </Grid>
 </Window>
