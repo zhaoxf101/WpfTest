@@ -49,7 +49,7 @@ namespace WpfTest
 
             //TxtContent.HtmlText = @"<P><IMG SRC=""http://img.xyunhui.com/Image1801151616447096e9.jpg"" TITLE="""" ALT="""" STYLE=""width:800px;height:599px;"" /></P>";
 
-            TxtContent.HtmlText = @"<P><IMG SRC=""http://img.xyunhui.com/Image180116105839328a1c.jpg"" TITLE="""" ALT="""" STYLE=""width:790px;height:774px;"" /></P>";
+            //TxtContent.HtmlText = @"<P><IMG SRC=""http://img.xyunhui.com/Image180116105839328a1c.jpg"" TITLE="""" ALT="""" STYLE=""width:790px;height:774px;"" /></P>";
 
         }
 
