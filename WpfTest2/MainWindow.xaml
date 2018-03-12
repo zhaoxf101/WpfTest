@@ -1,0 +1,22 @@
+﻿<Window x:Class="WpfTest2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:WpfTest2"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" >
+    <Window.Resources>
+    </Window.Resources>
+    <c:ImageSlider x:Name="rollImg"  
+            HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" Height="400" BorderBrush="Red" BorderThickness="1">
+        <c:ImageSlider.Images>
+            <sys:String>pack://application:,,,/WpfTest2;component/images/5.png</sys:String>
+            <sys:String>pack://application:,,,/WpfTest2;component/images/6.png</sys:String>
+            <sys:String>pack://application:,,,/WpfTest2;component/images/7.png</sys:String>
+            <sys:String>pack://application:,,,/WpfTest2;component/images/8.png</sys:String>
+
+        </c:ImageSlider.Images>
+    </c:ImageSlider>
+</Window>
