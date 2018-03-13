@@ -16,7 +16,13 @@
             <RowDefinition Height="20" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="Test" Click="Button_Click" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Test" Click="Button_Click" Width="80" Margin="0 0 10 0" />
+            <Button Content="Load" Click="ButtonLoad_Click" Width="80" Margin="0 0 10 0" />
+
+            <Button Content="New" Click="ButtonNew_Click" Width="80" Margin="0 0 10 0" />
+        </StackPanel>
         <Controls:RichTextEditor Grid.Row="2" x:Name="TxtContent" Foreground="Black" />
     </Grid>
 </Window>

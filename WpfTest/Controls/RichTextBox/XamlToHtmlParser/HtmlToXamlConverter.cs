@@ -1129,6 +1129,9 @@ namespace WpfRichText
             // Add column information
             if (columnStartsAllRows != null)
             {
+                var columns = xamlTableElement.OwnerDocument.CreateElement(null, "Table.Columns", _xamlNamespace);
+                xamlTableElement.AppendChild(columns);
+
                 // We have consistent information derived from table cells; use it
                 // The last element in columnStarts represents the end of the table
                 for (int columnIndex = 0; columnIndex < columnStartsAllRows.Count - 1; columnIndex++)
@@ -1137,7 +1140,7 @@ namespace WpfRichText
 
                     xamlColumnElement = xamlTableElement.OwnerDocument.CreateElement(null, Xaml_TableColumn, _xamlNamespace);
 					xamlColumnElement.SetAttribute(Xaml_Width, ((double)columnStartsAllRows[columnIndex + 1] - (double)columnStartsAllRows[columnIndex]).ToString(CultureInfo.InvariantCulture));
-                    xamlTableElement.AppendChild(xamlColumnElement);
+                    columns.AppendChild(xamlColumnElement);
                 }
             }
             else
