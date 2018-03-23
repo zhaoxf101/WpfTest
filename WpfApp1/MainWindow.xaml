@@ -8,11 +8,19 @@
         Title="字符串加密工具" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Name="Txt1" AcceptsReturn="True" TextChanged="Txt1_TextChanged" />
-        <TextBox Grid.Row="1" Name="Txt2" AcceptsReturn="True" GotFocus="Txt2_GotFocus" PreviewMouseDown="Txt2_PreviewMouseDown"  />
+        <ToolBar>
+            <Button Width="100" Content="Md5设备Id" Click="ButtonDeviceIdMd5_Click" />
+            <Separator />
+            <Button Width="100" Content="设备Id" Click="ButtonDeviceId_Click" />
+            <Separator />
+
+        </ToolBar>
+        <TextBox Grid.Row="1" Name="Txt1" AcceptsReturn="True" TextChanged="Txt1_TextChanged" />
+        <TextBox Grid.Row="2" Name="Txt2" AcceptsReturn="True" GotFocus="Txt2_GotFocus" PreviewMouseDown="Txt2_PreviewMouseDown"  />
 
     </Grid>
 </Window>

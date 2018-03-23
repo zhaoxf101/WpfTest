@@ -144,5 +144,30 @@ namespace WpfApp1
             Txt2.Focus();
             e.Handled = true;
         }
+
+        private void ButtonDeviceId_Click(object sender, RoutedEventArgs e)
+        {
+            var deviceId = Txt1.Text;
+            if (!string.IsNullOrWhiteSpace(deviceId))
+            {
+                if (!deviceId.StartsWith("base64"))
+                {
+                    MessageBox.Show("无效的设备ID！");
+                    return;
+                }
+                var result = Encoding.UTF8.GetString(Convert.FromBase64String(deviceId.Substring("base64".Length)));
+                Clipboard.SetText(result);
+            }
+        }
+
+        private void ButtonDeviceIdMd5_Click(object sender, RoutedEventArgs e)
+        {
+            var deviceId = Txt1.Text;
+            if (!string.IsNullOrWhiteSpace(deviceId))
+            {
+                var result = "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(deviceId));
+                Clipboard.SetText(result);
+            }
+        }
     }
 }

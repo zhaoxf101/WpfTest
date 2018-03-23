@@ -1,0 +1,54 @@
+﻿<Window x:Class="DeviceFilter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceFilter"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="主机筛选" Height="450" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ToolBar>
+            <Button Content="MD5机器码" Click="BtnMd5MachineCode_Click" Width="100" />
+            <Separator />
+            <Button Content="还原机器码" Click="BtnResolveMachineCode_Click" Width="100" />
+            <Separator />
+            <Button Content="保存" Click="BtnSave_Click" Width="70" />
+            <Separator />
+        </ToolBar>
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="机器码(一行一个)" Margin="0 5" />
+                <TextBox Grid.Row="1" Name="TxtMachineCode" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="用户名(可选)" Margin="0 5" />
+                <TextBox Grid.Row="1" Name="TxtUserName" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="公司名(可选)" Margin="0 5" />
+                <TextBox Grid.Row="1" Name="TxtCompany" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

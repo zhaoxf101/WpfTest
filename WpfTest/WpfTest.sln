@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamedPipeServer", "..\Named
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsTest", "..\WindowsFormsTest\WindowsFormsTest.csproj", "{B066D054-2B1D-4ACA-B1F9-54D76BC2AC55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "主机筛选", "..\主机筛选\主机筛选.csproj", "{4EDEB1B6-1F20-4713-82D0-DA1B0BE46D87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B066D054-2B1D-4ACA-B1F9-54D76BC2AC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B066D054-2B1D-4ACA-B1F9-54D76BC2AC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B066D054-2B1D-4ACA-B1F9-54D76BC2AC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDEB1B6-1F20-4713-82D0-DA1B0BE46D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDEB1B6-1F20-4713-82D0-DA1B0BE46D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDEB1B6-1F20-4713-82D0-DA1B0BE46D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDEB1B6-1F20-4713-82D0-DA1B0BE46D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

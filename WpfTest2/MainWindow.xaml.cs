@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfTest;
 
 namespace WpfTest2
 {
@@ -25,29 +26,8 @@ namespace WpfTest2
         {
             InitializeComponent();
 
-
-            List<BitmapImage> ls_adv_img = new List<BitmapImage>()
-            {
-                
-            };
-
-
-            //"/Main;component/images/menu/模板网站.png";
-            // {pack://application:,,,/Main;component/images/menu/模板网站.png}
-            //rollImg.AddImage("pack://application:,,,/WpfTest2;component/images/5.png");
-            //rollImg.AddImage("pack://application:,,,/WpfTest2;component/images/6.png");
-
-        }
-
-        List<dynamic> Test()
-        {
-            return new List<dynamic>();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
             
-
         }
+
     }
 }
