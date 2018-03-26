@@ -38,11 +38,12 @@ namespace DeviceFilter
             var builder = new StringBuilder();
             foreach (var item in lines)
             {
-                if (item.StartsWith("base64"))
+                var result = item;
+                if (!item.StartsWith("base64"))
                 {
-                    continue;
+                    result = "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(item));
                 }
-                var result = "base64" + Convert.ToBase64String(Encoding.UTF8.GetBytes(item));
+
                 builder.AppendLine(result);
             }
 
@@ -55,12 +56,12 @@ namespace DeviceFilter
             var builder = new StringBuilder();
             foreach (var item in lines)
             {
-                if (!item.StartsWith("base64"))
+                var result = item;
+                if (item.StartsWith("base64"))
                 {
-                    MessageBox.Show("无效的机器码！");
-                    return;
+                    result = Encoding.UTF8.GetString(Convert.FromBase64String(item.Substring("base64".Length)));
                 }
-                var result = Encoding.UTF8.GetString(Convert.FromBase64String(item.Substring("base64".Length)));
+                
                 builder.AppendLine(result);
             }
 
