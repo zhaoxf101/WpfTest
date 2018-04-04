@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Qiniu.IO.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Packaging;
@@ -21,6 +22,11 @@ namespace WpfTest
     /// </summary>
     public partial class TextBoxTestWindow : Window
     {
+        ViewModel _viewModel = new ViewModel
+        {
+            Text = "HHHH"
+        };
+
         public TextBoxTestWindow()
         {
             InitializeComponent();
@@ -53,18 +59,36 @@ namespace WpfTest
 
             //ButtonLoad_Click(null, null);
 
+            PutPolicy putPolicy = new PutPolicy();
 
+            var fields = typeof(PutPolicy).GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var test = fields[1].Name.Contains("Dead");
+
+            var field = typeof(PutPolicy).GetField("<Deadline>k__BackingField", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            field.SetValue(putPolicy, 123456);
+
+            var now = DateTime.Now;
+            var utc = now.ToUniversalTime();
+            var stamp = (utc - new DateTime(1970, 1, 1)).TotalSeconds;
+
+            var int2 = 0;
+            int.TryParse("asd", out int2);
+
+            putPolicy.SetExpires(0);
         }
 
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-        
 
-          var t = TxtContent.HtmlText;
+            DataContext = null;
 
-            Debug.WriteLine(t);
+            DataContext = _viewModel;
+
+            //var t = TxtContent.HtmlText;
+            //  Debug.WriteLine(t);
+
             //pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource ="./Image1.bmp
 
 
@@ -77,7 +101,7 @@ namespace WpfTest
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
             var window = new TextBoxTestWindow();
-            
+
             window.Show();
         }
 
@@ -87,6 +111,11 @@ namespace WpfTest
             //TxtContent.HtmlText = @"<TABLE><TBODY><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P><SPAN STYLE=""font-weight:bold;font-size:24px;font-family:微软雅黑;"">类型</SPAN></P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P><SPAN STYLE=""font-weight:bold;font-size:24px;font-family:微软雅黑;"">彩弹设备</SPAN></P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P><SPAN STYLE=""font-weight:bold;font-size:24px;font-family:微软雅黑;"">水弹设备</SPAN></P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P><SPAN STYLE=""font-weight:bold;font-size:24px;font-family:微软雅黑;"">激光设备</SPAN></P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P><SPAN STYLE=""font-weight:bold;font-size:24px;font-family:微软雅黑;"">BB弹设备</SPAN></P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>装备结构</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>金属发射器、仿真设计（单发操作）通过二氧化碳气流推动弹丸</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>金属、塑料、比例仿真设计（单、连发操作）通过空气压缩推动弹丸</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>金属&nbsp;塑料、电子组件</P><P>、激光套件（单、连发操作）模拟无弹丸</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>全金属、全仿真设计</P><P>（半自动、全自动可调）通过压缩空气击发弹丸</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>有效射程</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>20-40M</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>10-30M</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>10-30M</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>50-70M</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>子弹限制与规格</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>15mm彩色色素弹（击发后会破碎并染色）</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>6-12mm吸水弹（击发后会破碎消失）</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>无</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>3-9mmPVC弹丸</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>特殊护具</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>头盔、面罩、衣服</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>面罩、眼镜</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>接收器头盔、接收器马甲</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>帽子、眼镜、手套、战术马甲</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>装备优点</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>早期的真人CS运动，子弹击中身体会留下颜色，方便辨别是否中弹。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>2010年后研发，与BB形式类似，射程、威力安全。并且单、连发可调。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>装备简单易用，安全性高，模拟声光装备，价格便宜。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>BB弹的装备全仿真，全金属。并且单、连发可调。射程远。</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>装备缺点</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>被击中有疼痛感，色素颜色会染在身上或者衣服上。在国外，已经被BB弹取代。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>被击中后有痛感，团队要有一定的自觉性。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>激光装备全塑料没有真实感。</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>被击中后有痛感，团队要有一定的自觉性。</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>流行指数</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★★</P></TD></TR><TR><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>真实体验</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★</P></TD><TD COLSPAN=""1"" STYLE=""border-width:1px 1px 1px 1px;border-color:#000000;border-style:solid;mso-element:para-border-div;""><P>★★★★</P></TD></TR></TBODY></TABLE><P>注：目前国际最流行的是BB弹的真人CS，在国外通常考虑的是场地的真实性，装备的性能和仿真程度，追求的是最具真实性现场感觉。备注：国内没有BB弹的cs，由于BB弹枪械属于高仿枪支在国内是禁止的</P><P><BR /></P>";
 
             TxtContent.HtmlText = @"<P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　随着软文营销的盛行，软文发布的渠道也越来越多，搜索软文发布，会发现有许许多多的发稿平台争涌而出，其中，拥有海量媒体资源是发稿平台最喜欢宣传的梗。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　拥有海量的媒体资源是选择发稿平台的首要参考因素，但不是唯一参考因素。海量的媒体资源能保证企业多样化选择，但是不同的媒体有不同的受众，选择与自身产品契合的媒体，才能使软文营销的效果达到最大化。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　对于初期发稿的客户来说，选择媒体是件非常纠结痛苦的事，由于对媒体不了解，很难一下子选择到适合自身企业的媒体。面对</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">4000+</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">、</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">5000+</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">、</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">6000+</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">的媒体资源，首先你得知道如何区分它们。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Center;font-family:Times New Roman;font-size:16px;""><IMG SRC=""http://img.xyunhui.com/Image180320160733029c42.jpg"" TITLE="""" ALT="""" STYLE=""width:399.933333333333px;height:254px;"" /></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;font-weight:bold;color:#333333;font-size:14px;"">一、认清媒体类别</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　媒体类别可以分为综合门户、中央媒体、垂直媒体、报业媒体、中小媒体等几类。综合门户是指腾讯、网易、今日头条、新浪等几类网站，选择这几类网站能在短期内便获得较高阅读量，是增加曝光度的首选。中央媒体顾名思义便是与政府相关的媒体，也有人称之为官媒，在这类媒体上发稿可以突显企业形象，提高企业信任度。垂直媒体是指有针对性行业的媒体，比如汽车类、女性类、金融类等等，选择与自己企业产品对应的行业媒体容易获得关注与回应，是一种对症下药的发稿方式。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　</SPAN><SPAN STYLE=""font-family:微软雅黑;font-weight:bold;color:#333333;font-size:14px;"">二、了解媒体区域覆盖</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　有的媒体是面向全国的，有的媒体是针对某一区域的，最典型的便是腾讯旗下的腾讯大湘网、腾讯大粤网等，登录</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">QQ</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">，腾讯会根据你所在的区域为你筛选当地的新闻，以便你了解周边信息。因此，对于有地域要求的稿件，可以选择不同区域覆盖的媒体。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Center;font-family:Times New Roman;font-size:16px;""><IMG SRC=""http://img.xyunhui.com/Image180320160733535c9f.jpg"" TITLE="""" ALT="""" STYLE=""width:500.066666666667px;height:340.066666666667px;"" /></P><P STYLE=""margin:10px 0 10px 0;text-align:Left;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;font-weight:bold;color:#333333;font-size:14px;"">三、参考收录属性</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　有的客户会问，为什么同样发布软文，有的能快速在网页搜到，有的能在新闻类搜到，而有的却什么都没有。这是因为不同的媒体有不同的收录属性，有的属于网页收录，有的则属于新闻收录。对于发布会等具有新闻性质的稿件，可以考虑选择具有新闻收录属性的媒体。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　</SPAN><SPAN STYLE=""font-family:微软雅黑;font-weight:bold;color:#333333;font-size:14px;"">四、合理搭配价格</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　都说要用最少的钱，获得最大的回报，那么如何使用最少的钱，就需要参考不同媒体的发稿价格了。同样属性的媒体，选择一至两家即可，适当搭配中小媒体既可以扩大覆盖面，又可以节省成本。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Center;font-family:Times New Roman;font-size:16px;""><IMG SRC=""http://img.xyunhui.com/Image18032016073359946c.jpg"" TITLE="""" ALT="""" STYLE=""width:397.6px;height:292.973333333333px;"" /></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><BR /></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;font-weight:bold;color:#333333;font-size:14px;"">五、了解额外条件</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　发过软文的客户都知道，不是所有的稿件都能一次性通过，其中，拒稿最多的便是带有联系方式、二维码、链接以及关于加盟、理财、微商的稿件。如果您的稿件是需要带联系方式，或者是微商类的，在发稿前最好与客服沟通，您所选择的媒体是否能发。</SPAN></P><P STYLE=""margin:10px 0 10px 0;text-align:Justify;font-family:Times New Roman;font-size:16px;""><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">　　有人可能会觉得挑选媒体比较麻烦，几千加的媒体，我要如何挑选呢</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">?</SPAN><SPAN STYLE=""font-family:微软雅黑;color:#333333;font-size:14px;"">就算把要求告诉客服，她们也不能一次性把符合要求的媒体报全，还挺耽误时间。因此在选择发稿平台时，建议选择已将海量媒体资源分类排好，众多限制条件随您筛选的平台，有效的避免了遗漏、失误等尴尬事件的发生。无需询问客服，媒体的选择，你自己就知道。</SPAN></P>";
+        }
+
+        private void TxtTest_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Debug.WriteLine("TextChanged!");
         }
     }
 }

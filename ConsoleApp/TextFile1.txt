@@ -1,0 +1,179 @@
+
+            //
+            //instance
+            //---------------------- -
+            //0,2
+            //0,3
+            //_Total
+            //0,1
+            //0,0
+            //0,_Total
+            //++++++++++++++++++++++++++++++++++++++
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags
+            //% Processor Time
+            //% User Time
+            //% Privileged Time
+            //Interrupts / sec
+            //% DPC Time
+            //% Interrupt Time
+            //DPCs Queued / sec
+            //DPC Rate
+            //% Idle Time
+            //% C1 Time
+            //% C2 Time
+            //% C3 Time
+            //C1 Transitions / sec
+            //C2 Transitions/ sec
+            //C3 Transitions/ sec
+            //% Priority Time
+            //Parking Status
+            //Processor Frequency
+            //% of Maximum Frequency
+            //Processor State Flags
+            //Clock Interrupts / sec
+            //Average Idle Time
+            //Idle Break Events/ sec
+            //% Processor Performance
+            //% Processor Utility
+            //% Privileged Utility
+            //% Performance Limit
+            //Performance Limit Flags

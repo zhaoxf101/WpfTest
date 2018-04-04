@@ -22,6 +22,7 @@
             <Button Content="Load" Click="ButtonLoad_Click" Width="80" Margin="0 0 10 0" />
 
             <Button Content="New" Click="ButtonNew_Click" Width="80" Margin="0 0 10 0" />
+            <TextBox x:Name="TxtTest" Width="150" TextChanged="TxtTest_TextChanged" Text="{Binding Text}" />
         </StackPanel>
         <Controls:RichTextEditor Grid.Row="2" x:Name="TxtContent" Foreground="Black" />
     </Grid>

@@ -107,6 +107,7 @@
     <Compile Include="TextBoxTestWindow.xaml.cs">
       <DependentUpon>TextBoxTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
