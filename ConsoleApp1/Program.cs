@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
+using MarketingPlatform.Client;
 
 namespace ConsoleApp1
 {
@@ -234,41 +236,16 @@ namespace ConsoleApp1
 公司于2004年10月在济南启用我国目前的生物安全柜生产基地，占地面积达2万平方米。并坚持实施“走出去”战略，加强国际合作，与美国、德国、加拿大等国外知名企业建立了战略合作关系，吸收全球医疗先进技术，提高自主创新能力。公司产品主要零部件均进口于美国、意大利、德国等发达国家，采用意大利MARIO公司开卷机生产线、日本AMADA株式数控机床、意大利GASPARINI公司的液压折弯机、瑞士GEMA公司静电喷粉设备，全部使用计算机控制，自动化程度非常高，操作方便。
 公司坚持科学管理，贯彻实施卓越绩效评价准则，建立大质量概念下的质量标准体系，持续改进经营管理模式，提高顾客满意度，提升竞争力。推进六西格玛管理，引进先进管理思想和方法。在行业打造了完善的信息化管理平台，提高了决策水平、管理效率和质量。坚持“满足并努力超越顾客的需求”的质量方针，追求顾客满意。在行业已通过ISO9001：2008质量管理体系认证，ISO13485:2003质量管理体系认证，ISO14001:2004环境管理体系认证。生产的产品已获得欧美的认可，通过了欧盟的CE认证，美国FDA认证。";
 
-            var length = GetTextLengthWithTrimed(string2);
+            string1 = "";
+            string2 = "123456313545364";
 
-            //var distance = LevenshteinDistance.GetLevenshteinDistance(string1, string2);
+            var sim = WordProcessHelper.StringCompute(string1, string2);
 
+            var distance = LevenshteinDistance.GetLevenshteinDistance(string1, string2);
+
+
+            Console.WriteLine();
             
-            var sim = GetSimi(string1, string2);
-            Console.WriteLine(sim);
-
-            string1 = "121313";
-            string2 = "123";
-            sim = GetSimi(string1, string2);
-            Console.WriteLine(sim);
-
-
-            string1 = "1111111111111111";
-            string2 = "你在你在你在你在你在你在";
-            sim = GetSimi(string1, string2);
-            Console.WriteLine(sim);
-
-
-            string1 = "121313";
-            string2 = "123";
-            sim = GetSimi(string1, string2);
-            Console.WriteLine(sim);
-
-
-            string1 = "121313";
-            string2 = "123";
-            sim = GetSimi(string1, string2);
-            Console.WriteLine(sim);
-
-
-
-            var result = 0;
-
             //Available MBytes
 
             //% Committed Bytes In Use
