@@ -532,7 +532,7 @@ namespace WpfRichText
                     _htmlLexicalAnalyzer.GetNextAtomToken();
 
                     string attributeValue = _htmlLexicalAnalyzer.NextToken;
-                    xmlElement.SetAttribute(attributeName, attributeValue);
+                    xmlElement.SetAttribute(attributeName.Replace(":", ""), attributeValue);
                 }
                 _htmlLexicalAnalyzer.GetNextTagToken();
             }
