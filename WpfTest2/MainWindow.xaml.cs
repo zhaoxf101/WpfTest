@@ -22,12 +22,35 @@ namespace WpfTest2
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
 
-            
+            DataContext = _viewModel = new ViewModel();
+
+            for (int i = 0; i < 10; i++)
+            {
+                _viewModel.Regions.Add(new TitleItem
+                {
+                    Name = "hello" + i,
+                    IsChecked = i % 2 == 0 ? (bool?)true : i % 3 == 0 ? null : (bool?)false
+                });
+            }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (((Button)sender).DataContext is TitleItem dataItem)
+            {
+                _viewModel.Regions.Remove(dataItem);
+
+            }
+        }
     }
 }

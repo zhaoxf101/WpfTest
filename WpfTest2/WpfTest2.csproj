@@ -61,6 +61,8 @@
     <Compile Include="ImageSlider.xaml.cs">
       <DependentUpon>ImageSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\watermark_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\hand_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
