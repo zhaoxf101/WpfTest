@@ -262,6 +262,8 @@ namespace ConsoleApp1
 
             //            var dd = decimal.Round(d, 0, MidpointRounding.AwayFromZero);
 
+            HtmlImageProcessor.Test();
+
 
             var updateResult = Update.StartUpdate();
 
