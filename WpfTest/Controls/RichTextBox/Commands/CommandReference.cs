@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     /// This class facilitates associating a key binding in XAML markup to a command

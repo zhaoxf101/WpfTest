@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MarketingPlatform.Client.Common;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,7 +23,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfTest.Controls.RichTextBox.Controls;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     /// Interaction logic for BindableRichTextbox.xaml
@@ -95,7 +98,25 @@ namespace WpfRichText
             set { _showMessageCallback = value; }
         }
 
+        private Action<bool> _setLoadingMaskVisibleCallback;
+
+        public Action<bool> SetLoadingMaskVisibleCallback
+        {
+            get { return _setLoadingMaskVisibleCallback; }
+            set { _setLoadingMaskVisibleCallback = value; }
+        }
+
         IUploadImageManager _uploadImageManager;
+
+        public IUploadImageManager UploadImageManager
+        {
+            set
+            {
+                _uploadImageManager = value;
+            }
+        }
+
+        public string Title { get; set; }
 
         static string[] _PreDefinedFonts = new[] { "宋体", "微软雅黑", "楷体", "黑体", "隶书",
                 "Microsoft YaHei UI", "courier new", "arial", "arial black", "comic sans ms",
@@ -147,12 +168,11 @@ namespace WpfRichText
             Loaded += RichTextEditor_Loaded;
         }
 
+
         private void RichTextEditor_Loaded(object sender, RoutedEventArgs e)
         {
             if (!_isInitialized)
             {
-                SetToolBarElementsEnabled(IsFocused);
-
                 var index = _availableFonts.FindIndex(p => p == _defaultFontFamily);
                 if (index != -1)
                 {
@@ -185,7 +205,6 @@ namespace WpfRichText
                 _isInitialized = true;
             }
         }
-
 
         public string Text
         {
@@ -221,16 +240,22 @@ namespace WpfRichText
                 // <FlowDocument PagePadding="5,0,5,0" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><BlockUIContainer TextAlignment="Justify"><Image Width="400" Height="134"><Image.Source><BitmapImage BaseUri="pack://payload:,,wpf1,/Xaml/Document.xaml" UriSource="./Image1.bmp" CacheOption="OnLoad" /></Image.Source></Image></BlockUIContainer></FlowDocument>
                 //xamlText = @"<FlowDocument PagePadding=""5,0,5,0"" AllowDrop=""True"" NumberSubstitution.CultureSource=""User"" xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""><Paragraph><Image Source=""file:///D:/MyFiles/History/云合景从项目/切图/网站建设/产品维护（添加）.png"" Stretch=""None"" IsEnabled=""True"" /></Paragraph></FlowDocument>";
 
-                Debug.WriteLine("xaml:");
-                Debug.WriteLine(xamlText);
-                Debug.WriteLine("");
+
+                Logger.Log("", false, false);
+                Logger.Log(xamlText);
+                Logger.Log("", false, false);
 
                 var html = HtmlFromXamlConverter.ConvertXamlToHtmlWithoutHtmlAndBody(xamlText, true, _defaultFontFamily, _defaultFontSize);
+
+                Logger.Log("", false, false);
+                Logger.Log(html);
+                Logger.Log("", false, false);
+
                 return html;
             }
             set
             {
-                var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value, true);
+                var xaml = HtmlToXamlConverter.ConvertHtmlToXaml(value ?? "", true);
                 var sr = new StringReader(xaml);
                 var xr = System.Xml.XmlReader.Create(sr);
                 MainRichTextBox.Document = (FlowDocument)XamlReader.Load(xr);
@@ -302,8 +327,24 @@ namespace WpfRichText
                 var data = GetImageByteArray(bitmap);
                 if (_uploadImageManager != null)
                 {
-                    _uploadImageManager.UploadImage(data, "", out string url);
-                    image.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                    if (_setLoadingMaskVisibleCallback == null)
+                    {
+                        _uploadImageManager.UploadImage(data, Title + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".jpg", out string url);
+                        image.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                    }
+                    else
+                    {
+                        _setLoadingMaskVisibleCallback(true);
+                        Task.Factory.StartNew(() =>
+                        {
+                            _uploadImageManager.UploadImage(data, Title + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".jpg", out string url);
+                            return url;
+                        }, CancellationToken.None, TaskCreationOptions.None, CustomTaskScheduler.Current).ContinueWith(t =>
+                        {
+                            _setLoadingMaskVisibleCallback(false);
+                            image.Source = new BitmapImage(new Uri(t.Result, UriKind.RelativeOrAbsolute));
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                    }
                 }
             }
         }
@@ -395,9 +436,23 @@ namespace WpfRichText
             this.MainRichTextBox.Selection.Select(this.textRange.Start, this.textRange.End);
             if (!string.IsNullOrEmpty(this.uriInput.Text))
             {
-                this.textRange = new TextRange(this.MainRichTextBox.Selection.Start, this.MainRichTextBox.Selection.End);
-                Hyperlink hlink = new Hyperlink(this.textRange.Start, this.textRange.End);
-                hlink.NavigateUri = new Uri(this.uriInput.Text, UriKind.RelativeOrAbsolute);
+                textRange = new TextRange(this.MainRichTextBox.Selection.Start, this.MainRichTextBox.Selection.End);
+                
+                try
+                {
+                    Hyperlink hlink = new Hyperlink(this.textRange.Start, this.textRange.End);
+
+                    var uri = new Uri(this.uriInput.Text, UriKind.RelativeOrAbsolute);
+                    if (!uri.IsAbsoluteUri)
+                    {
+                        uri = new Uri("http://" + uriInput.Text, UriKind.RelativeOrAbsolute);
+                    }
+                    hlink.NavigateUri = uri;
+                }
+                catch (Exception)
+                {
+                }
+
                 this.uriInput.Text = string.Empty;
             }
             else
@@ -466,9 +521,9 @@ namespace WpfRichText
                     {
                         _uploadImageManager.UploadImage(data, key, out imgUrl);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        var msg = "图片上传失败！";
+                        var msg = ex.Message;
                         if (_showMessageCallback != null)
                         {
                             _showMessageCallback(msg);
@@ -496,7 +551,7 @@ namespace WpfRichText
 
                     img.IsEnabled = true;
                     img.Source = bImg;
-                    
+
                     new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
                 }
                 else
@@ -509,15 +564,21 @@ namespace WpfRichText
                         img.Width = bImg.PixelWidth;
                         img.Height = bImg.PixelHeight;
                     };
+
                     img.IsEnabled = true;
+                    try
+                    {
+                        img.Width = bImg.PixelWidth;
+                        img.Height = bImg.PixelHeight;
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                     img.Source = bImg;
 
                     new InlineUIContainer(img, MainRichTextBox.Selection.Start); //插入图片到选定位置
                 }
-
-                //targetBitmap.CopyPixels(pixelData, width * 4, 0);
-                //BitmapSource bmpSource = BitmapSource.Create(width, height, 147, 147, PixelFormats.Bgra32, null, pixelData, width * 4);
-
             }
         }
 
@@ -554,24 +615,6 @@ namespace WpfRichText
             //Clipboard.SetText(paste);
             MainRichTextBox.Paste();
             //e.Handled = true;
-        }
-
-        void SetToolBarElementsEnabled(bool enabled)
-        {
-            CmbFontFamilies.IsEnabled = enabled;
-            CmbFontSizes.IsEnabled = enabled;
-            BtnInsertLink.IsEnabled = enabled;
-            BtnUploadImage.IsEnabled = enabled;
-        }
-
-        private void MainRichTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            SetToolBarElementsEnabled(true);
-        }
-
-        private void MainRichTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            SetToolBarElementsEnabled(false);
         }
 
         private void CmbFontSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -649,6 +692,35 @@ namespace WpfRichText
             if (selectionRange.GetPropertyValue(FlowDocument.TextAlignmentProperty).ToString() == "Right")
             {
                 BtnAlignRight.IsChecked = true;
+            }
+
+        }
+
+        private void BtnTextColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if ((bool)colorDialog.ShowDialog())
+            {
+                TextRange range = new TextRange(MainRichTextBox.Selection.Start, MainRichTextBox.Selection.End);
+
+                range.ApplyPropertyValue(FlowDocument.ForegroundProperty, new SolidColorBrush(colorDialog.SelectedColor));
+            }
+        }
+
+        private void BtnBackgroundColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if ((bool)colorDialog.ShowDialog())
+            {
+                TextRange range = new TextRange(MainRichTextBox.Selection.Start, MainRichTextBox.Selection.End);
+
+                range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(colorDialog.SelectedColor));
             }
 
         }

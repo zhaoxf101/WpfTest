@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
-        xmlns:Controls="clr-namespace:WpfRichText" 
+        xmlns:Controls="clr-namespace:Xceed.Wpf.Toolkit" 
         x:Class="WpfTest.TextBoxTestWindow"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="TextBoxTestWindow" Height="600" Width="900">

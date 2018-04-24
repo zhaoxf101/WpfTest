@@ -8,7 +8,7 @@
 //
 //---------------------------------------------------------------------------
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     /// types of lexical tokens for html-to-xaml converter

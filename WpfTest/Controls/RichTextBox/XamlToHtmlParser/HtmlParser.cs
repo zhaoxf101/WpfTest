@@ -66,7 +66,7 @@ using System.Xml;
 // deals with it
 
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     /// HtmlParser class accepts a string of possibly badly formed Html, parses it and returns a string

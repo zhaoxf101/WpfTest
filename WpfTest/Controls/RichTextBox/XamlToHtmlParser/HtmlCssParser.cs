@@ -8,7 +8,7 @@
 //
 //---------------------------------------------------------------------------
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     using System;
     using System.Collections;
@@ -384,7 +384,7 @@ namespace WpfRichText
                         color = styleValue.Substring(startIndex, nextIndex - startIndex);
                     }
                 }
-                else if (styleValue.Substring(nextIndex, 3).ToLower(CultureInfo.InvariantCulture) == "rbg")
+                else if (styleValue.Length >= nextIndex + 3 && styleValue.Substring(nextIndex, 3).ToLower(CultureInfo.InvariantCulture) == "rbg")
                 {
                     //  Implement real rgb() color parsing
                     while (nextIndex < styleValue.Length && styleValue[nextIndex] != ')')

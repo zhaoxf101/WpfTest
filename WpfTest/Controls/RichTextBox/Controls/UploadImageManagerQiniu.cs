@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MarketingPlatform.Client;
+using Newtonsoft.Json;
 using Qiniu.Common;
 using Qiniu.Http;
 using Qiniu.IO;
@@ -11,15 +12,17 @@ using System.Text;
 using System.Web;
 using WpfTest.Controls.RichTextBox.Controls;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
-    class UploadImageManagerQiniu : IUploadImageManager
+    public class UploadImageManagerQiniu : IUploadImageManager
     {
         public void UploadImage(byte[] data, string key, out string url)
         {
             url = "";
             var bucket = "xyh-website";
-            var domain = "img.xyunhui.com";
+
+            // img.xyunhui.com
+            var domain = Util.DecryptString("k3/EyXGtchrjpJ5mXzlgcw==");
 
             if (string.IsNullOrWhiteSpace(key))
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,14 @@ using WpfTest;
 
 namespace WpfTest2
 {
+
+    public class RedisRefreshRankingModel
+    {
+        public DateTime LastCompletedTime { get; set; }
+
+        public int RefreshCount { get; set; }
+    }
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -41,10 +50,19 @@ namespace WpfTest2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var str1 = JsonConvert.SerializeObject("Hell0");
+
+            var str = "ba";
+
+            var value = JsonConvert.DeserializeObject<RedisRefreshRankingModel>(str);
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (((Button)sender).DataContext is TitleItem dataItem)
             {

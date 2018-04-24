@@ -51,6 +51,8 @@
     <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
     <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
     </Reference>
@@ -81,6 +83,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\CustomTaskScheduler.cs" />
+    <Compile Include="Common\Util.cs" />
+    <Compile Include="Controls\ColorPicker\ColorDialog.xaml.cs">
+      <DependentUpon>ColorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorPicker\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Core\Converters\IntToStringConverter.cs" />
     <Compile Include="Controls\Core\Converters\InverseBoolConverter.cs" />
     <Compile Include="Controls\Core\Converters\VisibilityToBoolConverter.cs" />
@@ -104,15 +114,26 @@
     <Compile Include="Controls\TreeHelper.cs" />
     <Compile Include="Controls\WatermarkPasswordBox\Implementation\WatermarkPasswordBox.cs" />
     <Compile Include="Controls\WatermarkTextBox\Implementation\WatermarkTextBox.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="TextBoxTestWindow.xaml.cs">
       <DependentUpon>TextBoxTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Controls\ColorPicker\ColorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ColorPicker\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\DataPager\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -291,6 +312,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="TestCase.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\RichTextBox\Controls\Images\color_back.png" />
+    <Resource Include="Controls\RichTextBox\Controls\Images\color_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\ColorPicker\Images\ColorSwatchCircle.png" />
+    <Resource Include="Controls\ColorPicker\Images\ColorSwatchSquare.png" />
+    <Resource Include="Controls\ColorPicker\Images\ColorSwatchSquare2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

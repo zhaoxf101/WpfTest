@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     ///     This class allows delegating the commanding logic to methods passed as parameters,

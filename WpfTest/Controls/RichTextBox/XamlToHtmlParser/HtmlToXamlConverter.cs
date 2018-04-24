@@ -8,7 +8,7 @@
 //
 //---------------------------------------------------------------------------
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     using System;
     using System.Xml;

@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Text;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     /// <summary>
     /// lexical analyzer class

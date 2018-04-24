@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace WpfRichText
+namespace Xceed.Wpf.Toolkit
 {
     public interface IUploadImageManager
     {
