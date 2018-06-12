@@ -246,6 +246,11 @@ namespace Xceed.Wpf.Toolkit
                         htmlWriter.WriteAttributeString("TITLE", "");
                         htmlWriter.WriteAttributeString("ALT", "");
                         break;
+
+                    // OL Attributes
+                    case "MarkerStyle":
+                        htmlWriter.WriteAttributeString("type", ParseXamlOlType(xamlReader.Value));
+                        break;
                 }
 
                 if (css != null)
@@ -259,7 +264,7 @@ namespace Xceed.Wpf.Toolkit
                 inlineStyle.Append("border-style:solid;mso-element:para-border-div;");
             }
 
-            if (elementName == "Paragraph" || elementName == "Run" || elementName == "Span")
+            if (elementName == "Paragraph" /*|| elementName == "Run" || elementName == "Span"*/)
             {
                 if (!fontSizeSet)
                 {
@@ -338,6 +343,17 @@ namespace Xceed.Wpf.Toolkit
             }
 
             return cssThickness;
+        }
+
+        static string ParseXamlOlType(string type)
+        {
+            switch (type)
+            {
+                case "Decimal":
+                    return "1";
+            }
+
+            return "";
         }
 
         private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle, ref bool isContentEmpty, string defaultFontFamily, string defaultFontSize)

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "主机筛选", "..\主机�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\ConsoleApp1\ConsoleApp1.csproj", "{5C3E93C9-396F-472D-9AF4-CB8EE8E0F3B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichBoxTest", "..\RichBoxTest\RichBoxTest.csproj", "{9BAD6CE3-4E3E-48CC-826F-47E0F07704BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5C3E93C9-396F-472D-9AF4-CB8EE8E0F3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3E93C9-396F-472D-9AF4-CB8EE8E0F3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C3E93C9-396F-472D-9AF4-CB8EE8E0F3B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BAD6CE3-4E3E-48CC-826F-47E0F07704BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BAD6CE3-4E3E-48CC-826F-47E0F07704BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BAD6CE3-4E3E-48CC-826F-47E0F07704BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BAD6CE3-4E3E-48CC-826F-47E0F07704BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
