@@ -5,9 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RichBoxTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1010">
     <Grid>
-        <RichTextBox Name="TxtContent" BorderBrush="Red" BorderThickness="1" Width="375" HorizontalAlignment="Left" Margin="10">
+        <Border Background="Red" Width="1000" Height="700" HorizontalAlignment="Left">
+            <Border.Clip>
+                    <GeometryGroup FillRule="Nonzero">
+                        <RectangleGeometry Rect="0 0 1000 700" RadiusX="20" RadiusY="20" />
+                    </GeometryGroup>
+            </Border.Clip>
+            <Rectangle Fill="Red" Width="10000" Height="10000" />
+        </Border>
+        
+        <!--<RichTextBox Name="TxtContent" BorderBrush="Red" BorderThickness="1" Width="375" HorizontalAlignment="Left" Margin="10">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0 5" />
@@ -34,8 +43,6 @@
                 </FlowDocument>
             </RichTextBox.Document>
         </RichTextBox>
-
-        <Button Click="Button_Click" Content="Test" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0"
- />
+        <Button Click="Button_Click" Content="Test" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" />-->
     </Grid>
 </Window>
